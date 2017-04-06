@@ -187,7 +187,7 @@
     NSDateFormatter* dateFormatter = [ [ NSDateFormatter alloc ] init ];
     [ dateFormatter setDateFormat:@"yyMMdd" ];
 #pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-value"
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *hourShift = [[NSDateComponents alloc] init];

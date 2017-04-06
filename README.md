@@ -14,10 +14,10 @@
 在你的项目的根目录中新建一个 `Podfile` 文件，添加内容如下：
 
 ```
-pod 'ymnativead'
+pod 'nativead'
 ```
 
-终端命令行（使用 `cd` 命令）进入到要使用sdk的iOS项目的根目录中，执行如下命令安装：
+终端命令行（使用 `cd` 命令）进入到您的iOS项目的根目录中，执行如下命令安装：
 
 ```
 pod install
@@ -33,7 +33,7 @@ YMNativeAdS文件夹是例子程序，开发者可打开查看如何使用。
 doc中有两份pdf文档，一份是（api接入文档.pdf）， 另外一份是（api开源代码使用文档.pdf）
 
 
-# 有米SDK官方信息
+# 有米官方网站
 
 官方网址：https://www.youmi.net/
 
