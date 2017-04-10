@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
 
 
 s.name              = "nativead"
-s.version           = "1.0.0"
+s.version           = "1.0.1"
 s.summary           = "有米原生广告开源代码"
  
 

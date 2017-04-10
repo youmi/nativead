@@ -21,7 +21,7 @@ NSString*const ZYin_Default(){
 }
 
 NSString*const UM_privacyURL(){
-    return @"http://s.ymapp.com/8A";
+    return @"https://s.ymapp.com/8A";
 }
 NSString*const ZYin_NPHTxSQmAA4ASmwu(){
     return @"NPHTxSQmAA4ASmwu";

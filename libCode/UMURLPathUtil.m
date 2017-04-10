@@ -22,14 +22,14 @@ NSString* getSpotShareDirectory() {
 
 ////取广告的请求路径
 NSString* getSpotRequestHead() {
-    return @"http://native.umapi.cn/ios/v1/req";
+    return @"https://native.umapi.cn/ios/v1/req";
 }
 
 
 //广告效果路径
 NSString* getSpotEffectURLHead() {
     
-    return @"http://native.umapi.cn/ios/v1/eff";
+    return @"https://native.umapi.cn/ios/v1/eff";
 }
 
 

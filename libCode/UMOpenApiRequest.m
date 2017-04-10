@@ -152,7 +152,7 @@ NSString *spotRequestURL(NSString *type){
     
     NSString *urlArg = getUrlArg();
     
-    NSString *requestHead = @"http://native.umapi.cn/ios/v1/oreq";//请求广告的url
+    NSString *requestHead = @"https://native.umapi.cn/ios/v1/oreq";//请求广告的url
     
     NSString *requestURL = [NSString stringWithFormat:@"%@?%@",requestHead,urlArg];
     requestURL = [requestURL  stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
