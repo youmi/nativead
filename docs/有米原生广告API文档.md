@@ -21,8 +21,10 @@ Authorization: Bearer <Token>
 ## 请求广告
 
 **请求URL**
-
-[https://native.umapi.cn/ios/v1/oreq](https://native.umapi.cn/ios/v1/oreq)
+| 平台         | URL                                       |
+| -----------  | ---------------------------------------- |
+| iOS     | [https://native.umapi.cn/ios/v1/oreq](https://native.umapi.cn/ios/v1/oreq)                      |
+| Android | [https://native.umapi.cn/aos/v1/oreq](https://native.umapi.cn/aos/v1/oreq)                      |
 
 **参数列表（GET）**
 
@@ -36,11 +38,11 @@ Authorization: Bearer <Token>
 | cont_title  | string | 否    | 内容的标题                                    |
 | cont_kw     | string | 否    | 内容的关键词，多个关键词用逗号分隔                        |
 | reqid       | string | 否    | 这次请求的唯一id，可不填写                           |
-| idfa        | string | 否    | iOS设备的IDFA，明文不加密                         |
+| idfa        | string | 是    | iOS设备的IDFA，明文不加密；IOS必须填写                   |
 | brand       | string | 否    | 制造厂商,如“apple”“Samsung”“Huawei“，默认为空字符串   |
 | model       | string | 否    | 型号, 如”iphoneA1530”，默认为空字符串               |
 | mac         | string | 否    | 设备的mac地址，明文不加密                           |
-| imei        | string | 否    | 设备的imei码，明文不加密                           |
+| imei        | string | 是    | 设备的imei码，明文不加密; ANDORID必须填写                       |
 | androidid   | string | 否    | 设备的android id，明文不加密                      |
 | ip          | string | 否    | 当前请求的IP地址，如果是从移动终端发起请求则可以不填写             |
 | ua          | string | 否    | UserAgent                                |
@@ -77,8 +79,8 @@ Authorization: Bearer <Token>
       }], // 图片列表
       "slogan": "部落冲突：皇室战争", // [string] 主广告标题
       "subslogan": "又将制霸全球?《部落冲突：皇室战争》已登陆Appstore", // [string] 副广告语
-      "url": "https://itunes.apple.com/cn/app/id1053012308?mt=8", // [string] 点击跳转到的落地页
-      "uri": "huangshizhanzheng://", // [string] 点击跳转的deeplink，没有则为空
+      "url": "https://itunes.apple.com/cn/app/id1053012308?mt=8", // [string] iOS平台:点击跳转到的落地页; Android平台: APP广告的下载地址或者WAP广告的页面地址
+      "uri": "huangshizhanzheng://", // [string] iOS平台:点击跳转的deeplink，没有则为空; Android平台: APP广告某一指定页面的uri（如淘宝某一商家）
       "pt": 0, // [int] 广告类型，0:APP广告；1:WAP
       "track": {
         "show": [
@@ -149,7 +151,7 @@ Authorization: Bearer <Token>
 
 
 
-## 点击跳转到逻辑页的逻辑
+## iOS点击跳转到逻辑页的逻辑
 
 **注意：为了防止跳出App后点击记录无法发送而出现结算问题，需要在效果监控上报完成后，再发起点击跳转。点击逻辑较为复杂，建议贵司直接使用有米封装好的开源逻辑类库简化开发工作。**
 
@@ -185,6 +187,26 @@ deeplink链接可以直接打开目标应用的某个特定页面，这种推广
 #### 普通链接推广
 
 普通链接推广一般指点击打开一个普通的WAP页面，可以是跳转到外部Safari，也可以在App内打开一个内置浏览器，直接调用url打开对应的落地页即可。
+
+## Android点击跳转到逻辑页的逻辑
+
+**注意：为了防止跳出App后点击记录无法发送而出现结算问题，需要在效果监控上报完成后，再发起点击跳转。点击逻辑较为复杂，建议贵司直接使用有米封装好的开源逻辑类库简化开发工作。**
+
+1. 检查pt参数，确认广告类型
+2. 根据不同的广告类型合理使用url以及uri两个参数进行跳转
+
+
+
+#### APP广告类型的跳转逻辑
+
+1. 如果app还没有安装，则使用url进行下载安装，安装完毕后，检查uri是否存在，存在就打开uri，不存在就直接根据包名打开app，跳转逻辑结束
+2. 如果app已经安装，uri存在，则把uri解析为Intent，然后打开Intent，跳转逻辑结束
+3. 如果app已经安装，uri不存在，这根据包名打开app，跳转逻辑结束
+
+
+
+#### WAP广告类型的跳转逻辑
+1. url用于打开一个WAP页面
 
 
 
