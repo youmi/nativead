@@ -4,9 +4,9 @@
 
 # 快速入门
 
-不知道如何使用有米原生封装代码的朋友可以移步查看我们为大家准备的快速入门文档：https://github.com/youmi/nativead/blob/master/doc/api%E5%BC%80%E6%BA%90%E4%BB%A3%E7%A0%81%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3.pdf
+不知道如何使用有米原生封装代码的朋友可以移步查看我们为大家准备的快速入门文档：[有米iOS原生广告开源API接口使用说明](https://github.com/youmi/nativead/blob/master/docs/有米iOS原生广告开源API接口使用说明.md)
 
-纯api使用文档链接：https://github.com/youmi/nativead/blob/master/doc/api%E6%8E%A5%E5%85%A5%E6%96%87%E6%A1%A3.pdf
+API接口文档链接：[有米原生广告API文档](https://github.com/youmi/nativead/blob/master/docs/有米原生广告API文档.md)
 
 
 # 在CocoaPod中安装有米原生广告
