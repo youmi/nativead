@@ -20,11 +20,16 @@ Authorization: Bearer <Token>
 
 ## 请求广告
 
+
+
 **请求URL**
+
 | 平台         | URL                                       |
-| -----------  | ---------------------------------------- |
-| iOS     | [https://native.umapi.cn/ios/v1/oreq](https://native.umapi.cn/ios/v1/oreq)                      |
-| Android | [https://native.umapi.cn/aos/v1/oreq](https://native.umapi.cn/aos/v1/oreq)                      |
+| ----------- | ---------------------------------------- |
+| iOS     | [https://native.umapi.cn/ios/v1/oreq](https://native.umapi.cn/ios/v1/oreq) |
+| Android | [https://native.umapi.cn/aos/v1/oreq](https://native.umapi.cn/aos/v1/oreq) |
+
+
 
 **参数列表（GET）**
 
