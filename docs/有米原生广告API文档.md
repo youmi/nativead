@@ -43,11 +43,11 @@ Authorization: Bearer <Token>
 | cont_title  | string | 否    | 内容的标题                                    |
 | cont_kw     | string | 否    | 内容的关键词，多个关键词用逗号分隔                        |
 | reqid       | string | 否    | 这次请求的唯一id，可不填写                           |
-| idfa        | string | 是    | iOS设备的IDFA，明文不加密；IOS必须填写                   |
+| idfa        | string | 是    | iOS设备的IDFA，明文不加密；iOS必须填写                   |
 | brand       | string | 否    | 制造厂商,如“apple”“Samsung”“Huawei“，默认为空字符串   |
 | model       | string | 否    | 型号, 如”iphoneA1530”，默认为空字符串               |
 | mac         | string | 否    | 设备的mac地址，明文不加密                           |
-| imei        | string | 是    | 设备的imei码，明文不加密; ANDORID必须填写                       |
+| imei        | string | 是    | 设备的imei码，明文不加密; Android必须填写                       |
 | androidid   | string | 否    | 设备的android id，明文不加密                      |
 | ip          | string | 否    | 当前请求的IP地址，如果是从移动终端发起请求则可以不填写             |
 | ua          | string | 否    | UserAgent                                |
