@@ -5,9 +5,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import net.youmi.ads.base.log.DLog;
+import net.youmi.ads.nativead.YoumiNativeAdManager;
+import net.youmi.ads.nativead.YoumiNativeAdRequester;
+import net.youmi.ads.nativead.YoumiNativeAdResposeModel;
 
 public class MainActivity extends AppCompatActivity {
 	
@@ -25,6 +30,19 @@ public class MainActivity extends AppCompatActivity {
 				Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 			}
 		});
+		YoumiNativeAdManager.setDebug(true);
+		
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				YoumiNativeAdRequester requester = new YoumiNativeAdRequester.Builder().withContext(MainActivity.this)
+				                                                                       .withAppId(BuildConfig.APPID)
+				                                                                       .withSlotId("7906")
+				                                                                       .build();
+				YoumiNativeAdResposeModel respObj = requester.request();
+				DLog.i(respObj.toString());
+			}
+		}).start();
 	}
 	
 	@Override
