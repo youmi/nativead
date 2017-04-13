@@ -1,5 +1,15 @@
 # 有米原生广告API文档
 
+#### 版本说明
+
+* v1.0 - 第一版
+* v1.1 - 增加针对Android的适配
+* v1.2 - 返回值参数样例修改
+
+
+
+#### 文档说明
+
 本文档作为贵司与有米平台间进行对接的指引文档。
 
 在接入API之前，请贵司登录有米开发者后台[http://app.youmi.net](http://app.youmi.net/)，在开发者后台创建好App，并设置好所需的广告位。在创建好App后可以获得对应的appid，在后续的所有API流程中，均需要依靠该appid作授权认证。
@@ -24,8 +34,8 @@ Authorization: Bearer <Token>
 
 **请求URL**
 
-| 平台         | URL                                       |
-| ----------- | ---------------------------------------- |
+| 平台      | URL                                      |
+| ------- | ---------------------------------------- |
 | iOS     | [https://native.umapi.cn/ios/v1/oreq](https://native.umapi.cn/ios/v1/oreq) |
 | Android | [https://native.umapi.cn/aos/v1/oreq](https://native.umapi.cn/aos/v1/oreq) |
 
@@ -43,11 +53,11 @@ Authorization: Bearer <Token>
 | cont_title  | string | 否    | 内容的标题                                    |
 | cont_kw     | string | 否    | 内容的关键词，多个关键词用逗号分隔                        |
 | reqid       | string | 否    | 这次请求的唯一id，可不填写                           |
-| idfa        | string | 是    | iOS设备的IDFA，明文不加密；iOS必须填写                   |
+| idfa        | string | 是    | iOS设备的IDFA，明文不加密；iOS必须填写                 |
 | brand       | string | 否    | 制造厂商,如“apple”“Samsung”“Huawei“，默认为空字符串   |
 | model       | string | 否    | 型号, 如”iphoneA1530”，默认为空字符串               |
 | mac         | string | 否    | 设备的mac地址，明文不加密                           |
-| imei        | string | 是    | 设备的imei码，明文不加密; Android必须填写                       |
+| imei        | string | 是    | 设备的imei码，明文不加密; Android必须填写              |
 | androidid   | string | 否    | 设备的android id，明文不加密                      |
 | ip          | string | 否    | 当前请求的IP地址，如果是从移动终端发起请求则可以不填写             |
 | ua          | string | 否    | UserAgent                                |
@@ -60,6 +70,8 @@ Authorization: Bearer <Token>
 | countrycode | string | 否    | 用户设置的国家编码，如CN                            |
 
 **返回值**
+
+
 
 正确返回值
 
@@ -212,6 +224,8 @@ deeplink链接可以直接打开目标应用的某个特定页面，这种推广
 
 #### WAP广告类型的跳转逻辑
 1. url用于打开一个WAP页面
+
+
 
 
 
