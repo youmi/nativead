@@ -5,7 +5,7 @@
 * v1.0 - 第一版。
 * v1.1 - 增加针对Android的适配。
 * v1.2 - 参数列表修改；返回值参数样例修改；修改[效果监控上报](#效果监控上报)的文字说明。
-* v1.3 - [返回值参数列表](#返回值参数列表)中广告id调整为string类型；页面内link修改。
+* v1.3 - [返回值参数列表](#返回值参数列表)中广告id调整为string类型；slotid调整为string类型；页面内link修改。
 
 
 
@@ -69,6 +69,8 @@ Authorization: Bearer <Token>
 | language    | string | 否    | 用户设置的语言，如zh。                             |
 | countrycode | string | 否    | 用户设置的国家编码，如CN。                           |
 
+*注：建议使用标准URL函数来进行参数封装（会保障所有参数都经过URLEncode），以免出现参数混乱的问题。*
+
 
 
 #### 返回值参数列表
@@ -86,7 +88,7 @@ Authorization: Bearer <Token>
 | 字段        | 类型      | 说明                                       |
 | --------- | ------- | ---------------------------------------- |
 | id        | string  | 广告的id，string类型。                          |
-| slotid    | int     | 匹配的广告位id。                                |
+| slotid    | string  | 匹配的广告位id，string类型。                       |
 | name      | string  | 广告的名字。                                   |
 | icon      | string  | 广告的ICON图标，1:1的方形图。                       |
 | pic       | Pic[]   | 广告图片素材列表，返回的图片素材数量与广告位所提供的图片数量一致，即广告位提供为单图广告位，则pic数组里仅有一个元素。参见[参数Pic](#参数pic) |
