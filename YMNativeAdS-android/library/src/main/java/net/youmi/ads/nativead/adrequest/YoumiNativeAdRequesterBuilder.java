@@ -1,4 +1,4 @@
-package net.youmi.ads.nativead;
+package net.youmi.ads.nativead.adrequest;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -8,8 +8,10 @@ import net.youmi.ads.base.deviceinfos.DeviceInfoUtils;
 import net.youmi.ads.base.log.DLog;
 import net.youmi.ads.base.network.BaseHttpRequesterModel;
 import net.youmi.ads.base.network.YoumiHttpRequester;
+import net.youmi.ads.base.pool.GlobalCacheExecutor;
 import net.youmi.ads.base.utils.JSONUtils;
 import net.youmi.ads.base.utils.NetworkUtils;
+import net.youmi.ads.base.utils.UIHandler;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,64 +19,209 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
+ * 有米原生广告请求
+ *
  * @author zhitao
  * @since 2017-04-13 14:17
  */
-public class YoumiNativeAdRequester {
+public class YoumiNativeAdRequesterBuilder {
 	
 	private final static String REQ_URL = "https://native.umapi.cn/aos/v1/oreq";
 	
-	private Context mApplicationContext;
+	private Context applicationContext;
 	
 	/**
 	 * appId
 	 */
-	private String mAppId;
+	private String appId;
 	
 	/**
 	 * （必须）请求广告位Id
 	 */
-	public String slotId;
+	private String slotId;
 	
 	/**
 	 * （必须）请求广告数量
 	 */
-	public int adCount = 1;
+	private int adCount = 1;
 	
 	/**
 	 * （可选）性别 M=男性，F=女性
 	 */
-	public String gender;
+	private String gender;
 	
 	/**
 	 * （可选）年龄
 	 */
-	public String age;
+	private String age;
 	
 	/**
 	 * （可选）内容标题
 	 */
-	public String contTitle;
+	private String contTitle;
 	
 	/**
 	 * （可选）内容关键词
 	 */
-	public String contKeyword;
+	private String contKeyword;
 	
 	/**
 	 * （可选）请求唯一标识
 	 */
-	public String reqId;
+	private String reqId;
 	
 	/**
 	 * （可选）UserAgent
 	 */
-	public String userAgent;
+	private String userAgent;
 	
-	private YoumiNativeAdRequester() {
+	public YoumiNativeAdRequesterBuilder(Context context) {
+		applicationContext = context.getApplicationContext();
 	}
 	
+	/**
+	 * （必须）设置应用APPID
+	 *
+	 * @param appId （必须）应用APPID
+	 *
+	 * @return this
+	 */
+	public YoumiNativeAdRequesterBuilder withAppId(String appId) {
+		this.appId = appId;
+		return this;
+	}
+	
+	/**
+	 * （必须）设置请求广告位Id
+	 *
+	 * @param slotId 广告位Id
+	 *
+	 * @return this
+	 */
+	public YoumiNativeAdRequesterBuilder withSlotId(String slotId) {
+		this.slotId = slotId;
+		return this;
+	}
+	
+	/**
+	 * （可选）设置请求广告数量，默认为1
+	 *
+	 * @param adCount 请求广告数量
+	 *
+	 * @return this
+	 */
+	public YoumiNativeAdRequesterBuilder withRequestCount(int adCount) {
+		this.adCount = adCount;
+		return this;
+	}
+	
+	/**
+	 * （可选）设置性别
+	 *
+	 * @param gender M=男性，F=女性
+	 *
+	 * @return this
+	 */
+	public YoumiNativeAdRequesterBuilder withGender(String gender) {
+		this.gender = gender;
+		return this;
+	}
+	
+	/**
+	 * （可选）设置年龄
+	 *
+	 * @param age 年龄
+	 *
+	 * @return this
+	 */
+	public YoumiNativeAdRequesterBuilder withAge(String age) {
+		this.age = age;
+		return this;
+	}
+	
+	/**
+	 * （可选）设置内容标题
+	 *
+	 * @param contTitle 内容标题
+	 *
+	 * @return this
+	 */
+	public YoumiNativeAdRequesterBuilder withContentTitle(String contTitle) {
+		this.contTitle = contTitle;
+		return this;
+	}
+	
+	/**
+	 * （可选）设置内容关键词
+	 *
+	 * @param contKeyword 内容关键词
+	 *
+	 * @return this
+	 */
+	public YoumiNativeAdRequesterBuilder withContentKeyword(String contKeyword) {
+		this.contKeyword = contKeyword;
+		return this;
+	}
+	
+	/**
+	 * （可选）设置请求唯一标识
+	 *
+	 * @param reqId （请求唯一标识
+	 *
+	 * @return this
+	 */
+	public YoumiNativeAdRequesterBuilder withReqId(String reqId) {
+		this.reqId = reqId;
+		return this;
+	}
+	
+	/**
+	 * （可选）设置UserAgent
+	 *
+	 * @param userAgent UserAgent
+	 *
+	 * @return this
+	 */
+	public YoumiNativeAdRequesterBuilder withUserAgent(String userAgent) {
+		this.userAgent = userAgent;
+		return this;
+	}
+	
+	/**
+	 * 异步请求
+	 *
+	 * @param listener 监听器
+	 */
+	public void requestWithListener(final OnYoumiNativeAdRequestListener listener) {
+		GlobalCacheExecutor.execute(new Runnable() {
+			@Override
+			public void run() {
+				final YoumiNativeAdResposeModel respModel = request();
+				if (listener != null) {
+					UIHandler.runInUIThread(new Runnable() {
+						@Override
+						public void run() {
+							listener.onRequestFinish(respModel);
+						}
+					});
+				}
+			}
+		});
+	}
+	
+	/**
+	 * 同步请求
+	 *
+	 * @return YoumiNativeAdResposeModel 对象
+	 */
 	public YoumiNativeAdResposeModel request() {
+		if (TextUtils.isEmpty(appId)) {
+			throw new IllegalArgumentException("can not request without appId");
+		}
+		if (TextUtils.isEmpty(slotId)) {
+			throw new IllegalArgumentException("can not request without slotId");
+		}
+		
 		try {
 			StringBuilder sb = new StringBuilder(512);
 			sb.append(REQ_URL);
@@ -82,42 +229,42 @@ public class YoumiNativeAdRequester {
 			sb.append("&slotid=").append(slotId);
 			sb.append("&adcount=").append(adCount);
 			if (!TextUtils.isEmpty(gender)) {
-				sb.append("&gender=").append(getEncodeValue(gender));
+				sb.append("&gender=").append(base64Encode(gender));
 			}
 			if (!TextUtils.isEmpty(age)) {
 				sb.append("&age=").append(age);
 			}
 			if (!TextUtils.isEmpty(contTitle)) {
-				sb.append("&cont_title=").append(getEncodeValue(contTitle));
+				sb.append("&cont_title=").append(base64Encode(contTitle));
 			}
 			if (!TextUtils.isEmpty(contKeyword)) {
-				sb.append("&cont_kw=").append(getEncodeValue(contKeyword));
+				sb.append("&cont_kw=").append(base64Encode(contKeyword));
 			}
 			if (!TextUtils.isEmpty(reqId)) {
-				sb.append("&reqid=").append(getEncodeValue(reqId));
+				sb.append("&reqid=").append(base64Encode(reqId));
 			}
-			sb.append("&brand=").append(getEncodeValue(DeviceInfoUtils.getBrand()));
-			sb.append("&model=").append(getEncodeValue(DeviceInfoUtils.getModel()));
-			sb.append("&mac=").append(DeviceInfoUtils.getMacAddress(mApplicationContext));
-			sb.append("&imei=").append(DeviceInfoUtils.getDeviceId(mApplicationContext));
-			sb.append("&androidid=").append(DeviceInfoUtils.getAndroidID(mApplicationContext));
+			sb.append("&brand=").append(base64Encode(DeviceInfoUtils.getBrand()));
+			sb.append("&model=").append(base64Encode(DeviceInfoUtils.getModel()));
+			sb.append("&mac=").append(DeviceInfoUtils.getMacAddress(applicationContext));
+			sb.append("&imei=").append(DeviceInfoUtils.getDeviceId(applicationContext));
+			sb.append("&androidid=").append(DeviceInfoUtils.getAndroidID(applicationContext));
 			if (!TextUtils.isEmpty(userAgent)) {
-				sb.append("&ua=").append(getEncodeValue(userAgent));
+				sb.append("&ua=").append(base64Encode(userAgent));
 			}
 			sb.append("&os=").append("Android");
 			sb.append("&osv=").append(DeviceInfoUtils.getAndroidVersionName());
-			sb.append("&conntype=").append(NetworkUtils.getNetworkType(mApplicationContext));
-			sb.append("&carrier=").append(getEncodeValue(DeviceInfoUtils.getOperatorName(mApplicationContext)));
-			sb.append("&pk=").append(mApplicationContext.getPackageName());
-			sb.append("&language=").append(getEncodeValue(DeviceInfoUtils.getLanguage()));
-			sb.append("&countrycode=").append(getEncodeValue(DeviceInfoUtils.getCountry()));
+			sb.append("&conntype=").append(NetworkUtils.getNetworkType(applicationContext));
+			sb.append("&carrier=").append(base64Encode(DeviceInfoUtils.getOperatorName(applicationContext)));
+			sb.append("&pk=").append(applicationContext.getPackageName());
+			sb.append("&language=").append(base64Encode(DeviceInfoUtils.getLanguage()));
+			sb.append("&countrycode=").append(base64Encode(DeviceInfoUtils.getCountry()));
 			
 			// 添加指定的header
 			ArrayList<BaseHttpRequesterModel.Header> headers = new ArrayList<>();
-			headers.add(new BaseHttpRequesterModel.Header("Authorization", "Bearer " + mAppId));
+			headers.add(new BaseHttpRequesterModel.Header("Authorization", "Bearer " + appId));
 			
 			// 发起请求
-			String respJsonStr = YoumiHttpRequester.requestGet(mApplicationContext, sb.toString(), headers);
+			String respJsonStr = YoumiHttpRequester.httpGetForString(applicationContext, sb.toString(), headers);
 			if (TextUtils.isEmpty(respJsonStr)) {
 				return null;
 			}
@@ -150,7 +297,7 @@ public class YoumiNativeAdRequester {
 					continue;
 				}
 				
-				int adId = JSONUtils.getInt(adJson, "id", -1);
+				String adId = JSONUtils.getString(adJson, "id", null);
 				int slotId = JSONUtils.getInt(adJson, "slotid", -1);
 				String name = JSONUtils.getString(adJson, "name", null);
 				String iconUrl = JSONUtils.getString(adJson, "icon", null);
@@ -308,7 +455,7 @@ public class YoumiNativeAdRequester {
 	 *
 	 * @return 处理后参数
 	 */
-	private String getEncodeValue(String value) {
+	private String base64Encode(String value) {
 		if (TextUtils.isEmpty(value)) {
 			return null;
 		}
@@ -322,132 +469,4 @@ public class YoumiNativeAdRequester {
 		}
 		return null;
 	}
-	
-	public static class Builder {
-		
-		private YoumiNativeAdRequester mRequester = new YoumiNativeAdRequester();
-		
-		/**
-		 * @param context 上下文
-		 *
-		 * @return this
-		 */
-		public Builder withContext(Context context) {
-			mRequester.mApplicationContext = context.getApplicationContext();
-			return this;
-		}
-		
-		/**
-		 * （必须）应用APPID
-		 *
-		 * @param appId （必须）应用APPID
-		 *
-		 * @return this
-		 */
-		public Builder withAppId(String appId) {
-			mRequester.mAppId = appId;
-			return this;
-		}
-		
-		/**
-		 * （必须）请求广告位Id
-		 *
-		 * @param slotId 广告位Id
-		 *
-		 * @return this
-		 */
-		public Builder withSlotId(String slotId) {
-			mRequester.slotId = slotId;
-			return this;
-		}
-		
-		/**
-		 * （可选）请求广告数量，默认为1
-		 *
-		 * @param adCount 请求广告数量
-		 *
-		 * @return this
-		 */
-		public Builder withRequestCount(int adCount) {
-			mRequester.adCount = adCount;
-			return this;
-		}
-		
-		/**
-		 * （可选）性别
-		 *
-		 * @param gender M=男性，F=女性
-		 *
-		 * @return this
-		 */
-		public Builder withGender(String gender) {
-			mRequester.gender = gender;
-			return this;
-		}
-		
-		/**
-		 * （可选）年龄
-		 *
-		 * @param age 年龄
-		 *
-		 * @return this
-		 */
-		public Builder withAge(String age) {
-			mRequester.age = age;
-			return this;
-		}
-		
-		/**
-		 * （可选）内容标题
-		 *
-		 * @param contTitle 内容标题
-		 *
-		 * @return this
-		 */
-		public Builder withContentTitle(String contTitle) {
-			mRequester.contTitle = contTitle;
-			return this;
-		}
-		
-		/**
-		 * （可选）内容关键词
-		 *
-		 * @param contKeyword 内容关键词
-		 *
-		 * @return this
-		 */
-		public Builder withContentKeyword(String contKeyword) {
-			mRequester.contKeyword = contKeyword;
-			return this;
-		}
-		
-		/**
-		 * （可选）请求唯一标识
-		 *
-		 * @param reqId （请求唯一标识
-		 *
-		 * @return this
-		 */
-		public Builder withReqId(String reqId) {
-			mRequester.reqId = reqId;
-			return this;
-		}
-		
-		/**
-		 * （可选）UserAgent
-		 *
-		 * @param userAgent UserAgent
-		 *
-		 * @return this
-		 */
-		public Builder withUserAgent(String userAgent) {
-			mRequester.userAgent = userAgent;
-			return this;
-		}
-		
-		public YoumiNativeAdRequester build() {
-			return mRequester;
-		}
-	}
-	
 }

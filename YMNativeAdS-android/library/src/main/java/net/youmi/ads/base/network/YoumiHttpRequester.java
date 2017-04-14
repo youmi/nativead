@@ -20,8 +20,8 @@ public class YoumiHttpRequester {
 	 *
 	 * @return 请求返回的原始字符串
 	 */
-	public static String requestGet(Context context, String url) {
-		return requestGet(context, url, null);
+	public static String httpGetForString(Context context, String url) {
+		return httpGetForString(context, url, null);
 	}
 	
 	/**
@@ -33,7 +33,45 @@ public class YoumiHttpRequester {
 	 *
 	 * @return 请求返回的原始字符串
 	 */
-	public static String requestGet(Context context, String url, ArrayList<BaseHttpRequesterModel.Header> headers) {
+	public static String httpGetForString(Context context, String url, ArrayList<BaseHttpRequesterModel.Header> headers) {
+		try {
+			BaseHttpResponseModel resp = httpGet(context, url, headers);
+			if (resp == null) {
+				return null;
+			}
+			// 判断请求结果
+			if (resp.getResponseString() != null) {
+				return resp.getResponseString();
+			}
+		} catch (Throwable e) {
+			DLog.e(e);
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * 发起Get请求
+	 *
+	 * @param context 上下文
+	 * @param url     请求url 如果是带有中文信息的url，请先urlencode
+	 *
+	 * @return 返回详细信息
+	 */
+	public static BaseHttpResponseModel httpGet(Context context, String url) {
+		return httpGet(context, url, null);
+	}
+	
+	/**
+	 * 发起Get请求
+	 *
+	 * @param context 上下文
+	 * @param url     请求url 如果是带有中文信息的url，请先urlencode
+	 * @param headers Header
+	 *
+	 * @return 返回详细信息
+	 */
+	public static BaseHttpResponseModel httpGet(Context context, String url, ArrayList<BaseHttpRequesterModel.Header> headers) {
 		try {
 			
 			BaseHttpRequesterModel baseHttpRequesterModel = new BaseHttpRequesterModel();
@@ -44,11 +82,8 @@ public class YoumiHttpRequester {
 			
 			AbsHttpRequester requester = new HttpURLConnectionRequester(context, baseHttpRequesterModel);
 			requester.request();
+			return requester.getBaseHttpResponseModel();
 			
-			// 判断请求结果
-			if (requester.getBaseHttpResponseModel().getResponseString() != null) {
-				return requester.getBaseHttpResponseModel().getResponseString();
-			}
 		} catch (Throwable e) {
 			DLog.e(e);
 		}

@@ -9,11 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import net.youmi.ads.base.log.DLog;
-import net.youmi.ads.nativead.YoumiNativeAdManager;
-import net.youmi.ads.nativead.YoumiNativeAdRequester;
-import net.youmi.ads.nativead.YoumiNativeAdResposeModel;
-
 public class MainActivity extends AppCompatActivity {
 	
 	@Override
@@ -30,19 +25,19 @@ public class MainActivity extends AppCompatActivity {
 				Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 			}
 		});
-		YoumiNativeAdManager.setDebug(true);
 		
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				YoumiNativeAdRequester requester = new YoumiNativeAdRequester.Builder().withContext(MainActivity.this)
-				                                                                       .withAppId(BuildConfig.APPID)
-				                                                                       .withSlotId("7906")
-				                                                                       .build();
-				YoumiNativeAdResposeModel respObj = requester.request();
-				DLog.i(respObj.toString());
-			}
-		}).start();
+		//		// 发起一个广告请求
+		//		YoumiNativeAdResposeModel model =
+		//				YoumiNativeAdHelper.newAdRequest(this).withAppId(BuildConfig.APPID).withSlotId("7906").request();
+		//
+		//		// 对指定的广告，发起曝光效果记录请求
+		//		YoumiNativeAdModel adModel = null;
+		//		YoumiNativeAdHelper.newAdEffRequest(this).withYoumiNativeAdModel(adModel).asyncSendShowEff();
+		//
+		// 对指定的广告，发起点击效果记录请求
+		//		YoumiNativeAdModel adModel = null;
+		//		YoumiNativeAdHelper.newAdEffRequest(this).withYoumiNativeAdModel(adModel).asyncSendClickeff();
+		
 	}
 	
 	@Override

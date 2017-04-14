@@ -1,4 +1,4 @@
-package net.youmi.ads.nativead;
+package net.youmi.ads.nativead.adrequest;
 
 import java.io.Serializable;
 import java.util.ArrayList;

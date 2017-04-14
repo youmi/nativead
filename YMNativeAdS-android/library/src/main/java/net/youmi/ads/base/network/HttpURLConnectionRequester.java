@@ -28,12 +28,6 @@ class HttpURLConnectionRequester extends AbsHttpRequester {
 	
 	protected boolean mIsRunning;
 	
-	/**
-	 * @param context
-	 * @param baseHttpRequesterModel 本次请求的相关参数的自定义数据模型
-	 *
-	 * @throws NullPointerException
-	 */
 	public HttpURLConnectionRequester(Context context, BaseHttpRequesterModel baseHttpRequesterModel)
 			throws NullPointerException {
 		super(context, baseHttpRequesterModel);
@@ -131,8 +125,6 @@ class HttpURLConnectionRequester extends AbsHttpRequester {
 				}
 			}
 			
-			DLog.i("[%s] %s", mBaseHttpRequesterModel.getRequestType(), mBaseHttpRequesterModel.getRequestUrl());
-			
 			// 如果在发起请求之前就舍弃的话就不发起请求
 			if (!mIsRunning) {
 				return;
@@ -164,12 +156,6 @@ class HttpURLConnectionRequester extends AbsHttpRequester {
 			
 			try {
 				// 设置返回结果的contentlength
-				DLog.i(
-						"ContentLength:%d, ContentType:%s, ContentEncoding:%s",
-						mHttpURLConnection.getContentLength(),
-						mHttpURLConnection.getContentType(),
-						mHttpURLConnection.getContentEncoding()
-				);
 				mBaseHttpResponseModel.setContentLength(mHttpURLConnection.getContentLength());
 			} catch (Throwable e) {
 				DLog.e(e);
@@ -208,8 +194,6 @@ class HttpURLConnectionRequester extends AbsHttpRequester {
 			
 			String rspString = new String(buffer, mBaseHttpRequesterModel.getEncodingCharset());
 			mBaseHttpResponseModel.setResponseString(rspString);
-			
-			DLog.i("返回字符串[长度:%d]:%s", buffer.length, rspString);
 			
 		} catch (SocketTimeoutException e) {
 			// 请求超时

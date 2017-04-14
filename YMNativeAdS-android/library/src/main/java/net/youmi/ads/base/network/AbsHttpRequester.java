@@ -22,12 +22,6 @@ abstract class AbsHttpRequester {
 	 */
 	protected BaseHttpRequesterModel mBaseHttpRequesterModel;
 	
-	/**
-	 * @param context                上下文
-	 * @param baseHttpRequesterModel 本次请求的相关参数的自定义数据模型
-	 *
-	 * @throws NullPointerException
-	 */
 	public AbsHttpRequester(Context context, BaseHttpRequesterModel baseHttpRequesterModel) throws NullPointerException {
 		if (context == null || baseHttpRequesterModel == null) {
 			throw new NullPointerException();

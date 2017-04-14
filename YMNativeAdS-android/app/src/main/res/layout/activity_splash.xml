@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@android:color/white"
+	android:orientation="vertical"
+	tools:context="net.youmi.ads.nativead.demo.SplashActivity"
+	>
+	
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="18"
+		>
+		
+		<ImageView
+			android:id="@+id/iv_splash_ad"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:contentDescription="原生开屏广告"
+			android:scaleType="fitXY"
+			tools:src="@mipmap/ic_launcher"
+			/>
+		
+		<TextView
+			android:id="@+id/tv_splash_msg"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:text="演示用\n\n将请求原生开屏广告位7906"
+			android:textColor="@android:color/black"
+			/>
+	</RelativeLayout >
+	
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="3"
+		android:gravity="center"
+		android:text="有米原生广告演示程序"
+		android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+		android:textColor="@android:color/black"
+		/>
+
+</LinearLayout >

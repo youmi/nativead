@@ -1,4 +1,4 @@
-package net.youmi.ads.nativead;
+package net.youmi.ads.nativead.adrequest;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class YoumiNativeAdModel implements Serializable {
 	
-	private int adId;
+	private String adId;
 	
 	private int slotId;
 	
@@ -45,11 +45,11 @@ public class YoumiNativeAdModel implements Serializable {
 	/**
 	 * @return 广告ID
 	 */
-	public int getAdId() {
+	public String getAdId() {
 		return adId;
 	}
 	
-	public void setAdId(int adId) {
+	public void setAdId(String adId) {
 		this.adId = adId;
 	}
 	
