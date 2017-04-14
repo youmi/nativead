@@ -77,7 +77,7 @@ Authorization: Bearer <Token>
 | ---- | ------ | --------------------------------- |
 | c    | int    | 状态码。0表示正常，其他表示错误，常见错误码见[附1](#附1)。 |
 | rsd  | string | RequestSeed，本次会话的唯一码。             |
-| ad   | Ad[]   | 广告列表，参见[参数Ad](#参数Ad)。             |
+| ad   | Ad[]   | 广告列表，参见[参数Ad](#参数ad)。             |
 
 
 
@@ -89,14 +89,14 @@ Authorization: Bearer <Token>
 | slotid    | int     | 匹配的广告位id。                                |
 | name      | string  | 广告的名字。                                   |
 | icon      | string  | 广告的ICON图标，1:1的方形图。                       |
-| pic       | Pic[]   | 广告图片素材列表，返回的图片素材数量与广告位所提供的图片数量一致，即广告位提供为单图广告位，则pic数组里仅有一个元素。参见[参数Pic](#参数Pic) |
+| pic       | Pic[]   | 广告图片素材列表，返回的图片素材数量与广告位所提供的图片数量一致，即广告位提供为单图广告位，则pic数组里仅有一个元素。参见[参数Pic](#参数pic) |
 | slogan    | string  | 广告标题，一般字数较少。部分广告位没有广告标题只有广告语。            |
 | subslogan | string  | 广告语，一般字数较多。                              |
 | url       | string  | iOS平台：点击跳转到的落地页；Android平台：APP广告的下载地址或者WAP广告的页面地址。 |
 | uri       | string  | iOS平台：点击跳转的deeplink，没有则为空；Android平台: APP广告某一指定页面的uri（如淘宝某一商家）。 |
 | pt        | int     | 广告的类型（ 0：APP广告；1：WAP广告）。                 |
-| track     | Track[] | 广告监测列表，参见[参数Track](#参数Track)。            |
-| app       | App{}   | App广告的应用信息，参见[参数App](#参数App)。***注意：即便是App类型的广告，该字段也有可能为空值。*** |
+| track     | Track[] | 广告监测列表，参见[参数Track](#参数track)。            |
+| app       | App{}   | App广告的应用信息，参见[参数App](#参数app)。***注意：即便是App类型的广告，该字段也有可能为空值。*** |
 | ext       | Ext{}   | 开源lib所使用的额外参数，可以不用理会。                    |
 
 
