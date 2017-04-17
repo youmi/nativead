@@ -298,7 +298,7 @@ public class YoumiNativeAdRequesterBuilder {
 				}
 				
 				String adId = JSONUtils.getString(adJson, "id", null);
-				int slotId = JSONUtils.getInt(adJson, "slotid", -1);
+				String slotId = JSONUtils.getString(adJson, "slotid", null);
 				String name = JSONUtils.getString(adJson, "name", null);
 				String iconUrl = JSONUtils.getString(adJson, "icon", null);
 				

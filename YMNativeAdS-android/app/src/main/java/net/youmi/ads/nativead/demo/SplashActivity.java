@@ -18,6 +18,7 @@ import com.bumptech.glide.request.target.Target;
 
 import net.youmi.ads.base.log.DLog;
 import net.youmi.ads.nativead.YoumiNativeAdHelper;
+import net.youmi.ads.nativead.addownload.OnYoumiNativeAdDownloadListener;
 import net.youmi.ads.nativead.adrequest.OnYoumiNativeAdRequestListener;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdModel;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdResposeModel;
@@ -32,7 +33,7 @@ import java.util.Locale;
  * @author zhitao
  * @since 2017-04-14 10:32
  */
-public class SplashActivity extends BaseActivity implements View.OnClickListener {
+public class SplashActivity extends BaseActivity implements View.OnClickListener, OnYoumiNativeAdDownloadListener {
 	
 	private final static int MSG_START_MAIN_ACTIVITY = 1;
 	
@@ -45,11 +46,37 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
 	
 	private TextView mTextView;
 	
-	private MyHandler mHandler;
-	
 	private boolean mIsDestroy;
 	
 	private YoumiNativeAdModel mYoumiNativeAdModel;
+	
+	private MyHandler mHandler;
+	
+	private static class MyHandler extends Handler {
+		
+		private WeakReference<Activity> mReference;
+		
+		MyHandler(Activity context) {
+			mReference = new WeakReference<>(context);
+		}
+		
+		@Override
+		public void handleMessage(Message msg) {
+			SplashActivity activity = (SplashActivity) mReference.get();
+			if (activity == null) {
+				return;
+			}
+			switch (msg.what) {
+			case MSG_START_MAIN_ACTIVITY:
+				activity.startActivity(new Intent(activity, MainActivity.class));
+				activity.finish();
+				break;
+			default:
+				break;
+			}
+		}
+		
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +120,7 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
 				// 发起异步请求
 				.requestWithListener(new MyOnYoumiNativeAdRequesterListener(this));
 		
+		YoumiNativeAdHelper.addOnYoumiNativeAdDownloadListener(this);
 	}
 	
 	@Override
@@ -100,6 +128,7 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
 		super.onDestroy();
 		mHandler.removeMessages(MSG_START_MAIN_ACTIVITY);
 		mIsDestroy = true;
+		YoumiNativeAdHelper.removeOnYoumiNativeAdDownloadListener(this);
 		DLog.i("onDestroy");
 	}
 	
@@ -110,22 +139,80 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
 			if (mYoumiNativeAdModel == null) {
 				break;
 			}
-			// 点击了图片之后需要发送点击记录，进入详情页或者下载
+			// 点击了图片之后需要发送点击记录
 			YoumiNativeAdHelper.newAdEffRequest(this)
 			                   .withAppId(BuildConfig.APPID)
 			                   .withYoumiNativeAdModel(mYoumiNativeAdModel)
 			                   .asyncSendClickeff();
+			
 			Toast.makeText(
 					this,
-					String.format(Locale.getDefault(), "发送广告位 %d 的点击记录", mYoumiNativeAdModel.getSlotId()),
+					String.format(Locale.getDefault(), "发送广告位 %s 的点击记录", mYoumiNativeAdModel.getSlotId()),
 					Toast.LENGTH_SHORT
 			).show();
 			
+			// 可以进入自定义的详情页，也可以直接下载
+			YoumiNativeAdHelper.download(this, mYoumiNativeAdModel);
 			break;
 		default:
 			break;
 		}
 		
+	}
+	
+	/**
+	 * 下载开始通知，在UI线程中执行
+	 *
+	 * @param adModel 下载任务对象
+	 */
+	@Override
+	public void onDownloadStart(YoumiNativeAdModel adModel) {
+		Toast.makeText(this, String.format(Locale.getDefault(), "开始下载广告 %s", adModel.getAdName()), Toast.LENGTH_SHORT).show();
+	}
+	
+	/**
+	 * 下载进度变更通知，在UI线程中执行
+	 *
+	 * @param adModel           下载任务对象
+	 * @param totalLength       下载总长度
+	 * @param completeLength    当前已经下载完成的长度
+	 * @param downloadPercent   下载百分比
+	 * @param downloadBytesPerS 下载速度(B/s)
+	 */
+	@Override
+	public void onDownloadProgressUpdate(YoumiNativeAdModel adModel, long totalLength, long completeLength, int downloadPercent,
+			long downloadBytesPerS) {
+	}
+	
+	/**
+	 * 下载成功通知，在UI线程中执行
+	 *
+	 * @param adModel 下载任务对象
+	 */
+	@Override
+	public void onDownloadSuccess(YoumiNativeAdModel adModel) {
+		Toast.makeText(this, String.format(Locale.getDefault(), "广告 %s 下载成功", adModel.getAdName()), Toast.LENGTH_SHORT).show();
+		
+	}
+	
+	/**
+	 * 下载失败通知，在UI线程中执行
+	 *
+	 * @param adModel 下载任务对象
+	 */
+	@Override
+	public void onDownloadFailed(YoumiNativeAdModel adModel) {
+		Toast.makeText(this, String.format(Locale.getDefault(), "广告 %s 下载失败", adModel.getAdName()), Toast.LENGTH_SHORT).show();
+	}
+	
+	/**
+	 * 下载停止通知，在UI线程中执行
+	 *
+	 * @param adModel 下载任务对象
+	 */
+	@Override
+	public void onDownloadStop(YoumiNativeAdModel adModel) {
+		Toast.makeText(this, String.format(Locale.getDefault(), "广告 %s 下载已被停止", adModel.getAdName()), Toast.LENGTH_SHORT).show();
 	}
 	
 	private static class MyOnYoumiNativeAdRequesterListener implements OnYoumiNativeAdRequestListener {
@@ -206,7 +293,7 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
 						                   .asyncSendShowEff();
 						Toast.makeText(
 								activity,
-								String.format(Locale.getDefault(), "发送广告位 %d 的曝光记录", adModel.getSlotId()),
+								String.format(Locale.getDefault(), "发送广告位 %s 的曝光记录", adModel.getSlotId()),
 								Toast.LENGTH_SHORT
 						).show();
 						return false;
@@ -215,31 +302,7 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
 				}).into(activity.mImageView);
 			}
 		}
-	}
-	
-	private static class MyHandler extends Handler {
 		
-		private WeakReference<Activity> mReference;
-		
-		MyHandler(Activity context) {
-			mReference = new WeakReference<>(context);
-		}
-		
-		@Override
-		public void handleMessage(Message msg) {
-			SplashActivity activity = (SplashActivity) mReference.get();
-			if (activity == null) {
-				return;
-			}
-			switch (msg.what) {
-			case MSG_START_MAIN_ACTIVITY:
-				activity.startActivity(new Intent(activity, MainActivity.class));
-				activity.finish();
-				break;
-			default:
-				break;
-			}
-		}
 	}
 	
 }

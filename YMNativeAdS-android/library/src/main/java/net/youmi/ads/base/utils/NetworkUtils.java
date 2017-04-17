@@ -4,14 +4,76 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 
 import net.youmi.ads.base.log.DLog;
+import net.youmi.ads.base.network.BaseHttpRequesterModel;
+import net.youmi.ads.base.network.HttpRequesterFactory;
+
+import java.net.HttpURLConnection;
 
 /**
  * @author zhitao
  * @since 2017-04-13 14:44
  */
 public class NetworkUtils {
+	
+	/**
+	 * 获取最终的url地址(循环遍历301/302)
+	 *
+	 * @param rawUrl
+	 * @param loopMaxTimes 最大遍历次数，不然坑爹一点的话会无限循环重定向 (A->B->A)
+	 *
+	 * @return
+	 */
+	public static String getFinalDestUrlByHttpURLConnection(Context context, String rawUrl, int loopMaxTimes) {
+		if (TextUtils.isEmpty(rawUrl)) {
+			return null;
+		}
+		int count = 0;
+		DLog.i("原始url:%s", rawUrl);
+		String currentUrl = rawUrl;
+		while (count < loopMaxTimes) {
+			HttpURLConnection httpURLConnection = null;
+			try {
+				httpURLConnection = HttpRequesterFactory.newHttpURLConnection(context, currentUrl);
+				httpURLConnection.setRequestMethod(BaseHttpRequesterModel.REQUEST_TYPE_GET);
+				
+				// 关闭自动跟踪重定向
+				httpURLConnection.setInstanceFollowRedirects(false);
+				
+				// 只要connection就可以获取到头部信息，而不用getInputStream(发送请求)
+				httpURLConnection.connect();
+				
+				switch (httpURLConnection.getResponseCode()) {
+				case HttpURLConnection.HTTP_MULT_CHOICE://300
+				case HttpURLConnection.HTTP_MOVED_TEMP: //301
+				case HttpURLConnection.HTTP_MOVED_PERM: //302
+				case HttpURLConnection.HTTP_SEE_OTHER:  //303
+				case 307:                               //307
+					currentUrl = httpURLConnection.getHeaderField("Location");
+					DLog.i("中途url:%s", currentUrl);
+					break;
+				default:
+					httpURLConnection.disconnect();
+					DLog.i("最终url:%s", currentUrl);
+					return currentUrl;
+				}
+			} catch (Exception e) {
+				DLog.e(e);
+			} finally {
+				try {
+					if (httpURLConnection != null) {
+						httpURLConnection.disconnect();
+					}
+				} catch (Exception e) {
+					DLog.e(e);
+				}
+			}
+			
+		}
+		return rawUrl;
+	}
 	
 	/**
 	 * 检查当前网络是否可用 1.检查联网权限 2.检查网络状态
@@ -170,6 +232,68 @@ public class NetworkUtils {
 		}
 		return NetworkType.TYPE_UNKNOWN;
 		
+	}
+	
+	public static long getContentLength(Context context, String url) {
+		return getContentLengthByHttpURLConnection(context, url, 5);
+	}
+	
+	/**
+	 * 获取服务器上目标文件的长度(支持传入从重定向地址)
+	 *
+	 * @param rawUrl       原始url
+	 * @param loopMaxTimes 最大遍历次数，不然坑爹一点的话会无限循环重定向 (A->B->A)
+	 *
+	 * @return contentLength
+	 */
+	public static long getContentLengthByHttpURLConnection(Context context, String rawUrl, int loopMaxTimes) {
+		if (TextUtils.isEmpty(rawUrl)) {
+			return -1;
+		}
+		int count = 0;
+		String currentUrl = rawUrl;
+		while (count < loopMaxTimes) {
+			HttpURLConnection httpURLConnection = null;
+			try {
+				httpURLConnection = HttpRequesterFactory.newHttpURLConnection(context, currentUrl);
+				httpURLConnection.setRequestMethod(BaseHttpRequesterModel.REQUEST_TYPE_GET);
+				
+				// 关闭自动跟踪重定向
+				httpURLConnection.setInstanceFollowRedirects(false);
+				
+				// 只要connection就可以获取到头部信息，而不用getInputStream(发送请求)
+				httpURLConnection.connect();
+				
+				switch (httpURLConnection.getResponseCode()) {
+				case HttpURLConnection.HTTP_MULT_CHOICE://300
+				case HttpURLConnection.HTTP_MOVED_TEMP: //301
+				case HttpURLConnection.HTTP_MOVED_PERM: //302
+				case HttpURLConnection.HTTP_SEE_OTHER:  //303
+				case 307:                               //307
+					currentUrl = httpURLConnection.getHeaderField("Location");
+					DLog.i("中途url:%s", currentUrl);
+					break;
+				default:
+					long contentLength = httpURLConnection.getContentLength();
+					httpURLConnection.disconnect();
+					DLog.i("最终url:%s", currentUrl);
+					DLog.i("最终ContentLength:%d", contentLength);
+					return contentLength;
+				}
+			} catch (Exception e) {
+				DLog.e(e);
+			} finally {
+				try {
+					if (httpURLConnection != null) {
+						httpURLConnection.disconnect();
+					}
+				} catch (Exception e) {
+					DLog.e(e);
+				}
+			}
+			
+		}
+		return -1;
 	}
 	
 	public static class NetworkType {

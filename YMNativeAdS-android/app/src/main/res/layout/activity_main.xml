@@ -5,7 +5,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:context="net.youmi.ads.nativead.demo.MainActivity"
+	tools:applicationContext="net.youmi.ads.nativead.demo.MainActivity"
 	>
 	
 	<android.support.design.widget.AppBarLayout

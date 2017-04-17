@@ -1,5 +1,7 @@
 package net.youmi.ads.nativead.adrequest;
 
+import net.youmi.ads.base.download.model.IFileDownloadTask;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -12,11 +14,11 @@ import java.util.ArrayList;
  * @see YoumiNativeAdExtModel
  * @since 2017-04-13 10:58
  */
-public class YoumiNativeAdModel implements Serializable {
+public class YoumiNativeAdModel implements IFileDownloadTask {
 	
 	private String adId;
 	
-	private int slotId;
+	private String slotId;
 	
 	private String adName;
 	
@@ -56,11 +58,11 @@ public class YoumiNativeAdModel implements Serializable {
 	/**
 	 * @return 对应的广告位ID
 	 */
-	public int getSlotId() {
+	public String getSlotId() {
 		return slotId;
 	}
 	
-	public void setSlotId(int slotId) {
+	public void setSlotId(String slotId) {
 		this.slotId = slotId;
 	}
 	

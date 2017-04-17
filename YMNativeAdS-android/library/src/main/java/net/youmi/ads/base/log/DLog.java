@@ -11,6 +11,8 @@ import java.util.Locale;
  */
 public class DLog {
 	
+	public static boolean isDownloadLog = true;
+	
 	private static String sTag = "YoumiSdk";
 	
 	private static boolean sIsDebug = false;
