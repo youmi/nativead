@@ -30,7 +30,7 @@
     UIButton *feedVC = [[UIButton alloc]initWithFrame:CGRectMake(40, 190, 150, 50)];
     feedVC.backgroundColor = [UIColor blackColor];
     feedVC.titleLabel.textColor = [UIColor whiteColor];
-    [feedVC setTitle:@"信息流7749" forState:UIControlStateNormal];
+    [feedVC setTitle:@"信息流7746" forState:UIControlStateNormal];
     [self.view addSubview:feedVC];
     
     [feedVC addTarget:self action:@selector(showFeedVC) forControlEvents:UIControlEventTouchUpInside];
@@ -40,7 +40,7 @@
     UIButton *feedVC2 = [[UIButton alloc]initWithFrame:CGRectMake(40, 250, 150, 50)];
     feedVC2.backgroundColor = [UIColor blackColor];
     feedVC2.titleLabel.textColor = [UIColor whiteColor];
-    [feedVC2 setTitle:@"信息流7747" forState:UIControlStateNormal];
+    [feedVC2 setTitle:@"信息流7748" forState:UIControlStateNormal];
     [self.view addSubview:feedVC2];
     [feedVC2 addTarget:self action:@selector(showFeedVC2) forControlEvents:UIControlEventTouchUpInside];
     
@@ -48,7 +48,7 @@
     UIButton *feedVC3 = [[UIButton alloc]initWithFrame:CGRectMake(40, 330, 150, 50)];
     feedVC3.backgroundColor = [UIColor blackColor];
     feedVC3.titleLabel.textColor = [UIColor whiteColor];
-    [feedVC3 setTitle:@"信息流7745" forState:UIControlStateNormal];
+    [feedVC3 setTitle:@"信息流7744" forState:UIControlStateNormal];
     [self.view addSubview:feedVC3];
     
     [feedVC3 addTarget:self action:@selector(showFeedVC3) forControlEvents:UIControlEventTouchUpInside];
@@ -61,7 +61,7 @@
     [self presentViewController:nav animated:YES completion:^{
     }];
     
-    [nv loadAd:@"7749"];
+    [nv loadAd:@"7746"];
 }
 
 -(void)showFeedVC2{
@@ -71,7 +71,7 @@
     [self presentViewController:nav animated:YES completion:^{
     }];
     
-    [nv loadAd:@"7747"];
+    [nv loadAd:@"7748"];
 }
 
 -(void)showFeedVC3{
@@ -81,7 +81,7 @@
     [self presentViewController:nav animated:YES completion:^{
     }];
     
-    [nv loadAd:@"7745"];
+    [nv loadAd:@"7744"];
 }
 
 -(void)showNativeVC{
