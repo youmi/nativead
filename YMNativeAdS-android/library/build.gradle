@@ -1,5 +1,28 @@
 apply plugin: 'com.android.library'
 
+ext {
+	releaseNoteFile = 'YMNativeAdS-android/ChangeLog.md'            // 相对路径，填仓库下该文件地址即可
+	libraryName = 'YoumiNativeAd'               // bintray项目名字以及aar的名字，确定好了就不要在修改了
+	libLabels = ['android', 'youmi', 'ad']      // bintray项目的标签
+
+	//compile 'publishedGroupId:artifact:libraryVersionName'
+
+	publishedGroupId = 'net.youmi.ads'          // 项目组ID(e.g 包名为io.github.zhitaocai.toastcompat, 那么这里就是io.github.zhitaocai)
+	artifact = 'nativead'                       // 项目ID  (e.g 包名为io.github.zhitaocai.toastcompat, 那么这里就是toastcompat)
+	libraryVersionName = '1.0.0'                // 对应的versionname
+	libraryVersionCode = 1
+
+	libDesc = 'an library for Youmi Native AdS\' API'
+	libraryVersionDesc = libDesc
+	repoTag = libraryVersionName
+	gitRepo = 'youmi/nativead'
+	siteUrl = 'https://github.com/youmi/nativead'
+	gitUrl = 'https://github.com/youmi/nativead'
+	issueUrl = 'https://github.com/youmi/nativead/issues'
+
+	isPackageResources = false                  // 是否打包资源文件进去，是的话，就需要打包R.class
+}
+
 android {
 	compileSdkVersion 25
 	buildToolsVersion "25.0.1"
@@ -7,11 +30,17 @@ android {
 	defaultConfig {
 		minSdkVersion 14
 		targetSdkVersion 25
-		versionCode 1
-		versionName "1.0"
+		versionCode libraryVersionCode
+		versionName libraryVersionName
+		consumerProguardFiles 'proguard-rules.pro'
 
-		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+		//testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+	}
 
+	compileOptions {
+		encoding "UTF-8"
+		sourceCompatibility JavaVersion.VERSION_1_7
+		targetCompatibility JavaVersion.VERSION_1_7
 	}
 	buildTypes {
 		release {
@@ -19,11 +48,25 @@ android {
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 		}
 	}
+
+	libraryVariants.all { variant ->
+		// 修改aar的名字和输出路径
+		variant.outputs.each { output ->
+			def outputFile = output.outputFile
+			if (outputFile != null && outputFile.name.endsWith('.aar')) {
+				def fileName = "${artifact}-${variant.buildType.name}-${libraryVersionName}.aar"
+				// output.outputFile = new File(outputFile.parent, fileName)
+				output.outputFile = new File(project.rootProject.getProjectDir().getAbsolutePath() + "/static/aar/" + fileName)
+			}
+		}
+	}
 }
 
 dependencies {
-	androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-		exclude group: 'com.android.support', module: 'support-annotations'
-	})
-	testCompile 'junit:junit:4.12'
+//	androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+//		exclude group: 'com.android.support', module: 'support-annotations'
+//	})
+//	testCompile 'junit:junit:4.12'
 }
+
+apply from: 'publish.gradle'
