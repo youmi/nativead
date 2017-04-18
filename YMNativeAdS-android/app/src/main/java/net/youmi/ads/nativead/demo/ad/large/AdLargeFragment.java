@@ -2,7 +2,6 @@ package net.youmi.ads.nativead.demo.ad.large;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -23,7 +22,10 @@ import net.youmi.ads.nativead.adrequest.YoumiNativeAdModel;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdResposeModel;
 import net.youmi.ads.nativead.demo.BuildConfig;
 import net.youmi.ads.nativead.demo.R;
+import net.youmi.ads.nativead.demo.ad.BaseFragment;
+import net.youmi.ads.nativead.demo.ad.SlotIdConfig;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -31,7 +33,7 @@ import java.util.Locale;
  * @author zhitao
  * @since 2017-04-17 17:20
  */
-public class AdLargeFragment extends Fragment implements OnYoumiNativeAdRequestListener, View.OnClickListener {
+public class AdLargeFragment extends BaseFragment implements View.OnClickListener {
 	
 	private ImageView mIconView;
 	
@@ -45,9 +47,9 @@ public class AdLargeFragment extends Fragment implements OnYoumiNativeAdRequestL
 	
 	private YoumiNativeAdModel mYoumiNativeAdModel;
 	
-	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		super.onCreateView(inflater, container, savedInstanceState);
 		View view = inflater.inflate(R.layout.fragment_ad_large, container, false);
 		mCardView = (CardView) view.findViewById(R.id.ad_large_cardview);
 		mIconView = (ImageView) view.findViewById(R.id.ad_large_iv_icon);
@@ -73,10 +75,10 @@ public class AdLargeFragment extends Fragment implements OnYoumiNativeAdRequestL
 				.withAppId(BuildConfig.APPID)
 				
 				// （必须）指定请求广告位
-				.withSlotId("7952")
+				.withSlotId(SlotIdConfig.LARGE_SLOIID)
 				
 				// 发起异步请求
-				.requestWithListener(this);
+				.requestWithListener(new MyOnYoumiNativeAdRequestListener(this));
 		
 	}
 	
@@ -98,92 +100,107 @@ public class AdLargeFragment extends Fragment implements OnYoumiNativeAdRequestL
 		YoumiNativeAdHelper.download(getActivity(), mYoumiNativeAdModel);
 	}
 	
-	/**
-	 * 请求结束（本回调执行在UI线程中）
-	 * <p>
-	 * 注意：这里只是请求结束，是否请求成功，返回数据是否正常还需要开发者针对返回结果做判断
-	 *
-	 * @param respModel 返回的请求结果
-	 */
-	@Override
-	public void onRequestFinish(YoumiNativeAdResposeModel respModel) {
-		//		DLog.i("请求成功");
-		//		final SplashActivity activity = (SplashActivity) mReference.get();
-		//		if (activity == null) {
-		//			DLog.i("但是activity已经被回收，不展示");
-		//			return;
-		//		}
-		//		// activity还没有被回收，检查是否已经被销毁，销毁了的话就不加载
-		//		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-		//			if (activity.mIsDestroy) {
-		//				DLog.i("activity已经销毁，不再加载图片");
-		//				return;
-		//			}
-		//		} else {
-		//			if (activity.isDestroyed()) {
-		//				DLog.i("activity已经销毁，不再加载图片");
-		//				return;
-		//			}
-		//		}
+	private static class MyOnYoumiNativeAdRequestListener implements OnYoumiNativeAdRequestListener {
 		
-		if (respModel == null || respModel.getCode() != 0) {
-			return;
-		}
-		ArrayList<YoumiNativeAdModel> adModels = respModel.getAdModels();
-		if (adModels == null || adModels.isEmpty()) {
-			return;
+		private WeakReference<AdLargeFragment> mReference;
+		
+		MyOnYoumiNativeAdRequestListener(AdLargeFragment adBannerFragment) {
+			mReference = new WeakReference<>(adBannerFragment);
 		}
 		
-		// 因为只请求一个广告，所以这里就直接取0index
-		final YoumiNativeAdModel adModel = adModels.get(0);
-		
-		ArrayList<YoumiNativeAdModel.YoumiNativeAdPicObject> pics = adModel.getAdPics();
-		if (pics == null || pics.isEmpty()) {
-			return;
-		}
-		
-		// 显示文字
-		mTitleView.setText(adModel.getSlogan());
-		mSubTitleView.setText(adModel.getSubSlogan());
-		
-		// 加载图标
-		if (!TextUtils.isEmpty(adModel.getAdIconUrl())) {
-			Glide.with(this).load(adModel.getAdIconUrl()).into(mIconView);
-		}
-		
-		// 加载大图
-		for (YoumiNativeAdModel.YoumiNativeAdPicObject pic : pics) {
-			if (pic == null) {
-				continue;
+		/**
+		 * 请求结束（本回调执行在UI线程中）
+		 * <p>
+		 * 注意：这里只是请求结束，是否请求成功，返回数据是否正常还需要开发者针对返回结果做判断
+		 *
+		 * @param respModel 返回的请求结果
+		 */
+		@Override
+		public void onRequestFinish(YoumiNativeAdResposeModel respModel) {
+			if (mReference == null) {
+				return;
+			}
+			final AdLargeFragment adLargeFragment = mReference.get();
+			if (adLargeFragment == null) {
+				return;
+			}
+			if (adLargeFragment.getActivity() == null) {
+				return;
 			}
 			
-			// 直接加载第一张图片
-			// 实际使用时，可根据具体要求进行处理
-			// 比如：有多张图片返回时，采用合适分辨率的图片，而不是第一张
-			Glide.with(this).load(pic.getUrl()).listener(new RequestListener<String, GlideDrawable>() {
-				@Override
-				public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-					return false;
+			if (respModel == null) {
+				Toast.makeText(adLargeFragment.getActivity(), "请求失败，返回结果：null", Toast.LENGTH_SHORT).show();
+				return;
+			}
+			if (respModel.getCode() != 0) {
+				Toast.makeText(
+						adLargeFragment.getActivity(),
+						String.format(Locale.getDefault(), "请求失败，错误代码：%d", respModel.getCode()),
+						Toast.LENGTH_SHORT
+				).show();
+				return;
+			}
+			
+			ArrayList<YoumiNativeAdModel> adModels = respModel.getAdModels();
+			if (adModels == null || adModels.isEmpty()) {
+				return;
+			}
+			
+			// 因为只请求一个广告，所以这里就直接取0index
+			final YoumiNativeAdModel adModel = adModels.get(0);
+			
+			ArrayList<YoumiNativeAdModel.YoumiNativeAdPicObject> pics = adModel.getAdPics();
+			if (pics == null || pics.isEmpty()) {
+				return;
+			}
+			
+			// 显示文字
+			adLargeFragment.mTitleView.setText(adModel.getSlogan());
+			adLargeFragment.mSubTitleView.setText(adModel.getSubSlogan());
+			
+			// 加载图标
+			if (!TextUtils.isEmpty(adModel.getAdIconUrl())) {
+				Glide.with(adLargeFragment).load(adModel.getAdIconUrl()).into(adLargeFragment.mIconView);
+			}
+			
+			// 加载大图
+			for (YoumiNativeAdModel.YoumiNativeAdPicObject pic : pics) {
+				if (pic == null) {
+					continue;
 				}
 				
-				@Override
-				public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target,
-						boolean isFromMemoryCache, boolean isFirstResource) {
-					mYoumiNativeAdModel = adModel;
-					// 发送曝光记录
-					YoumiNativeAdHelper.newAdEffRequest(getActivity())
-					                   .withAppId(BuildConfig.APPID)
-					                   .withYoumiNativeAdModel(adModel)
-					                   .asyncSendShowEff();
-					Toast.makeText(
-							getActivity(),
-							String.format(Locale.getDefault(), "发送广告位 %s 的曝光记录", adModel.getSlotId()),
-							Toast.LENGTH_SHORT
-					).show();
-					return false;
+				// 直接加载第一张图片
+				// 实际使用时，可根据具体要求进行处理
+				// 比如：有多张图片返回时，采用合适分辨率的图片，而不是第一张
+				Glide.with(adLargeFragment)
+				     .load(pic.getUrl())
+				     .listener(new RequestListener<String, GlideDrawable>() {
+					     @Override
+					     public boolean onException(Exception e, String model, Target<GlideDrawable> target,
+							     boolean isFirstResource) {
+						     return false;
+					     }
 					
-				}
-			}).into(mPicView);
+					     @Override
+					     public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target,
+							     boolean isFromMemoryCache, boolean isFirstResource) {
+						     adLargeFragment.mYoumiNativeAdModel = adModel;
+						     // 发送曝光记录
+						     YoumiNativeAdHelper.newAdEffRequest(adLargeFragment.getActivity())
+						                        .withAppId(BuildConfig.APPID)
+						                        .withYoumiNativeAdModel(adModel)
+						                        .asyncSendShowEff();
+						     Toast.makeText(
+								     adLargeFragment.getActivity(),
+								     String.format(Locale.getDefault(), "发送广告位 %s 的曝光记录", adModel.getSlotId()),
+								     Toast.LENGTH_SHORT
+						     ).show();
+						     return false;
+						
+					     }
+				     })
+				     .into(adLargeFragment.mPicView);
+			}
 		}
 	}
 }

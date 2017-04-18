@@ -49,10 +49,10 @@ public class MainActivity extends AppCompatActivity {
 		mAdRectangleFragment = new AdRectangleFragment();
 		mAdInfoFlowFragment = new AdInfoFlowFragment();
 		ArrayList<BasePagerAdapter.FragmentModel> mLists = new ArrayList<>();
-		mLists.add(new BasePagerAdapter.FragmentModel("横幅", mAdBannerFragment));
+		mLists.add(new BasePagerAdapter.FragmentModel("信息流", mAdInfoFlowFragment));
 		mLists.add(new BasePagerAdapter.FragmentModel("大图", mAdLargeFragment));
 		mLists.add(new BasePagerAdapter.FragmentModel("方图", mAdRectangleFragment));
-		mLists.add(new BasePagerAdapter.FragmentModel("信息流", mAdInfoFlowFragment));
+		mLists.add(new BasePagerAdapter.FragmentModel("横幅", mAdBannerFragment));
 		
 		mViewPagerAdapter = new BasePagerAdapter(getSupportFragmentManager(), mLists);
 		mViewpager.setAdapter(mViewPagerAdapter);

@@ -3,7 +3,6 @@ package net.youmi.ads.nativead.demo.ad.infoflow;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +16,8 @@ import net.youmi.ads.nativead.adrequest.YoumiNativeAdModel;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdResposeModel;
 import net.youmi.ads.nativead.demo.BuildConfig;
 import net.youmi.ads.nativead.demo.R;
+import net.youmi.ads.nativead.demo.ad.BaseFragment;
+import net.youmi.ads.nativead.demo.ad.SlotIdConfig;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ import java.util.ArrayList;
  * @author zhitao
  * @since 2017-04-17 18:27
  */
-public class AdInfoFlowFragment extends Fragment
+public class AdInfoFlowFragment extends BaseFragment
 		implements AdInfoFlowAdapter.OnRecyclerViewItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 	
 	private RecyclerView mRecyclerView;
@@ -37,6 +38,7 @@ public class AdInfoFlowFragment extends Fragment
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		super.onCreateView(inflater, container, savedInstanceState);
 		View view = inflater.inflate(R.layout.fragment_ad_info_flow, container, false);
 		mRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_ad_info_flow_recycler_view);
 		mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.fragment_ad_info_flow_swipe);
@@ -57,6 +59,9 @@ public class AdInfoFlowFragment extends Fragment
 	
 	@Override
 	public void onItemClick(int position) {
+		
+		Toast.makeText(AdInfoFlowFragment.this.getActivity(), "click position " + position, Toast.LENGTH_SHORT).show();
+		
 		AdInfoFlowModel model = mAdapter.getItem(position);
 		if (model.getType() == AdInfoFlowModel.TYPE_AD_BANNER || model.getType() == AdInfoFlowModel.TYPE_AD_LARGE ||
 		    model.getType() == AdInfoFlowModel.TYPE_AD_RECTANGLE) {
@@ -73,7 +78,6 @@ public class AdInfoFlowFragment extends Fragment
 				YoumiNativeAdHelper.download(this.getActivity(), model.getAdModel());
 			}
 		}
-		Toast.makeText(AdInfoFlowFragment.this.getActivity(), "click " + position, Toast.LENGTH_SHORT).show();
 	}
 	
 	@Override
@@ -83,6 +87,12 @@ public class AdInfoFlowFragment extends Fragment
 		}
 		mMyAsyncTask = new MyAsyncTask(this);
 		mMyAsyncTask.execute();
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		mMyAsyncTask.cancel(true);
 	}
 	
 	private static class MyAsyncTask extends android.os.AsyncTask<Void, Void, ArrayList<AdInfoFlowModel>> {
@@ -103,30 +113,28 @@ public class AdInfoFlowFragment extends Fragment
 		
 		@Override
 		protected ArrayList<AdInfoFlowModel> doInBackground(Void... params) {
-			final ArrayList<AdInfoFlowModel> models = new ArrayList<>();
-			
+			ArrayList<AdInfoFlowModel> models = new ArrayList<>();
 			for (int i = 0; i < 15; i++) {
 				models.add(new AdInfoFlowModel(AdInfoFlowModel.TYPE_NORMAL));
 			}
 			
 			// 在最后插入banner
-			YoumiNativeAdModel adBanner = getYoumiNativeAdModel("7949");
+			YoumiNativeAdModel adBanner = getYoumiNativeAdModel(SlotIdConfig.BANNER_SLOIID);
 			if (adBanner != null) {
 				models.add(15, new AdInfoFlowModel(AdInfoFlowModel.TYPE_AD_BANNER, adBanner));
 			}
 			
 			// 在中间插入方图广告
-			YoumiNativeAdModel adRectangle = getYoumiNativeAdModel("7907");
+			YoumiNativeAdModel adRectangle = getYoumiNativeAdModel(SlotIdConfig.RECTANGLE_SLOIID);
 			if (adRectangle != null) {
 				models.add(10, new AdInfoFlowModel(AdInfoFlowModel.TYPE_AD_RECTANGLE, adRectangle));
 			}
 			
 			// 在开头插入大图广告
-			YoumiNativeAdModel adLarge = getYoumiNativeAdModel("7952");
+			YoumiNativeAdModel adLarge = getYoumiNativeAdModel(SlotIdConfig.LARGE_SLOIID);
 			if (adLarge != null) {
 				models.add(5, new AdInfoFlowModel(AdInfoFlowModel.TYPE_AD_LARGE, adLarge));
 			}
-			
 			return models;
 		}
 		

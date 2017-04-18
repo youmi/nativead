@@ -26,6 +26,7 @@ import net.youmi.ads.nativead.adrequest.YoumiNativeAdResposeModel;
 import net.youmi.ads.nativead.demo.BuildConfig;
 import net.youmi.ads.nativead.demo.MainActivity;
 import net.youmi.ads.nativead.demo.R;
+import net.youmi.ads.nativead.demo.ad.SlotIdConfig;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ import java.util.Locale;
  * @author zhitao
  * @since 2017-04-14 10:32
  */
-public class SplashActivity extends AppCompatActivity implements View.OnClickListener, OnYoumiNativeAdDownloadListener {
+public class SplashActivity extends AppCompatActivity implements View.OnClickListener {
 	
 	private final static int MSG_START_MAIN_ACTIVITY = 1;
 	
@@ -55,6 +56,8 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 	private YoumiNativeAdModel mYoumiNativeAdModel;
 	
 	private MyHandler mHandler;
+	
+	private MyOnYoumiNativeAdDownloadListener mMyOnYoumiNativeAdDownloadListener;
 	
 	private static class MyHandler extends Handler {
 		
@@ -104,7 +107,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 				.withAppId(BuildConfig.APPID)
 				
 				// （必须）指定请求广告位
-				.withSlotId("7906")
+				.withSlotId(SlotIdConfig.SPLASH_SLOIID)
 				
 				// （可选）指定请求广告数量，默认为1
 				.withRequestCount(1)
@@ -123,7 +126,9 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 				// 发起异步请求
 				.requestWithListener(new MyOnYoumiNativeAdRequesterListener(this));
 		
-		YoumiNativeAdHelper.addOnYoumiNativeAdDownloadListener(this);
+		// 添加一个广告下载监听器
+		mMyOnYoumiNativeAdDownloadListener = new MyOnYoumiNativeAdDownloadListener(this);
+		YoumiNativeAdHelper.addOnYoumiNativeAdDownloadListener(mMyOnYoumiNativeAdDownloadListener);
 	}
 	
 	@Override
@@ -131,7 +136,9 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 		super.onDestroy();
 		mHandler.removeMessages(MSG_START_MAIN_ACTIVITY);
 		mIsDestroy = true;
-		YoumiNativeAdHelper.removeOnYoumiNativeAdDownloadListener(this);
+		
+		// 移除一个广告下载监听器
+		YoumiNativeAdHelper.removeOnYoumiNativeAdDownloadListener(mMyOnYoumiNativeAdDownloadListener);
 		DLog.i("onDestroy");
 	}
 	
@@ -163,59 +170,88 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 		
 	}
 	
-	/**
-	 * 下载开始通知，在UI线程中执行
-	 *
-	 * @param adModel 下载任务对象
-	 */
-	@Override
-	public void onDownloadStart(YoumiNativeAdModel adModel) {
-		Toast.makeText(this, String.format(Locale.getDefault(), "开始下载广告 %s", adModel.getAdName()), Toast.LENGTH_SHORT).show();
-	}
-	
-	/**
-	 * 下载进度变更通知，在UI线程中执行
-	 *
-	 * @param adModel           下载任务对象
-	 * @param totalLength       下载总长度
-	 * @param completeLength    当前已经下载完成的长度
-	 * @param downloadPercent   下载百分比
-	 * @param downloadBytesPerS 下载速度(B/s)
-	 */
-	@Override
-	public void onDownloadProgressUpdate(YoumiNativeAdModel adModel, long totalLength, long completeLength, int downloadPercent,
-			long downloadBytesPerS) {
-	}
-	
-	/**
-	 * 下载成功通知，在UI线程中执行
-	 *
-	 * @param adModel 下载任务对象
-	 */
-	@Override
-	public void onDownloadSuccess(YoumiNativeAdModel adModel) {
-		Toast.makeText(this, String.format(Locale.getDefault(), "广告 %s 下载成功", adModel.getAdName()), Toast.LENGTH_SHORT).show();
+	private static class MyOnYoumiNativeAdDownloadListener implements OnYoumiNativeAdDownloadListener {
 		
-	}
-	
-	/**
-	 * 下载失败通知，在UI线程中执行
-	 *
-	 * @param adModel 下载任务对象
-	 */
-	@Override
-	public void onDownloadFailed(YoumiNativeAdModel adModel) {
-		Toast.makeText(this, String.format(Locale.getDefault(), "广告 %s 下载失败", adModel.getAdName()), Toast.LENGTH_SHORT).show();
-	}
-	
-	/**
-	 * 下载停止通知，在UI线程中执行
-	 *
-	 * @param adModel 下载任务对象
-	 */
-	@Override
-	public void onDownloadStop(YoumiNativeAdModel adModel) {
-		Toast.makeText(this, String.format(Locale.getDefault(), "广告 %s 下载已被停止", adModel.getAdName()), Toast.LENGTH_SHORT).show();
+		private WeakReference<Activity> mReference;
+		
+		MyOnYoumiNativeAdDownloadListener(Activity context) {
+			mReference = new WeakReference<>(context);
+		}
+		
+		/**
+		 * 下载开始通知，在UI线程中执行
+		 *
+		 * @param adModel 下载任务对象
+		 */
+		@Override
+		public void onDownloadStart(YoumiNativeAdModel adModel) {
+			Activity activity = mReference.get();
+			if (activity == null) {
+				return;
+			}
+			Toast.makeText(activity, String.format(Locale.getDefault(), "开始下载广告 %s", adModel.getAdName()), Toast.LENGTH_SHORT)
+			     .show();
+		}
+		
+		/**
+		 * 下载进度变更通知，在UI线程中执行
+		 *
+		 * @param adModel           下载任务对象
+		 * @param totalLength       下载总长度
+		 * @param completeLength    当前已经下载完成的长度
+		 * @param downloadPercent   下载百分比
+		 * @param downloadBytesPerS 下载速度(B/s)
+		 */
+		@Override
+		public void onDownloadProgressUpdate(YoumiNativeAdModel adModel, long totalLength, long completeLength,
+				int downloadPercent, long downloadBytesPerS) {
+			
+		}
+		
+		/**
+		 * 下载成功通知，在UI线程中执行
+		 *
+		 * @param adModel 下载任务对象
+		 */
+		@Override
+		public void onDownloadSuccess(YoumiNativeAdModel adModel) {
+			Activity activity = mReference.get();
+			if (activity == null) {
+				return;
+			}
+			Toast.makeText(activity, String.format(Locale.getDefault(), "广告 %s 下载成功", adModel.getAdName()), Toast.LENGTH_SHORT)
+			     .show();
+		}
+		
+		/**
+		 * 下载失败通知，在UI线程中执行
+		 *
+		 * @param adModel 下载任务对象
+		 */
+		@Override
+		public void onDownloadFailed(YoumiNativeAdModel adModel) {
+			Activity activity = mReference.get();
+			if (activity == null) {
+				return;
+			}
+			Toast.makeText(activity, String.format(Locale.getDefault(), "广告 %s 下载失败", adModel.getAdName()), Toast.LENGTH_SHORT)
+			     .show();
+		}
+		
+		/**
+		 * 下载停止通知，在UI线程中执行
+		 *
+		 * @param adModel 下载任务对象
+		 */
+		@Override
+		public void onDownloadStop(YoumiNativeAdModel adModel) {
+			Activity activity = mReference.get();
+			if (activity == null) {
+				return;
+			}
+			Toast.makeText(activity, String.format(Locale.getDefault(), "广告 %s 下载已被停止", adModel.getAdName()), Toast.LENGTH_SHORT)
+			     .show();
+		}
 	}
 	
 	private static class MyOnYoumiNativeAdRequesterListener implements OnYoumiNativeAdRequestListener {

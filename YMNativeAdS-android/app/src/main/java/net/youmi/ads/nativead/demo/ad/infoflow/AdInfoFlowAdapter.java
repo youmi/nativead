@@ -75,13 +75,13 @@ class AdInfoFlowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> im
 			viewHolder = new AdBannerHolder(mLayoutInflater.inflate(R.layout.recycler_view_item_ad_banner, parent, false));
 			break;
 		case AdInfoFlowModel.TYPE_AD_LARGE:
-			viewHolder = new AdLargeHolder(mLayoutInflater.inflate(R.layout.recycler_view_item_ad_large, null));
+			viewHolder = new AdLargeHolder(mLayoutInflater.inflate(R.layout.recycler_view_item_ad_large, parent, false));
 			break;
 		case AdInfoFlowModel.TYPE_AD_RECTANGLE:
-			viewHolder = new AdRectangleHolder(mLayoutInflater.inflate(R.layout.recycler_view_item_ad_rectangle, null));
+			viewHolder = new AdRectangleHolder(mLayoutInflater.inflate(R.layout.recycler_view_item_ad_rectangle, parent, false));
 			break;
 		default:
-			viewHolder = new NormalItemHolder(mLayoutInflater.inflate(R.layout.recycler_view_item_normal, null));
+			viewHolder = new NormalItemHolder(mLayoutInflater.inflate(R.layout.recycler_view_item_normal, parent, false));
 			break;
 		}
 		viewHolder.itemView.setOnClickListener(this);
