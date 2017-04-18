@@ -19,12 +19,13 @@ import java.net.HttpURLConnection;
 public class NetworkUtils {
 	
 	/**
-	 * 获取最终的url地址(循环遍历301/302)
+	 * 获取最终的Url地址(循环遍历301/302)
 	 *
-	 * @param rawUrl
-	 * @param loopMaxTimes 最大遍历次数，不然坑爹一点的话会无限循环重定向 (A->B->A)
+	 * @param context      上下文
+	 * @param rawUrl       原始Url
+	 * @param loopMaxTimes 最大遍历次数，避免无限循环重定向(A to B to A)
 	 *
-	 * @return
+	 * @return 最终Url
 	 */
 	public static String getFinalDestUrlByHttpURLConnection(Context context, String rawUrl, int loopMaxTimes) {
 		if (TextUtils.isEmpty(rawUrl)) {
@@ -107,9 +108,9 @@ public class NetworkUtils {
 	/**
 	 * 获取当前移动网络APN名字
 	 *
-	 * @param context
+	 * @param context 上下文
 	 *
-	 * @return
+	 * @return APN
 	 */
 	public static String getApn(Context context) {
 		try {
@@ -241,8 +242,9 @@ public class NetworkUtils {
 	/**
 	 * 获取服务器上目标文件的长度(支持传入从重定向地址)
 	 *
+	 * @param context      上下文
 	 * @param rawUrl       原始url
-	 * @param loopMaxTimes 最大遍历次数，不然坑爹一点的话会无限循环重定向 (A->B->A)
+	 * @param loopMaxTimes 最大遍历次数，避免无限循环重定向 (A to B to A)
 	 *
 	 * @return contentLength
 	 */

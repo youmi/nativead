@@ -42,6 +42,8 @@ public class HttpRequesterFactory {
 	 * @param requestUrl 请求url，如果是带有中文字符的url 需要先转码，在传入
 	 *
 	 * @return HttpURLConnection
+	 *
+	 * @throws IOException 创建失败，可能产生的IO异常
 	 */
 	public static HttpURLConnection newHttpURLConnection(Context context, String requestUrl) throws IOException {
 		return newHttpURLConnection(context, requestUrl, null, TCP_CONNECTION_TIME_OUT, SOCKET_CONNECTION_TIME_OUT);
@@ -55,6 +57,8 @@ public class HttpRequesterFactory {
 	 * @param userAgent  自定义的userAgent，可以不传，不传的话，会用sdk默认构造的userAgent
 	 *
 	 * @return HttpURLConnection
+	 *
+	 * @throws IOException 创建失败，可能产生的IO异常
 	 */
 	public static HttpURLConnection newHttpURLConnection(Context context, String requestUrl, String userAgent)
 			throws IOException {
@@ -71,6 +75,8 @@ public class HttpRequesterFactory {
 	 * @param socketConnectionTimeout_ms 设置socket超时，即即从服务器获取响应数据需要等待的时间(毫秒)
 	 *
 	 * @return HttpURLConnection
+	 *
+	 * @throws IOException 创建失败，可能产生的IO异常
 	 */
 	public static HttpURLConnection newHttpURLConnection(Context context, String requestUrl, String userAgent,
 			int tcpConnectionTimeOut_ms, int socketConnectionTimeout_ms) throws IOException {

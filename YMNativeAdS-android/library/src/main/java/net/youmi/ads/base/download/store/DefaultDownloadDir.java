@@ -60,7 +60,7 @@ public class DefaultDownloadDir extends AbsDownloadDir {
 	 *
 	 * @param fileDownloadTask 下载任务
 	 *
-	 * @return
+	 * @return 最终存储的下载文件
 	 */
 	@Override
 	public File newDownloadStoreFile(FileDownloadTask fileDownloadTask) {

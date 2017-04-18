@@ -14,13 +14,6 @@ import java.security.MessageDigest;
  */
 public class MD5 {
 	
-	/**
-	 * md5编码(32位小)
-	 *
-	 * @param val 原始字符串
-	 *
-	 * @return
-	 */
 	public static String md5(String val) {
 		try {
 			String result = null;
@@ -70,13 +63,6 @@ public class MD5 {
 		return s;
 	}
 	
-	/**
-	 * 获取文件的Md5值
-	 *
-	 * @param file
-	 *
-	 * @return
-	 */
 	public static String getFileMd5(File file) {
 		if (file == null || !file.exists()) {
 			return null;

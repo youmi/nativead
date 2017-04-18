@@ -112,6 +112,8 @@ public class DownloadHandler implements Runnable {
 	
 	/**
 	 * 设置需要在执行下载逻辑之前进行下载目录的优化
+	 *
+	 * @param isNeed2OptCacheDir 是否需要优化下载目录
 	 */
 	public void setNeed2OptCacheDir(boolean isNeed2OptCacheDir) {
 		mIsNeed2OptCacheDir = isNeed2OptCacheDir;

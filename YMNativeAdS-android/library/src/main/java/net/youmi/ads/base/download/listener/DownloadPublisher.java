@@ -37,14 +37,14 @@ public class DownloadPublisher extends TListenerManager<OnDownloadListener> {
 	
 	/**
 	 * 通知任务当前处于文件锁
-	 * <p/>
+	 * <p>
 	 * 一般需要重写的场合为SDK下载，APP应用类不需要重写这个方法:
-	 * <p/>
+	 * <p>
 	 * 因为sdk一般是很多个app同时使用的，所以下载的文件基本是公用的，
 	 * 这个时候，在下载之前就需要检查下下载文件是否已经被其他进程读取中，
 	 * 如果是的话，这里要通知一下
 	 *
-	 * @param fileDownloadTask
+	 * @param fileDownloadTask 下载任务对象
 	 */
 	public void onNotifyDownloadBeforeStart_FileLock(FileDownloadTask fileDownloadTask) {
 		

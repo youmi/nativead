@@ -90,7 +90,7 @@ public class BaseHttpRequesterModel {
 	/**
 	 * 设置post 二进制数据
 	 *
-	 * @param bytes
+	 * @param bytes 二进制数据
 	 */
 	public void setPostDataByteArray(byte[] bytes) {
 		mPostDataByteArray = bytes;
@@ -103,7 +103,7 @@ public class BaseHttpRequesterModel {
 	/**
 	 * 设置post NameValuePair 数据
 	 *
-	 * @return
+	 * @param postDataMap NameValuePair
 	 */
 	public void setPostDataMap(Map<String, String> postDataMap) {
 		mPostDataMap = postDataMap;
@@ -116,7 +116,7 @@ public class BaseHttpRequesterModel {
 	/**
 	 * 设置请求编码
 	 *
-	 * @param encoding
+	 * @param encoding 请求编码
 	 */
 	public void setEncodingCharset(String encoding) {
 		mEncodingCharset = encoding;

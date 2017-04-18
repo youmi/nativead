@@ -18,6 +18,8 @@ public class FileUtils {
 	 * 获取指定的路径的文件，如果没有会创建(支持自动补全所有父目录)
 	 *
 	 * @param path 文件路径
+	 *
+	 * @return 创建好的文件
 	 */
 	public static File getValidFile(String path) {
 		return getValidFile(new File(path));
@@ -27,6 +29,8 @@ public class FileUtils {
 	 * 获取指定的路径的文件，如果没有会创建(支持自动补全所有父目录)
 	 *
 	 * @param file 文件
+	 *
+	 * @return 创建好的文件
 	 */
 	public static File getValidFile(File file) {
 		try {
@@ -123,6 +127,8 @@ public class FileUtils {
 	/**
 	 * 获取目录空间总容量
 	 *
+	 * @param dirPath 目录路径
+	 *
 	 * @return 容量(Byte)
 	 */
 	public static long getDirTotalSize(String dirPath) {
@@ -157,6 +163,8 @@ public class FileUtils {
 	
 	/**
 	 * 获取目录空间已用容量
+	 *
+	 * @param dirPath 目录路径
 	 *
 	 * @return 容量(Byte)
 	 */
@@ -202,6 +210,8 @@ public class FileUtils {
 	
 	/**
 	 * 获取目录空间剩余容量
+	 *
+	 * @param dirPath 目录路径
 	 *
 	 * @return 容量(Byte)
 	 */

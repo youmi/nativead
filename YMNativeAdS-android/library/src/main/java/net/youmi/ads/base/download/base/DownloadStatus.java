@@ -36,9 +36,7 @@ public class DownloadStatus {
 	}
 	
 	/**
-	 * 获取下载失败时说抛出来的异常
-	 *
-	 * @return
+	 * @return 下载失败时说抛出来的异常
 	 */
 	public Throwable getThrowable() {
 		return mThrowable;
@@ -55,11 +53,11 @@ public class DownloadStatus {
 	
 	/**
 	 * 下载最终状态码
-	 * <p/>
+	 * <p>
 	 * 定义下载失败的代码常量范围为在[100, 199]不能超过
-	 * <p/>
+	 * <p>
 	 * 可重试失败区间[100, 149]
-	 * <p/>
+	 * <p>
 	 * 不可重试失败区间[150, 199]
 	 */
 	public static class Code {

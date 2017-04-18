@@ -18,11 +18,6 @@ public abstract class TListenerManager<T> {
 		return mListeners;
 	}
 	
-	/**
-	 * 注册监听器
-	 *
-	 * @param listener 监听器对象
-	 */
 	public boolean addListener(T listener) {
 		if (listener != null) {
 			final List<T> list = getListeners();
@@ -35,11 +30,6 @@ public abstract class TListenerManager<T> {
 		return false;
 	}
 	
-	/**
-	 * 注销监听器
-	 *
-	 * @param listener 监听器对象
-	 */
 	public boolean removeListener(T listener) {
 		if (listener != null) {
 			final List<T> list = getListeners();

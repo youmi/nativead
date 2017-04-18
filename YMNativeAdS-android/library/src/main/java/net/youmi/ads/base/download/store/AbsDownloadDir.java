@@ -107,14 +107,12 @@ public abstract class AbsDownloadDir {
 	 *
 	 * @param fileDownloadTask 下载任务
 	 *
-	 * @return
+	 * @return 最终存储的下载文件
 	 */
 	public abstract File newDownloadStoreFile(FileDownloadTask fileDownloadTask);
 	
 	/**
-	 * 获取下载文件目录
-	 *
-	 * @return
+	 * @return 下载文件目录
 	 */
 	public File getDir() {
 		return mCacheDir;
@@ -129,7 +127,6 @@ public abstract class AbsDownloadDir {
 	 * 目前有个取舍的问题:
 	 * 为了防止删除太久，会设置一个定时器10000，也就是说如果目录里面有超过10000个文件的话，那么最多可能删除10000个文件，
 	 * 如果删除了10000个文件还是不能满足最大限制要求，那么也会停止
-	 * <p/>
 	 *
 	 * @return <ul>
 	 * <li>true：优化成功</li>

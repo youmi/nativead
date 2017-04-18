@@ -14,7 +14,6 @@ import java.io.File;
  * <b>But</b>
  * 有时候，同一个资源下载，可能不同时刻创建的下载url会不同，如url中加入了请求时间戳，那么每次的下载url都会不同
  * 但是其实还是同一个下载任务，那么这个时候需要调用 {@link #setIdentify(String)} 进行自定义本类的hashcode，标记上面话说的这种url其实都是同一个对象
- * <p/>
  *
  * @author zhitao
  * @since 2017-04-14 15:32
@@ -106,7 +105,7 @@ public final class FileDownloadTask {
 	
 	/**
 	 * 设置本类的唯一标示，不掉用的话，本类会默认用原始下载地址的url的hashcode作为本类的hashcode
-	 * <p/>
+	 * <p>
 	 * 本方法的使用场合：如果同一个下载资源，可能会有多个原始下载地址的url（如url中加入了请求时间戳），那么建议用本方法设置一下新的标识(hashcode)
 	 *
 	 * @param identify 任务标识
@@ -222,7 +221,7 @@ public final class FileDownloadTask {
 	 * 那么hashcode优先使用传入来的标识的md5字符串的hashcode作为本类的hashcode
 	 * 否则就用原始url的md5字符串的hashcode作为本类的hashcode
 	 *
-	 * @return
+	 * @return hashcode
 	 */
 	@Override
 	public int hashCode() {

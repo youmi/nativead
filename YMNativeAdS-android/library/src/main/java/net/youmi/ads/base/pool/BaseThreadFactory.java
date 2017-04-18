@@ -73,18 +73,14 @@ public class BaseThreadFactory implements ThreadFactory {
 	}
 	
 	/**
-	 * 获取线程池名字
-	 *
-	 * @return
+	 * @return 线程池名字
 	 */
 	public String getPoolName() {
 		return mPoolName;
 	}
 	
 	/**
-	 * 获取当前已经创建了多少个线程工厂
-	 *
-	 * @return
+	 * @return 当前已经创建了多少个线程工厂
 	 */
 	public static int getTotalPoolNumber() {
 		return mPoolCounter.get();

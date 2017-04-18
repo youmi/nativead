@@ -69,7 +69,6 @@ public class YoumiNativeAdHelper {
 	 * 注册下载监听器，注意配对使用，有注册就得有注销
 	 * <p>
 	 * e.g.
-	 * <p>
 	 * <pre>
 	 *     protected void onCreate(Bundle savedInstanceState) {
 	 *         YoumiNativeAdHelper.registerOnYoumiNativeAdDownloadListener(this);
@@ -92,7 +91,6 @@ public class YoumiNativeAdHelper {
 	 * 注销下载监听器，注意配对使用，有注册就得有注销
 	 * <p>
 	 * e.g.
-	 * <p>
 	 * <pre>
 	 *     protected void onCreate(Bundle savedInstanceState) {
 	 *         YoumiNativeAdHelper.registerOnYoumiNativeAdDownloadListener(this);

@@ -22,15 +22,17 @@ public class PermissionUtils {
 	 * 获取开发者在AndroidManifest.xml文件中配置的所有权限信息，注意：仅仅是获取是否有没有在AndroidManifest.xml中配置，并不是是否已经被允许了
 	 * {@link #isPermissionGranted(Context, String, String...)} } 方法是不能判断到下面这种权限的存在的
 	 * <pre>
-	 * <uses-permission
+	 * {@code <uses-permission}
 	 *     android:name="android.permission.PACKAGE_USAGE_STATS"
-	 *     tools:ignore="ProtectedPermissions" />
+	 *     tools:ignore="ProtectedPermissions"
+	 *     {@code />}
 	 * </pre>
 	 * 因此就存在了这种一次性获取所有权限的，然后进行contains的方法来进行判断是否拥有某个权限的方法
 	 *
-	 * @param context
+	 * @param context 上下文
+	 * @param pkgName 应用包名
 	 *
-	 * @return
+	 * @return 指定包名应用在AndroidManifest中配置的所有权限列表
 	 */
 	public static List<String> getPkgNamePermissions(Context context, String pkgName) {
 		try {
@@ -95,10 +97,13 @@ public class PermissionUtils {
 	
 	/**
 	 * 为用户导航到指定应用的详情页面，让用户自己主动开启权限
-	 * <p/>
+	 * <p>
 	 * 目前只能导航到最近一级的界面，没法直接到达指定应用的权限设置界面
-	 * <p/>
+	 * <p>
 	 * <b>需要注意Intent不过去的时候会抛异常的情况，如一些厂商去掉了这个界面之类的</b>
+	 *
+	 * @param context 上下文
+	 * @param pkgName 应用包名
 	 *
 	 * @return <ul>
 	 * <li>{@code true}： 能成功导航到应用详情页面 </li>

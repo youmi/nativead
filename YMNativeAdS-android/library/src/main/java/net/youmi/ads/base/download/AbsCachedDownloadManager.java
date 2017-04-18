@@ -218,17 +218,16 @@ public abstract class AbsCachedDownloadManager implements IFileAvailableChecker,
 	}
 	
 	/**
-	 * <p/>
 	 * 使用场合：
 	 * 如果你觉得你下载的文件被劫持为另一个url，那么就可以实现一下下面的接口
-	 * <p/>
+	 * <p>
 	 * 如：
 	 * <ul>
 	 * <li>检查文件长度是否等于服务器三的长度</li>
 	 * <li>重新计算文件的md5和task中的md5(服务器那边返回的比较一下)</li>
 	 * <li>或者重新向服务器请求这个文件的md5然后做对比</li>
 	 * </ul>
-	 * <p/>
+	 * <p>
 	 * 子类可以重写，但是重写时，建议在最后 return super.isStoreFileAvailable
 	 *
 	 * @param fileDownloadTask 下载任务
