@@ -132,7 +132,7 @@ class OnDownloadNotificationPublisher implements OnDownloadListener {
 	 */
 	@Override
 	public void onFileAlreadyExist(FileDownloadTask fileDownloadTask) {
-		
+		onDownloadSuccess(fileDownloadTask);
 	}
 	
 	/**
