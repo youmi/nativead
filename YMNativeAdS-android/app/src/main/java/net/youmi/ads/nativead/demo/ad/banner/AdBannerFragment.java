@@ -63,7 +63,7 @@ public class AdBannerFragment extends BaseFragment implements View.OnClickListen
 				.withSlotId(SlotIdConfig.BANNER_SLOIID)
 				
 				// 发起异步请求
-				.requestWithListener(new MyOnYoumiNativeAdRequestListener(this));
+				.request(new MyOnYoumiNativeAdRequestListener(this));
 	}
 	
 	@Override
@@ -72,7 +72,7 @@ public class AdBannerFragment extends BaseFragment implements View.OnClickListen
 		YoumiNativeAdHelper.newAdEffRequest(getActivity())
 		                   .withAppId(BuildConfig.APPID)
 		                   .withYoumiNativeAdModel(mYoumiNativeAdModel)
-		                   .asyncSendClickeff();
+		                   .asyncSendClickEff();
 		
 		Toast.makeText(
 				getActivity(),

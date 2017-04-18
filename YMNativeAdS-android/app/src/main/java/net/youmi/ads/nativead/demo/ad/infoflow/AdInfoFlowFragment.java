@@ -70,7 +70,7 @@ public class AdInfoFlowFragment extends BaseFragment
 			YoumiNativeAdHelper.newAdEffRequest(this.getActivity())
 			                   .withAppId(BuildConfig.APPID)
 			                   .withYoumiNativeAdModel(model.getAdModel())
-			                   .asyncSendClickeff();
+			                   .asyncSendClickEff();
 			
 			// 可以进入自定义的详情页，也可以直接下载
 			// 如果是应用广告，这里演示为直接下载

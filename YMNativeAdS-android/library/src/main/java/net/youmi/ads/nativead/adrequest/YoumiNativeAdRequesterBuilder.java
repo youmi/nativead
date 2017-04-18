@@ -192,7 +192,7 @@ public class YoumiNativeAdRequesterBuilder {
 	 *
 	 * @param listener 监听器
 	 */
-	public void requestWithListener(final OnYoumiNativeAdRequestListener listener) {
+	public void request(final OnYoumiNativeAdRequestListener listener) {
 		GlobalCacheExecutor.execute(new Runnable() {
 			@Override
 			public void run() {

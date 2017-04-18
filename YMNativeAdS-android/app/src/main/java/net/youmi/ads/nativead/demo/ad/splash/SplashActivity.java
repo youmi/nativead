@@ -124,7 +124,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 				// .request();
 				
 				// 发起异步请求
-				.requestWithListener(new MyOnYoumiNativeAdRequesterListener(this));
+				.request(new MyOnYoumiNativeAdRequesterListener(this));
 		
 		// 添加一个广告下载监听器
 		mMyOnYoumiNativeAdDownloadListener = new MyOnYoumiNativeAdDownloadListener(this);
@@ -153,7 +153,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 			YoumiNativeAdHelper.newAdEffRequest(this)
 			                   .withAppId(BuildConfig.APPID)
 			                   .withYoumiNativeAdModel(mYoumiNativeAdModel)
-			                   .asyncSendClickeff();
+			                   .asyncSendClickEff();
 			
 			Toast.makeText(
 					this,

@@ -70,7 +70,7 @@ public class AdRectangleFragment extends BaseFragment implements View.OnClickLis
 		YoumiNativeAdHelper.newAdEffRequest(getActivity())
 		                   .withAppId(BuildConfig.APPID)
 		                   .withYoumiNativeAdModel(mYoumiNativeAdModel)
-		                   .asyncSendClickeff();
+		                   .asyncSendClickEff();
 		
 		Toast.makeText(
 				getActivity(),

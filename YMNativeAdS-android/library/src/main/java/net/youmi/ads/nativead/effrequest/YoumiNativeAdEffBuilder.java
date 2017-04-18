@@ -56,7 +56,7 @@ public class YoumiNativeAdEffBuilder {
 	}
 	
 	/**
-	 * 设置发送失败时，重试次数，目前重发过程为
+	 * 设置发送失败时，重试次数，默认为5次，目前重发过程为
 	 * <pre>
 	 *  第1次 第2次 第3次    第4次     第5次
 	 *     |-->|---->|------>|-------->|
@@ -98,11 +98,11 @@ public class YoumiNativeAdEffBuilder {
 	/**
 	 * [异步]发送点击记录效果
 	 */
-	public void asyncSendClickeff() {
+	public void asyncSendClickEff() {
 		GlobalCacheExecutor.execute(new Runnable() {
 			@Override
 			public void run() {
-				asyncSendClickeff();
+				asyncSendClickEff();
 			}
 		});
 	}

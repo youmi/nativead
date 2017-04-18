@@ -78,7 +78,7 @@ public class AdLargeFragment extends BaseFragment implements View.OnClickListene
 				.withSlotId(SlotIdConfig.LARGE_SLOIID)
 				
 				// 发起异步请求
-				.requestWithListener(new MyOnYoumiNativeAdRequestListener(this));
+				.request(new MyOnYoumiNativeAdRequestListener(this));
 		
 	}
 	
@@ -88,7 +88,7 @@ public class AdLargeFragment extends BaseFragment implements View.OnClickListene
 		YoumiNativeAdHelper.newAdEffRequest(getActivity())
 		                   .withAppId(BuildConfig.APPID)
 		                   .withYoumiNativeAdModel(mYoumiNativeAdModel)
-		                   .asyncSendClickeff();
+		                   .asyncSendClickEff();
 		
 		Toast.makeText(
 				getActivity(),
