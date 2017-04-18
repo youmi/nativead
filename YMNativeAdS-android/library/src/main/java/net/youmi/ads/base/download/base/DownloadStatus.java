@@ -1,5 +1,7 @@
 package net.youmi.ads.base.download.base;
 
+import net.youmi.ads.base.log.DLog;
+
 /**
  * @author zhitao
  * @since 2017-04-14 15:48
@@ -28,11 +30,14 @@ public class DownloadStatus {
 	
 	@Override
 	public String toString() {
-		final StringBuilder sb = new StringBuilder("FinalDownloadStatus {\n");
-		sb.append("  mThrowable=").append(mThrowable).append("\n");
-		sb.append("  mDownloadStatusCode=").append(mDownloadStatusCode).append("\n");
-		sb.append('}');
-		return sb.toString();
+		if (DLog.isDownloadLog) {
+			final StringBuilder sb = new StringBuilder("FinalDownloadStatus {\n");
+			sb.append("  mThrowable=").append(mThrowable).append("\n");
+			sb.append("  mDownloadStatusCode=").append(mDownloadStatusCode).append("\n");
+			sb.append('}');
+			return sb.toString();
+		}
+		return super.toString();
 	}
 	
 	/**

@@ -50,7 +50,7 @@ public abstract class AbsCachedDownloadManager implements IFileAvailableChecker,
 	protected AbsCachedDownloadManager() {
 		
 		// 设置下载线程池
-		mBaseCacheExecutorService = new BaseCacheExecutorService("Y-M-Cached-Download").withIExecuteListener(this);
+		mBaseCacheExecutorService = new BaseCacheExecutorService("Cached-Download").withIExecuteListener(this);
 		
 		//　设置下载任务的观察者监听管理器
 		mDownloadPublisher = new DownloadPublisher();

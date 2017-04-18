@@ -23,7 +23,7 @@ public class DLog {
 	
 	// ------------------------------------------------------------------
 	
-	private static String sTag = "YoumiSdk";
+	private static String sTag = "Sdk";
 	
 	private static boolean sIsDebug = false;
 	

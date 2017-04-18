@@ -238,23 +238,24 @@ public class YoumiNativeAdModel implements IFileDownloadTask {
 	
 	@Override
 	public String toString() {
-		final StringBuilder sb = new StringBuilder("YoumiNativeAdModel{");
-		sb.append("\n  adId=").append(adId);
-		sb.append("\n  slotId=").append(slotId);
-		sb.append("\n  adName='").append(adName).append('\'');
-		sb.append("\n  adIconUrl='").append(adIconUrl).append('\'');
-		sb.append("\n  adPics=").append(adPics);
-		sb.append("\n  slogan='").append(slogan).append('\'');
-		sb.append("\n  subSlogan='").append(subSlogan).append('\'');
-		sb.append("\n  url='").append(url).append('\'');
-		sb.append("\n  uri='").append(uri).append('\'');
-		sb.append("\n  pt=").append(pt);
-		sb.append("\n  showUrls=").append(showUrls);
-		sb.append("\n  clickUrls=").append(clickUrls);
-		sb.append("\n  appModel=").append(appModel);
-		sb.append("\n  extModel=").append(extModel);
-		sb.append("\n}");
-		return sb.toString();
+		//		final StringBuilder sb = new StringBuilder("YoumiNativeAdModel{");
+		//		sb.append("\n  adId=").append(adId);
+		//		sb.append("\n  slotId=").append(slotId);
+		//		sb.append("\n  adName='").append(adName).append('\'');
+		//		sb.append("\n  adIconUrl='").append(adIconUrl).append('\'');
+		//		sb.append("\n  adPics=").append(adPics);
+		//		sb.append("\n  slogan='").append(slogan).append('\'');
+		//		sb.append("\n  subSlogan='").append(subSlogan).append('\'');
+		//		sb.append("\n  url='").append(url).append('\'');
+		//		sb.append("\n  uri='").append(uri).append('\'');
+		//		sb.append("\n  pt=").append(pt);
+		//		sb.append("\n  showUrls=").append(showUrls);
+		//		sb.append("\n  clickUrls=").append(clickUrls);
+		//		sb.append("\n  appModel=").append(appModel);
+		//		sb.append("\n  extModel=").append(extModel);
+		//		sb.append("\n}");
+		//		return sb.toString();
+		return super.toString();
 	}
 	
 	/**
@@ -303,12 +304,13 @@ public class YoumiNativeAdModel implements IFileDownloadTask {
 		
 		@Override
 		public String toString() {
-			final StringBuilder sb = new StringBuilder("YoumiNativeAdPicObject{");
-			sb.append("\n  url='").append(url).append('\'');
-			sb.append("\n  width=").append(width);
-			sb.append("\n  height=").append(height);
-			sb.append("\n}");
-			return sb.toString();
+			//			final StringBuilder sb = new StringBuilder("YoumiNativeAdPicObject{");
+			//			sb.append("\n  url='").append(url).append('\'');
+			//			sb.append("\n  width=").append(width);
+			//			sb.append("\n  height=").append(height);
+			//			sb.append("\n}");
+			//			return sb.toString();
+			return super.toString();
 		}
 	}
 	
@@ -397,15 +399,16 @@ public class YoumiNativeAdModel implements IFileDownloadTask {
 		
 		@Override
 		public String toString() {
-			final StringBuilder sb = new StringBuilder("YoumiNativeAdAppModel{");
-			sb.append("\n  packageName='").append(packageName).append('\'');
-			sb.append("\n  description='").append(description).append('\'');
-			sb.append("\n  size='").append(size).append('\'');
-			sb.append("\n  screenShots=").append(screenShots);
-			sb.append("\n  score=").append(score);
-			sb.append("\n  category='").append(category).append('\'');
-			sb.append("\n}");
-			return sb.toString();
+			//			final StringBuilder sb = new StringBuilder("YoumiNativeAdAppModel{");
+			//			sb.append("\n  packageName='").append(packageName).append('\'');
+			//			sb.append("\n  description='").append(description).append('\'');
+			//			sb.append("\n  size='").append(size).append('\'');
+			//			sb.append("\n  screenShots=").append(screenShots);
+			//			sb.append("\n  score=").append(score);
+			//			sb.append("\n  category='").append(category).append('\'');
+			//			sb.append("\n}");
+			//			return sb.toString();
+			return super.toString();
 		}
 	}
 	
@@ -483,13 +486,14 @@ public class YoumiNativeAdModel implements IFileDownloadTask {
 		
 		@Override
 		public String toString() {
-			final StringBuilder sb = new StringBuilder("YoumiNativeAdExtModel{");
-			sb.append("\n  io=").append(io);
-			sb.append("\n  delay=").append(delay);
-			sb.append("\n  sal=").append(sal);
-			sb.append("\n  pl=").append(pl);
-			sb.append("\n}");
-			return sb.toString();
+			//			final StringBuilder sb = new StringBuilder("YoumiNativeAdExtModel{");
+			//			sb.append("\n  io=").append(io);
+			//			sb.append("\n  delay=").append(delay);
+			//			sb.append("\n  sal=").append(sal);
+			//			sb.append("\n  pl=").append(pl);
+			//			sb.append("\n}");
+			//			return sb.toString();
+			return super.toString();
 		}
 	}
 }

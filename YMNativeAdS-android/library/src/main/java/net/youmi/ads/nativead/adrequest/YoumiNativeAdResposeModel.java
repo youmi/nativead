@@ -54,11 +54,12 @@ public class YoumiNativeAdResposeModel implements Serializable {
 	
 	@Override
 	public String toString() {
-		final StringBuilder sb = new StringBuilder("YoumiNativeAdResposeModel{");
-		sb.append("\n  code=").append(code);
-		sb.append("\n  rsd='").append(rsd).append('\'');
-		sb.append("\n  adModels=").append(adModels);
-		sb.append("\n}");
-		return sb.toString();
+		//		final StringBuilder sb = new StringBuilder("YoumiNativeAdResposeModel{");
+		//		sb.append("\n  code=").append(code);
+		//		sb.append("\n  rsd='").append(rsd).append('\'');
+		//		sb.append("\n  adModels=").append(adModels);
+		//		sb.append("\n}");
+		//		return sb.toString();
+		return super.toString();
 	}
 }

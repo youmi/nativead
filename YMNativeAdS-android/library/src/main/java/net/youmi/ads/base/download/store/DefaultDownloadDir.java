@@ -48,7 +48,7 @@ public class DefaultDownloadDir extends AbsDownloadDir {
 		if (TextUtils.isEmpty(srcFileName)) {
 			srcFileName = fileDownloadTask.getRawDownloadUrl();
 		}
-		return new File(getDir(), MD5.md5(srcFileName) + ".y".trim() + "mt".trim() + "f");
+		return new File(getDir(), MD5.md5(srcFileName) + ".tf");
 	}
 	
 	/**

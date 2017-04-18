@@ -33,7 +33,7 @@ public class BaseCacheExecutorService {
 	}
 	
 	public BaseCacheExecutorService() {
-		this("Y-M-Global");
+		this("Global");
 	}
 	
 	/**

@@ -146,8 +146,7 @@ public class IOUtils {
 		} else if (obj instanceof Closeable) {
 			close((Closeable) obj);
 		} else {
-			DLog.e("不支持的关闭!");
-			throw new RuntimeException("不支持的关闭!");
+			throw new RuntimeException("unSupport");
 		}
 	}
 	
