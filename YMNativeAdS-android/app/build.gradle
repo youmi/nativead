@@ -62,8 +62,23 @@ dependencies {
 	compile 'com.android.support:cardview-v7:25.3.1'
 	compile 'com.android.support:recyclerview-v7:25.3.1'
 	compile 'com.android.support:design:25.3.1'
-	compile project(':library')
 
 	// 使用Glide图片加载库来加载图片
 	compile 'com.github.bumptech.glide:glide:3.7.0'
+
+	// 依赖本地project
+	compile project(':library')
+
+	// 依赖本地aar
+	// compile(name: 'nativead-release-1.0.0', ext: 'aar')
+
+	// 依赖线上aar
+	// compile 'net.youmi.android:nativead:1.0.0@aar'
 }
+
+// 依赖本地aar时开启注释(测试用)
+//repositories {
+//	flatDir {
+//		dirs '../static/aar' //this way we can find the .aar file in libs folder
+//	}
+//}
