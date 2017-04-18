@@ -79,7 +79,6 @@ public class YoumiNativeAdDownloadManager extends AbsCachedDownloadManager {
 			return false;
 		}
 		FileDownloadTask fileDownloadTask = new FileDownloadTask(adModel.getUrl());
-		fileDownloadTask.setIdentify(adModel.getSlotId() + "-" + adModel.getAdId());
 		fileDownloadTask.setIFileDownloadTask(adModel);
 		
 		if (mPublisher == null) {
@@ -100,7 +99,6 @@ public class YoumiNativeAdDownloadManager extends AbsCachedDownloadManager {
 			return;
 		}
 		FileDownloadTask fileDownloadTask = new FileDownloadTask(adModel.getUrl());
-		fileDownloadTask.setIdentify(adModel.getAdId());
 		fileDownloadTask.setIFileDownloadTask(adModel);
 		stopDownload(fileDownloadTask);
 	}
