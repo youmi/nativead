@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.ProviderInfo;
 import android.net.Uri;
 import android.os.Build;
-import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
 import net.youmi.ads.base.log.DLog;
@@ -83,52 +82,6 @@ public class IntentUtils {
 			DLog.e(e);
 		}
 		return null;
-	}
-	
-	/**
-	 * 获取打开应用安装界面的Intent
-	 *
-	 * @param context               上下文
-	 * @param fileProviderAuthority Android N上需要说需要配置的FileProvider的 authority
-	 * @param file                  需要安装的apk文件
-	 *
-	 * @return Intent
-	 */
-	public static Intent getIntentForInstallApkWithFileProviderAuthority(Context context, String fileProviderAuthority,
-			File file) {
-		if (!file.exists()) {
-			return null;
-		}
-		try {
-			Intent intent = new Intent(Intent.ACTION_VIEW);
-			Uri uri;
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-				uri = FileProvider.getUriForFile(context, fileProviderAuthority, file);
-				intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-			} else {
-				uri = Uri.fromFile(file);
-			}
-			intent.setDataAndType(uri, "application/vnd.android.package-archive");
-			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			return intent;
-		} catch (Throwable e) {
-			DLog.e(e);
-		}
-		return null;
-	}
-	
-	/**
-	 * 获取打开应用安装界面的Intent
-	 *
-	 * @param context               上下文
-	 * @param fileProviderAuthority Android N上需要说需要配置的FileProvider的 authority
-	 * @param fileAbsPath           需要安装的apk文件的绝对路径
-	 *
-	 * @return Intent
-	 */
-	public static Intent getIntentForInstallApkWithFileProviderAuthority(Context context, String fileProviderAuthority,
-			String fileAbsPath) {
-		return getIntentForInstallApkWithFileProviderAuthority(context, fileProviderAuthority, new File(fileAbsPath));
 	}
 	
 }
