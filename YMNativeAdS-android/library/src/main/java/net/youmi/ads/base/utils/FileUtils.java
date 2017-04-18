@@ -52,18 +52,18 @@ public class FileUtils {
 				// 如果不存在父目录的话, 自动补全所有的根目录,然后创建
 				if (!file.getParentFile().exists()) {
 					
-					DLog.w("当前文件[%s]不存在父目录[%s]，将补全", file.getAbsolutePath(), file.getParent());
+					//DLog.w("当前文件[%s]不存在父目录[%s]，将补全", file.getAbsolutePath(), file.getParent());
 					boolean isMkdirsSuccess = file.getParentFile().mkdirs();
 					
 					if (!isMkdirsSuccess) {
-						DLog.w("补全父目录[%s]失败", file.getParent());
+						//DLog.w("补全父目录[%s]失败", file.getParent());
 						return null;
 					} else {
 						if (!file.getParentFile().exists()) {
-							DLog.w("补全父目录[%s]失败", file.getParent());
+							//DLog.w("补全父目录[%s]失败", file.getParent());
 							return null;
 						}
-						DLog.i("补全父目录[%s]成功", file.getParent());
+						//DLog.i("补全父目录[%s]成功", file.getParent());
 					}
 				}
 				boolean isSuccess = file.createNewFile();
@@ -95,9 +95,9 @@ public class FileUtils {
 				if (file.isFile()) {
 					boolean isSuccess = file.delete();
 					if (isSuccess) {
-						DLog.i("文件删除成功： %s", file.getAbsolutePath());
+						//DLog.i("文件删除成功： %s", file.getAbsolutePath());
 					} else {
-						DLog.e("文件删除失败： %s", file.getAbsolutePath());
+						//DLog.e("文件删除失败： %s", file.getAbsolutePath());
 					}
 					return isSuccess;
 				} else if (file.isDirectory()) {
@@ -108,9 +108,9 @@ public class FileUtils {
 					}
 					boolean isSuccess = file.delete();
 					if (isSuccess) {
-						DLog.i("文件删除成功： %s", file.getAbsolutePath());
+						//DLog.i("文件删除成功： %s", file.getAbsolutePath());
 					} else {
-						DLog.e("文件删除失败： %s", file.getAbsolutePath());
+						//DLog.e("文件删除失败： %s", file.getAbsolutePath());
 					}
 					return isSuccess;
 				}

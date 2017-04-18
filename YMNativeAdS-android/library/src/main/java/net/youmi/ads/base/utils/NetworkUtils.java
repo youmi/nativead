@@ -32,7 +32,9 @@ public class NetworkUtils {
 			return null;
 		}
 		int count = 0;
-		DLog.i("原始url:%s", rawUrl);
+		if (DLog.isNetLog) {
+			DLog.i("原始url:%s", rawUrl);
+		}
 		String currentUrl = rawUrl;
 		while (count < loopMaxTimes) {
 			HttpURLConnection httpURLConnection = null;
@@ -53,11 +55,15 @@ public class NetworkUtils {
 				case HttpURLConnection.HTTP_SEE_OTHER:  //303
 				case 307:                               //307
 					currentUrl = httpURLConnection.getHeaderField("Location");
-					DLog.i("中途url:%s", currentUrl);
+					if (DLog.isNetLog) {
+						DLog.i("中途url:%s", currentUrl);
+					}
 					break;
 				default:
 					httpURLConnection.disconnect();
-					DLog.i("最终url:%s", currentUrl);
+					if (DLog.isNetLog) {
+						DLog.i("最终url:%s", currentUrl);
+					}
 					return currentUrl;
 				}
 			} catch (Exception e) {
@@ -273,13 +279,17 @@ public class NetworkUtils {
 				case HttpURLConnection.HTTP_SEE_OTHER:  //303
 				case 307:                               //307
 					currentUrl = httpURLConnection.getHeaderField("Location");
-					DLog.i("中途url:%s", currentUrl);
+					if (DLog.isNetLog) {
+						DLog.i("中途url:%s", currentUrl);
+					}
 					break;
 				default:
 					long contentLength = httpURLConnection.getContentLength();
 					httpURLConnection.disconnect();
-					DLog.i("最终url:%s", currentUrl);
-					DLog.i("最终ContentLength:%d", contentLength);
+					if (DLog.isNetLog) {
+						DLog.i("最终url:%s", currentUrl);
+						DLog.i("最终ContentLength:%d", contentLength);
+					}
 					return contentLength;
 				}
 			} catch (Exception e) {

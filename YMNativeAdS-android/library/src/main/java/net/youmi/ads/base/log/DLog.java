@@ -16,6 +16,11 @@ public class DLog {
 	 */
 	public static final boolean isDownloadLog = false;
 	
+	/**
+	 * 是否开启网络相关的log，打包aar时需要设置为false
+	 */
+	public static final boolean isNetLog = false;
+	
 	// ------------------------------------------------------------------
 	
 	private static String sTag = "YoumiSdk";

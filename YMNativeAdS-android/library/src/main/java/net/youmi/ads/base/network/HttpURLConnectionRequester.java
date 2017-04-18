@@ -108,7 +108,9 @@ class HttpURLConnectionRequester extends AbsHttpRequester {
 					}
 					String params = sb.toString().substring(0, sb.length() - 1);
 					String afterURLEncode = URLEncoder.encode(params, "UTF-8");
-					DLog.i("[POST]原始请求参数:%s urlencode后:%s", params, afterURLEncode);
+					if (DLog.isNetLog) {
+						DLog.i("[POST]原始请求参数:%s urlencode后:%s", params, afterURLEncode);
+					}
 					os.write(afterURLEncode.getBytes(mBaseHttpRequesterModel.getEncodingCharset()));
 					os.flush();
 				}

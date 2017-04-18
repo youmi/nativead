@@ -169,7 +169,7 @@ public class BaseHttpResponseModel {
 	
 	@Override
 	public String toString() {
-		try {
+		if (DLog.isNetLog) {
 			final StringBuilder sb = new StringBuilder("BaseHttpResponseModel {\n");
 			sb.append("  mIsFinishResponse=").append(mIsFinishResponse).append("\n");
 			sb.append("  mHttpCode=").append(mHttpCode).append("\n");
@@ -185,8 +185,6 @@ public class BaseHttpResponseModel {
 			sb.append("  mResponseString=").append(mResponseString).append("\n");
 			sb.append('}');
 			return sb.toString();
-		} catch (Exception e) {
-			DLog.e(e);
 		}
 		return super.toString();
 	}

@@ -54,7 +54,9 @@ abstract class AbsHttpRequester {
 	 */
 	public synchronized void request() {
 		
-		DLog.i("======请求信息======\n%s", mBaseHttpRequesterModel.toString());
+		if (DLog.isNetLog) {
+			DLog.i("======请求信息======\n%s", mBaseHttpRequesterModel.toString());
+		}
 		long startTime = System.currentTimeMillis();
 		mBaseHttpResponseModel.setStartRequestTimestamp_ms(startTime);
 		
@@ -64,7 +66,9 @@ abstract class AbsHttpRequester {
 		mBaseHttpResponseModel.setResponseTimestamp_ms(endTime);
 		mBaseHttpResponseModel.setTotalTimes_ms(endTime - startTime);
 		
-		DLog.i("======返回信息======\n%s", mBaseHttpResponseModel.toString());
+		if (DLog.isNetLog) {
+			DLog.i("======返回信息======\n%s", mBaseHttpResponseModel.toString());
+		}
 	}
 	
 	/**

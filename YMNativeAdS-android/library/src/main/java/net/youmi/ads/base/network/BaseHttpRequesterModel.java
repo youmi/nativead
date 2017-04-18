@@ -168,8 +168,7 @@ public class BaseHttpRequesterModel {
 	
 	@Override
 	public String toString() {
-		
-		try {
+		if (DLog.isNetLog) {
 			final StringBuilder sb = new StringBuilder("BaseHttpRequesterModel {\n");
 			sb.append("  mRequestUrl=\"").append(mRequestUrl).append('\"').append("\n");
 			sb.append("  mRequestType=\"").append(mRequestType).append('\"').append("\n");
@@ -182,10 +181,7 @@ public class BaseHttpRequesterModel {
 			sb.append("  getQueryString()=\"").append(getQueryString()).append('\"').append("\n");
 			sb.append('}');
 			return sb.toString();
-		} catch (Exception e) {
-			DLog.e(e);
 		}
-		
 		return super.toString();
 	}
 	
@@ -202,11 +198,14 @@ public class BaseHttpRequesterModel {
 		
 		@Override
 		public String toString() {
-			final StringBuilder sb = new StringBuilder("Header{");
-			sb.append("\n  key='").append(key).append('\'');
-			sb.append("\n  value='").append(value).append('\'');
-			sb.append("\n}");
-			return sb.toString();
+			if (DLog.isNetLog) {
+				final StringBuilder sb = new StringBuilder("Header{");
+				sb.append("\n  key='").append(key).append('\'');
+				sb.append("\n  value='").append(value).append('\'');
+				sb.append("\n}");
+				return sb.toString();
+			}
+			return super.toString();
 		}
 	}
 }

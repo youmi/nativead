@@ -51,7 +51,7 @@ public class BaseThreadFactory implements ThreadFactory {
 		String threadName = null;
 		try {
 			
-			threadName = String.format(Locale.getDefault(), "%s-pool-thread-%d", mPoolName, mThreadCounter.incrementAndGet());
+			threadName = String.format(Locale.getDefault(), "%s-%d", mPoolName, mThreadCounter.incrementAndGet());
 			
 			// 线程所在组，runable，线程名字，stacksize
 			thread = new Thread(mThreadGroup, r, threadName, 0);
