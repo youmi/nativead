@@ -8,7 +8,7 @@ import net.youmi.ads.nativead.YoumiNativeAdHelper;
  * @author zhitao
  * @since 2017-04-14 11:33
  */
-public class MyApplication extends Application {
+public class MainApplication extends Application {
 	
 	@Override
 	public void onCreate() {

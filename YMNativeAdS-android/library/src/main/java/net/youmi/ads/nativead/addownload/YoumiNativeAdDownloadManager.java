@@ -100,7 +100,7 @@ public class YoumiNativeAdDownloadManager extends AbsCachedDownloadManager {
 			return;
 		}
 		FileDownloadTask fileDownloadTask = new FileDownloadTask(adModel.getUrl());
-		fileDownloadTask.setIdentify(adModel.getSlotId() + "-" + adModel.getAdId());
+		fileDownloadTask.setIdentify(adModel.getAdId());
 		fileDownloadTask.setIFileDownloadTask(adModel);
 		stopDownload(fileDownloadTask);
 	}

@@ -78,7 +78,15 @@ public class YoumiNativeAdModel implements IFileDownloadTask {
 	}
 	
 	/**
+	 * 获取广告图标地址
+	 * <ul>
+	 * <li>APP类广告一般会提供APP的ICON图标</li>
+	 * <li>非APP类广告可能会没有提供广告ICON图标</li>
+	 * </ul>
+	 *
 	 * @return 广告图标地址
+	 *
+	 * @see #getAdType()
 	 */
 	public String getAdIconUrl() {
 		return adIconUrl;

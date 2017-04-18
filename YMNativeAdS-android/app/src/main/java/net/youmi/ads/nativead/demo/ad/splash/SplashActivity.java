@@ -1,4 +1,4 @@
-package net.youmi.ads.nativead.demo;
+package net.youmi.ads.nativead.demo.ad.splash;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +23,9 @@ import net.youmi.ads.nativead.addownload.OnYoumiNativeAdDownloadListener;
 import net.youmi.ads.nativead.adrequest.OnYoumiNativeAdRequestListener;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdModel;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdResposeModel;
+import net.youmi.ads.nativead.demo.BuildConfig;
+import net.youmi.ads.nativead.demo.MainActivity;
+import net.youmi.ads.nativead.demo.R;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -33,7 +37,7 @@ import java.util.Locale;
  * @author zhitao
  * @since 2017-04-14 10:32
  */
-public class SplashActivity extends BaseActivity implements View.OnClickListener, OnYoumiNativeAdDownloadListener {
+public class SplashActivity extends AppCompatActivity implements View.OnClickListener, OnYoumiNativeAdDownloadListener {
 	
 	private final static int MSG_START_MAIN_ACTIVITY = 1;
 	
@@ -75,7 +79,6 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
 				break;
 			}
 		}
-		
 	}
 	
 	@Override
@@ -275,6 +278,7 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
 				
 				// 直接加载第一张图片
 				// 实际使用时，可根据具体要求进行处理
+				// 比如：有多张图片返回时，采用合适分辨率的图片，而不是第一张
 				Glide.with(activity).load(pic.getUrl()).listener(new RequestListener<String, GlideDrawable>() {
 					@Override
 					public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean

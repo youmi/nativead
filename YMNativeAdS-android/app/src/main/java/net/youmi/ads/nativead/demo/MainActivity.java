@@ -1,15 +1,38 @@
 package net.youmi.ads.nativead.demo;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 
+import net.youmi.ads.nativead.demo.ad.BasePagerAdapter;
+import net.youmi.ads.nativead.demo.ad.banner.AdBannerFragment;
+import net.youmi.ads.nativead.demo.ad.infoflow.AdInfoFlowFragment;
+import net.youmi.ads.nativead.demo.ad.large.AdLargeFragment;
+import net.youmi.ads.nativead.demo.ad.rectangle.AdRectangleFragment;
+
+import java.util.ArrayList;
+
+/**
+ * @author zhitao
+ * @since 2017-04-18 11:54
+ */
 public class MainActivity extends AppCompatActivity {
+	
+	AdBannerFragment mAdBannerFragment;
+	
+	AdLargeFragment mAdLargeFragment;
+	
+	AdRectangleFragment mAdRectangleFragment;
+	
+	AdInfoFlowFragment mAdInfoFlowFragment;
+	
+	BasePagerAdapter mViewPagerAdapter;
+	
+	TabLayout mTabLayout;
+	
+	ViewPager mViewpager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -18,47 +41,22 @@ public class MainActivity extends AppCompatActivity {
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 		
-		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-		fab.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-			}
-		});
+		mViewpager = (ViewPager) findViewById(R.id.viewpager);
+		mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
 		
-		//		// 发起一个广告请求
-		//		YoumiNativeAdResposeModel model =
-		//				YoumiNativeAdHelper.newAdRequest(this).withAppId(BuildConfig.APPID).withSlotId("7906").request();
-		//
-		//		// 对指定的广告，发起曝光效果记录请求
-		//		YoumiNativeAdModel adModel = null;
-		//		YoumiNativeAdHelper.newAdEffRequest(this).withYoumiNativeAdModel(adModel).asyncSendShowEff();
-		//
-		// 对指定的广告，发起点击效果记录请求
-		//		YoumiNativeAdModel adModel = null;
-		//		YoumiNativeAdHelper.newAdEffRequest(this).withYoumiNativeAdModel(adModel).asyncSendClickeff();
+		mAdBannerFragment = new AdBannerFragment();
+		mAdLargeFragment = new AdLargeFragment();
+		mAdRectangleFragment = new AdRectangleFragment();
+		mAdInfoFlowFragment = new AdInfoFlowFragment();
+		ArrayList<BasePagerAdapter.FragmentModel> mLists = new ArrayList<>();
+		mLists.add(new BasePagerAdapter.FragmentModel("横幅", mAdBannerFragment));
+		mLists.add(new BasePagerAdapter.FragmentModel("大图", mAdLargeFragment));
+		mLists.add(new BasePagerAdapter.FragmentModel("方图", mAdRectangleFragment));
+		mLists.add(new BasePagerAdapter.FragmentModel("信息流", mAdInfoFlowFragment));
 		
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.menu_main, menu);
-		return true;
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		
-		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		
-		return super.onOptionsItemSelected(item);
+		mViewPagerAdapter = new BasePagerAdapter(getSupportFragmentManager(), mLists);
+		mViewpager.setAdapter(mViewPagerAdapter);
+		mViewpager.setCurrentItem(0);
+		mTabLayout.setupWithViewPager(mViewpager);
 	}
 }
