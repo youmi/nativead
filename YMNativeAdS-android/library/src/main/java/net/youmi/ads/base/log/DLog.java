@@ -11,7 +11,12 @@ import java.util.Locale;
  */
 public class DLog {
 	
-	public static boolean isDownloadLog = true;
+	/**
+	 * 是否开启下载相关的log，打包aar时需要设置为false
+	 */
+	public static final boolean isDownloadLog = false;
+	
+	// ------------------------------------------------------------------
 	
 	private static String sTag = "YoumiSdk";
 	

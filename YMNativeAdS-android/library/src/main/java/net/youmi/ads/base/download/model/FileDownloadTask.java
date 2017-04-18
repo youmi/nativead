@@ -3,6 +3,7 @@ package net.youmi.ads.base.download.model;
 import android.text.TextUtils;
 
 import net.youmi.ads.base.hash.MD5;
+import net.youmi.ads.base.log.DLog;
 
 import java.io.File;
 
@@ -249,17 +250,20 @@ public final class FileDownloadTask {
 	
 	@Override
 	public String toString() {
-		final StringBuilder sb = new StringBuilder("FileDownloadTask{");
-		sb.append("\n  mRawDownloadUrl='").append(mRawDownloadUrl).append('\'');
-		sb.append("\n  mDestDownloadUrl='").append(mDestDownloadUrl).append('\'');
-		sb.append("\n  mTempFile=").append(mTempFile);
-		sb.append("\n  mStoreFile=").append(mStoreFile);
-		sb.append("\n  mDownloadFileMd5sum='").append(mDownloadFileMd5sum).append('\'');
-		sb.append("\n  mTotalLength=").append(mTotalLength);
-		sb.append("\n  mIntervalTime_ms=").append(mIntervalTime_ms);
-		sb.append("\n  mIFileDownloadTask=").append(mIFileDownloadTask);
-		sb.append("\n  mIdentify='").append(mIdentify).append('\'');
-		sb.append("\n}");
-		return sb.toString();
+		if (DLog.isDownloadLog) {
+			final StringBuilder sb = new StringBuilder("FileDownloadTask{");
+			sb.append("\n  mRawDownloadUrl='").append(mRawDownloadUrl).append('\'');
+			sb.append("\n  mDestDownloadUrl='").append(mDestDownloadUrl).append('\'');
+			sb.append("\n  mTempFile=").append(mTempFile);
+			sb.append("\n  mStoreFile=").append(mStoreFile);
+			sb.append("\n  mDownloadFileMd5sum='").append(mDownloadFileMd5sum).append('\'');
+			sb.append("\n  mTotalLength=").append(mTotalLength);
+			sb.append("\n  mIntervalTime_ms=").append(mIntervalTime_ms);
+			sb.append("\n  mIFileDownloadTask=").append(mIFileDownloadTask);
+			sb.append("\n  mIdentify='").append(mIdentify).append('\'');
+			sb.append("\n}");
+			return sb.toString();
+		}
+		return super.toString();
 	}
 }

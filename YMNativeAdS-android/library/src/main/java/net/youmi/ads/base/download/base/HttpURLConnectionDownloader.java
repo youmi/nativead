@@ -23,8 +23,6 @@ import java.net.UnknownHostException;
  */
 public class HttpURLConnectionDownloader implements IDownloader {
 	
-	private final static boolean IS_SHOW_DOWNLOAD_LOG = true;
-	
 	/**
 	 * 每次读入网络流写入到文件的长度(字节)
 	 */
@@ -135,7 +133,7 @@ public class HttpURLConnectionDownloader implements IDownloader {
 			// 文件最终的长度= 当前文件长度 + 本次下载长度
 			mDownloadFileFinalLength = start + contentLength;
 			
-			if (IS_SHOW_DOWNLOAD_LOG) {
+			if (DLog.isDownloadLog) {
 				StringBuilder sb = new StringBuilder(256);
 				sb.append("本次下载信息:");
 				sb.append("\n * 原始下载url:").append(mFileDownloadTask.getRawDownloadUrl());
@@ -180,7 +178,7 @@ public class HttpURLConnectionDownloader implements IDownloader {
 			if (mIsRunning) {
 				return new DownloadStatus(DownloadStatus.Code.EXCEPTION_DOWNLOADFLIE_CHANGE);
 			} else {
-				if (IS_SHOW_DOWNLOAD_LOG) {
+				if (DLog.isDownloadLog) {
 					StringBuilder sb = new StringBuilder(256);
 					sb.append("下载被停止:");
 					sb.append("\n * 原始下载url:").append(mFileDownloadTask.getRawDownloadUrl());

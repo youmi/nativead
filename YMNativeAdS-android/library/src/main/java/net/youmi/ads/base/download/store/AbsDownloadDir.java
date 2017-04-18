@@ -176,7 +176,9 @@ public abstract class AbsDownloadDir {
 			
 			// 使用链接将文件进行排序，文件比较旧的排在前面，如果超过目录缓存的总大小，删除排在前面的文件。
 			Iterator<File> iterator = fileList.iterator();
-			DLog.i("准备删除旧的但未过时的文件");
+			if (DLog.isDownloadLog) {
+				DLog.i("准备删除旧的但未过时的文件");
+			}
 			
 			int a = 10000;
 			// 如果剩余文件长度大于限制长度，就需要不断循环删除

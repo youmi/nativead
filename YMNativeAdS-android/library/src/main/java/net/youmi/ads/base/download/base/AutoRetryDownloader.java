@@ -93,14 +93,18 @@ public class AutoRetryDownloader implements IDownloader {
 			int mRunCounter = 0;
 			while (mIsRunning) {
 				++mRunCounter;
-				DLog.i("===第[%d]次下载===", mRunCounter);
+				if (DLog.isDownloadLog) {
+					DLog.i("===第[%d]次下载===", mRunCounter);
+				}
 				
 				// 从第二次可重试下载开始，要检查一下网络情况
 				if (mRunCounter >= 2) {
 					
 					if (!NetworkUtils.isNetworkAvailable(mApplicationContext)) {
 						
-						DLog.i("当前网络不可用，等待[%d]毫秒后再次检查网络状态", mRetryIntervalTime_ms);
+						if (DLog.isDownloadLog) {
+							DLog.i("当前网络不可用，等待[%d]毫秒后再次检查网络状态", mRetryIntervalTime_ms);
+						}
 						try {
 							Thread.sleep(mRetryIntervalTime_ms);
 						} catch (Throwable e) {
@@ -113,11 +117,15 @@ public class AutoRetryDownloader implements IDownloader {
 							
 							// 如果网络还是不行，则判断是否是否已经达到重试上限
 							if (mRunCounter >= mMaxRetryTimes) {
-								DLog.e("当前网络不可用，重试次数已经达到上限[%d]，结束下载", mMaxRetryTimes);
+								if (DLog.isDownloadLog) {
+									DLog.e("当前网络不可用，重试次数已经达到上限[%d]，结束下载", mMaxRetryTimes);
+								}
 								// 由于网络不成功导致的重试，达到最大限定次数后取消，同时标记为下载失败
 								return new DownloadStatus(DownloadStatus.Code.ERROR_REACH_MAX_DOWNLOAD_TIMES);
 							}
-							DLog.i("当前网络不可用");
+							if (DLog.isDownloadLog) {
+								DLog.i("当前网络不可用");
+							}
 							
 							// 如果还没有达最大次数就进行下一次循环
 							continue;
@@ -139,17 +147,23 @@ public class AutoRetryDownloader implements IDownloader {
 				} else if (finalDownloadStatus.getDownloadStatusCode() >= 150 &&
 				           finalDownloadStatus.getDownloadStatusCode() <= 199) {
 					// 不可重试的下载失败类型
-					DLog.e("不可重试下载失败\n%s", finalDownloadStatus.toString());
+					if (DLog.isDownloadLog) {
+						DLog.e("不可重试下载失败\n%s", finalDownloadStatus.toString());
+					}
 					return finalDownloadStatus;
 					
 				} else if (finalDownloadStatus.getDownloadStatusCode() >= 100 &&
 				           finalDownloadStatus.getDownloadStatusCode() <= 149) {
 					// 可重试的下载失败类型
-					DLog.e("可重试下载失败\n%s", finalDownloadStatus.toString());
+					if (DLog.isDownloadLog) {
+						DLog.e("可重试下载失败\n%s", finalDownloadStatus.toString());
+					}
 					
 					// 如果网络还是不行，则判断是否是否已经达到重试上限
 					if (mRunCounter >= mMaxRetryTimes) {
-						DLog.e("下载失败，属于不可重试类型失败，重试次数已经达到上限[%d]，结束下载", mMaxRetryTimes);
+						if (DLog.isDownloadLog) {
+							DLog.e("下载失败，属于不可重试类型失败，重试次数已经达到上限[%d]，结束下载", mMaxRetryTimes);
+						}
 						return finalDownloadStatus;
 					}
 				}
