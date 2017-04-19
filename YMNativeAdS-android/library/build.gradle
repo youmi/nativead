@@ -10,14 +10,14 @@ ext {
 	publishedGroupId = 'net.youmi.ads'          // 项目组ID(e.g 包名为io.github.zhitaocai.toastcompat, 那么这里就是io.github.zhitaocai)
 	artifact = 'nativead'                       // 项目ID  (e.g 包名为io.github.zhitaocai.toastcompat, 那么这里就是toastcompat)
 	libraryVersionName = '1.0.0'                // 对应的versionname
-	libraryVersionCode = 1
+	libraryVersionCode = 1                      // 对饮的versioncode
 
 	libDesc = 'an library for Youmi Native ADS\' API'
 	libraryVersionDesc = libDesc
 	repoTag = libraryVersionName
 	gitRepo = 'youmi/nativead'
 	siteUrl = 'https://github.com/youmi/nativead'
-	gitUrl = 'https://github.com/youmi/nativead'
+	gitUrl = 'https://github.com/youmi/nativead.git'
 	issueUrl = 'https://github.com/youmi/nativead/issues'
 
 	isPackageResources = false                  // 是否打包资源文件进去，是的话，就需要打包R.class

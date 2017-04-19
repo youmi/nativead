@@ -23,9 +23,9 @@ allprojects {
 		jcenter()
 
 		// for test
-		//	maven {
-		//		url 'https://dl.bintray.com/youmiandroid/maven'
-		//	}
+//		maven {
+//			url 'https://dl.bintray.com/youmipbg/android'
+//		}
 	}
 }
 

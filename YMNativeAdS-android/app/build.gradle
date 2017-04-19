@@ -73,7 +73,7 @@ dependencies {
 	// compile(name: 'nativead-release-1.0.0', ext: 'aar')
 
 	// 依赖线上aar
-	// compile 'net.youmi.android:nativead:1.0.0@aar'
+	// compile 'net.youmi.ads:nativead:1.0.0@aar'
 }
 
 // 依赖本地aar时开启注释(测试用)
