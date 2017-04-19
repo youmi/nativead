@@ -153,6 +153,9 @@ public class YoumiNativeAdEffBuilder {
 					headers.add(new BaseHttpRequesterModel.Header("Authorization", "Bearer " + appId));
 					
 					BaseHttpResponseModel resp = YoumiHttpRequester.httpGet(context.getApplicationContext(), url, headers);
+					if (resp == null) {
+						break;
+					}
 					if (resp.getHttpCode() >= 200 && resp.getHttpCode() < 300) {
 						break;
 					}
