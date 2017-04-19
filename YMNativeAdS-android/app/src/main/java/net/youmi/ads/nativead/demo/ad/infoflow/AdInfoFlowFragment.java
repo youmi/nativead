@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import net.youmi.ads.base.log.DLog;
 import net.youmi.ads.nativead.YoumiNativeAdHelper;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdModel;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdResposeModel;
@@ -18,8 +19,10 @@ import net.youmi.ads.nativead.demo.BuildConfig;
 import net.youmi.ads.nativead.demo.R;
 import net.youmi.ads.nativead.demo.ad.BaseFragment;
 import net.youmi.ads.nativead.demo.ad.SlotIdConfig;
+import net.youmi.ads.nativead.demo.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * @author zhitao
@@ -59,23 +62,42 @@ public class AdInfoFlowFragment extends BaseFragment
 	
 	@Override
 	public void onItemClick(int position) {
-		
-		Toast.makeText(AdInfoFlowFragment.this.getActivity(), "click position " + position, Toast.LENGTH_SHORT).show();
-		
 		AdInfoFlowModel model = mAdapter.getItem(position);
+		if (model.getAdModel() == null) {
+			return;
+		}
 		if (model.getType() == AdInfoFlowModel.TYPE_AD_BANNER || model.getType() == AdInfoFlowModel.TYPE_AD_LARGE ||
 		    model.getType() == AdInfoFlowModel.TYPE_AD_RECTANGLE) {
-			
-			// 异步发送点击记录
-			YoumiNativeAdHelper.newAdEffRequest(this.getActivity())
-			                   .withAppId(BuildConfig.APPID)
-			                   .withYoumiNativeAdModel(model.getAdModel())
-			                   .asyncSendClickEff();
 			
 			// 可以进入自定义的详情页，也可以直接下载
 			// 如果是应用广告，这里演示为直接下载
 			if (model.getAdModel().getAdType() == 0) {
 				YoumiNativeAdHelper.download(this.getActivity(), model.getAdModel());
+			}
+			
+			// 点击了图片之后需要发送点击记录
+			YoumiNativeAdHelper.newAdEffRequest(getActivity())
+			                   .withAppId(BuildConfig.APPID)
+			                   .withYoumiNativeAdModel(model.getAdModel())
+			                   .asyncSendClickEff();
+			
+			Toast.makeText(
+					getActivity(),
+					String.format(Locale.getDefault(), "发送广告位 %s 的点击记录", model.getAdModel().getSlotId()),
+					Toast.LENGTH_SHORT
+			).show();
+			
+			// 如果为app广告类型
+			// 可以进入自定义的详情页，也可以直接下载
+			if (model.getAdModel().getAdType() == 0) {
+				YoumiNativeAdHelper.download(getActivity(), model.getAdModel());
+			}
+			
+			// 如果为wap广告类型
+			// 可以打开外部浏览器或者采用内部浏览器（Webview）加载
+			// 这里演示为打开外部浏览器
+			else if (model.getAdModel().getAdType() == 1) {
+				Utils.startActivity2OpenUrl(getActivity(), model.getAdModel().getUrl());
 			}
 		}
 	}
@@ -118,23 +140,27 @@ public class AdInfoFlowFragment extends BaseFragment
 				models.add(new AdInfoFlowModel(AdInfoFlowModel.TYPE_NORMAL));
 			}
 			
-			// 在最后插入banner
+			// 在最后插入横幅广告
+			DLog.i("请求横幅广告");
 			YoumiNativeAdModel adBanner = getYoumiNativeAdModel(SlotIdConfig.BANNER_SLOIID);
 			if (adBanner != null) {
 				models.add(15, new AdInfoFlowModel(AdInfoFlowModel.TYPE_AD_BANNER, adBanner));
 			}
 			
 			// 在中间插入方图广告
+			DLog.i("请求方图广告");
 			YoumiNativeAdModel adRectangle = getYoumiNativeAdModel(SlotIdConfig.RECTANGLE_SLOIID);
 			if (adRectangle != null) {
 				models.add(10, new AdInfoFlowModel(AdInfoFlowModel.TYPE_AD_RECTANGLE, adRectangle));
 			}
 			
-			// 在开头插入大图广告
+			// 在前面插入大图广告
+			DLog.i("请求大图广告");
 			YoumiNativeAdModel adLarge = getYoumiNativeAdModel(SlotIdConfig.LARGE_SLOIID);
 			if (adLarge != null) {
 				models.add(5, new AdInfoFlowModel(AdInfoFlowModel.TYPE_AD_LARGE, adLarge));
 			}
+			DLog.i("请求结束");
 			return models;
 		}
 		
@@ -158,8 +184,9 @@ public class AdInfoFlowFragment extends BaseFragment
 			if (adModels == null || adModels.isEmpty()) {
 				return null;
 			}
-			//  这里演示为：只取第一个对象，实际逻辑可由根据业务优化
+			// 暂时只要第一个广告
 			return adModels.get(0);
 		}
+		
 	}
 }

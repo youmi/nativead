@@ -27,6 +27,7 @@ import net.youmi.ads.nativead.demo.BuildConfig;
 import net.youmi.ads.nativead.demo.MainActivity;
 import net.youmi.ads.nativead.demo.R;
 import net.youmi.ads.nativead.demo.ad.SlotIdConfig;
+import net.youmi.ads.nativead.demo.utils.Utils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -161,8 +162,18 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 					Toast.LENGTH_SHORT
 			).show();
 			
+			// 如果为app广告类型
 			// 可以进入自定义的详情页，也可以直接下载
-			YoumiNativeAdHelper.download(this, mYoumiNativeAdModel);
+			if (mYoumiNativeAdModel.getAdType() == 0) {
+				YoumiNativeAdHelper.download(this, mYoumiNativeAdModel);
+			}
+			
+			// 如果为wap广告类型
+			// 可以打开外部浏览器或者采用内部浏览器（Webview）加载
+			// 这里演示为打开外部浏览器
+			else if (mYoumiNativeAdModel.getAdType() == 1) {
+				Utils.startActivity2OpenUrlWithChooser(this.getApplicationContext(), mYoumiNativeAdModel.getUrl());
+			}
 			break;
 		default:
 			break;
@@ -342,7 +353,5 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 				}).into(activity.mImageView);
 			}
 		}
-		
 	}
-	
 }

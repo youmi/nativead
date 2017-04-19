@@ -38,7 +38,7 @@ YoumiNativeAdHelper
 	// （必须）设置请求广告位Id
 	.withSlotId(String slotId)
 	
-	// （可选）设置请求广告数量，默认为1
+	// （可选）设置请求广告数量，默认为1，当前只返回1个广告
 	.withRequestCount(int adCount)
 	
 	// （可选）设置性别（M：男性; F：女性）

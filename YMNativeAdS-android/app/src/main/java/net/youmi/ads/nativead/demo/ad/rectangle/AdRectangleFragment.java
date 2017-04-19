@@ -22,6 +22,7 @@ import net.youmi.ads.nativead.demo.BuildConfig;
 import net.youmi.ads.nativead.demo.R;
 import net.youmi.ads.nativead.demo.ad.BaseFragment;
 import net.youmi.ads.nativead.demo.ad.SlotIdConfig;
+import net.youmi.ads.nativead.demo.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -78,8 +79,18 @@ public class AdRectangleFragment extends BaseFragment implements View.OnClickLis
 				Toast.LENGTH_SHORT
 		).show();
 		
+		// 如果为app广告类型
 		// 可以进入自定义的详情页，也可以直接下载
-		YoumiNativeAdHelper.download(getActivity(), mYoumiNativeAdModel);
+		if (mYoumiNativeAdModel.getAdType() == 0) {
+			YoumiNativeAdHelper.download(getActivity(), mYoumiNativeAdModel);
+		}
+		
+		// 如果为wap广告类型
+		// 可以打开外部浏览器或者采用内部浏览器（Webview）加载
+		// 这里演示为打开外部浏览器
+		else if (mYoumiNativeAdModel.getAdType() == 1) {
+			Utils.startActivity2OpenUrlWithChooser(getActivity(), mYoumiNativeAdModel.getUrl());
+		}
 	}
 	
 	@Override
