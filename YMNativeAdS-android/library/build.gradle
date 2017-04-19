@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 ext {
 	releaseNoteFile = 'YMNativeAdS-android/ChangeLog.md'            // 相对路径，填仓库下该文件地址即可
-	libraryName = 'YoumiNativeAd'               // bintray项目名字以及aar的名字，确定好了就不要在修改了
+	libraryName = 'YoumiNativeAdS'               // bintray项目名字以及aar的名字，确定好了就不要在修改了
 	libLabels = ['android', 'youmi', 'ad']      // bintray项目的标签
 
 	//compile 'publishedGroupId:artifact:libraryVersionName'
@@ -12,7 +12,7 @@ ext {
 	libraryVersionName = '1.0.0'                // 对应的versionname
 	libraryVersionCode = 1
 
-	libDesc = 'an library for Youmi Native AdS\' API'
+	libDesc = 'an library for Youmi Native ADS\' API'
 	libraryVersionDesc = libDesc
 	repoTag = libraryVersionName
 	gitRepo = 'youmi/nativead'

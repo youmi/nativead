@@ -102,7 +102,7 @@ public class YoumiNativeAdEffBuilder {
 		GlobalCacheExecutor.execute(new Runnable() {
 			@Override
 			public void run() {
-				asyncSendClickEff();
+				syncSendClickEff();
 			}
 		});
 	}
@@ -120,7 +120,7 @@ public class YoumiNativeAdEffBuilder {
 	/**
 	 * [同步]发送点击记录效果
 	 */
-	public void syncSendClickeff() {
+	public void syncSendClickEff() {
 		if (applicationContext == null || adModel == null || adModel.getClickUrls() == null) {
 			return;
 		}
