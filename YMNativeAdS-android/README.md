@@ -22,6 +22,10 @@
 
 ### 2.1 下载并导入sdk
 
+``` gradle
+compile 'net.youmi.ads:nativead:1.0.0@aar'
+```
+
 ### 2.2 快速使用
 
 #### 2.2.1 发起一个广告位请求
