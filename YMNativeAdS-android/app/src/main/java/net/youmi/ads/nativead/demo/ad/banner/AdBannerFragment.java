@@ -13,6 +13,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 
+import net.youmi.ads.base.utils.PackageUtils;
 import net.youmi.ads.nativead.YoumiNativeAdHelper;
 import net.youmi.ads.nativead.adrequest.OnYoumiNativeAdRequestListener;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdModel;
@@ -84,7 +85,35 @@ public class AdBannerFragment extends BaseFragment implements View.OnClickListen
 		// 如果为app广告类型
 		// 可以进入自定义的详情页，也可以直接下载
 		if (mYoumiNativeAdModel.getAdType() == 0) {
-			YoumiNativeAdHelper.download(getActivity(), mYoumiNativeAdModel);
+			
+			if (!PackageUtils.isPakcageInstall(getActivity(), mYoumiNativeAdModel.getAppModel().getPackageName())) {
+				
+				// 如果广告还没有安装的话，就创建一个广告下载任务
+				YoumiNativeAdHelper.newAdDownload(getActivity())
+				
+				                   // （必须）指定下载的广告
+				                   .withYoumiNativeAdModel(mYoumiNativeAdModel)
+				
+				                   // （可选）是否显示下载过程中的通知栏提示（默认为true：显示）
+				                   .showDownloadNotification(true)
+				
+				                   // （可选）下载成功后是否打开安装界面（默认为false：不打开）
+				                   .installApkAfterDownloadSuccess(true)
+				
+				                   // （可选）安装成功后是否打开应用（默认为false：不打开）
+				                   .startAppAfterInstalled(true)
+				
+				                   // （可选）安装成功后是否删除对应的APK文件（默认为true：立即删除）
+				                   // 此方法需要设置安装成功后打开广告应用的方法才生效，即调用了 startAppAfterInstalled(true) 才生效
+				                   .deleteApkAfterInstalled(true)
+				
+				                   // 开始下载
+				                   .download();
+			} else {
+				
+				// 如果广告已经安装的话就直接打开
+				YoumiNativeAdHelper.openApp(getActivity(), mYoumiNativeAdModel);
+			}
 		}
 		
 		// 如果为wap广告类型

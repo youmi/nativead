@@ -4,7 +4,9 @@ import android.content.Context;
 
 import net.youmi.ads.nativead.adconfig.YoumiNativeAdConfigBuilder;
 import net.youmi.ads.nativead.addownload.OnYoumiNativeAdDownloadListener;
+import net.youmi.ads.nativead.addownload.YoumiNativeAdDownloadBuilder;
 import net.youmi.ads.nativead.addownload.YoumiNativeAdDownloadManager;
+import net.youmi.ads.nativead.adinstall.AdInstallUtils;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdModel;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdRequesterBuilder;
 import net.youmi.ads.nativead.effrequest.YoumiNativeAdEffBuilder;
@@ -47,13 +49,34 @@ public class YoumiNativeAdHelper {
 	}
 	
 	/**
-	 * 下载广告
+	 * 创建一个广告下载任务
 	 *
-	 * @param context 上下文
-	 * @param adModel 要下载的广告对象
+	 * @param context 上下文，会自动取ApplicationContext
+	 *
+	 * @return 广告下载任务对象
 	 */
-	public static void download(Context context, YoumiNativeAdModel adModel) {
-		YoumiNativeAdDownloadManager.getInstance().download(context.getApplicationContext(), adModel);
+	public static YoumiNativeAdDownloadBuilder newAdDownload(Context context) {
+		return new YoumiNativeAdDownloadBuilder(context.getApplicationContext());
+	}
+	
+	/**
+	 * 打开APP类型的广告
+	 *
+	 * @param context 上下文，会自动取ApplicationContext
+	 * @param adModel 要打开的广告
+	 */
+	public static void openApp(Context context, YoumiNativeAdModel adModel) {
+		Context applicationContext = context.getApplicationContext();
+		if (adModel == null) {
+			return;
+		}
+		
+		if (adModel.getAdType() != 0) {
+			return;
+		}
+		
+		AdInstallUtils.startAd(applicationContext, adModel.getAppModel().getPackageName(), adModel.getUri());
+		
 	}
 	
 	/**

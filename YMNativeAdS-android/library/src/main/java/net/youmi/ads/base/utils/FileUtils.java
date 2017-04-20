@@ -82,6 +82,17 @@ public class FileUtils {
 	/**
 	 * 删除文件/目录
 	 *
+	 * @param fileAbsPath 待删除文件/目录绝对路径
+	 *
+	 * @return true： 删除成功； false： 删除失败
+	 */
+	public static boolean delete(String fileAbsPath) {
+		return delete(new File(fileAbsPath));
+	}
+	
+	/**
+	 * 删除文件/目录
+	 *
 	 * @param file 待删除文件/目录
 	 *
 	 * @return true： 删除成功； false： 删除失败

@@ -3,7 +3,6 @@ package net.youmi.ads.nativead.addownload;
 import net.youmi.ads.base.download.base.DownloadStatus;
 import net.youmi.ads.base.download.listener.OnDownloadListener;
 import net.youmi.ads.base.download.model.FileDownloadTask;
-import net.youmi.ads.base.download.model.IFileDownloadTask;
 import net.youmi.ads.base.log.DLog;
 import net.youmi.ads.base.template.TListenerManager;
 import net.youmi.ads.base.utils.UIHandler;
@@ -23,11 +22,13 @@ class OnYoumiNativeAdDownloadListenerTransform extends TListenerManager<OnYoumiN
 			if (fileDownloadTask == null) {
 				return null;
 			}
-			IFileDownloadTask iFileDownloadTask = fileDownloadTask.getIFileDownloadTask();
-			if (iFileDownloadTask == null || !(iFileDownloadTask instanceof YoumiNativeAdModel)) {
+			
+			if (fileDownloadTask.getIFileDownloadTaskSparseArray() == null) {
 				return null;
 			}
-			return (YoumiNativeAdModel) iFileDownloadTask;
+			
+			return (YoumiNativeAdModel) fileDownloadTask.getIFileDownloadTaskSparseArray()
+			                                            .get(YoumiNativeAdModel.class.hashCode());
 		} catch (Throwable e) {
 			DLog.e(e);
 			return null;
