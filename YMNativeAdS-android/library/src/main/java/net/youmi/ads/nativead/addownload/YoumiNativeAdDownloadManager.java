@@ -82,11 +82,9 @@ public class YoumiNativeAdDownloadManager extends AbsCachedDownloadManager {
 		FileDownloadTask fileDownloadTask = new FileDownloadTask(adModel.getUrl());
 		fileDownloadTask.addIFileDownloadTask(YoumiNativeAdModel.class.hashCode(), adModel);
 		fileDownloadTask.addIFileDownloadTask(DownloadTaskConfig.class.hashCode(), downloadTaskConfig);
-		if (downloadTaskConfig.isShowDefaultNotification()) {
-			if (mPublisher == null) {
-				mPublisher = new DefaultDownloadListener(context.getApplicationContext());
-				addOnDownloadListener(mPublisher);
-			}
+		if (mPublisher == null) {
+			mPublisher = new DefaultDownloadListener(context.getApplicationContext());
+			addOnDownloadListener(mPublisher);
 		}
 		
 		return download(context.getApplicationContext(), fileDownloadTask);
