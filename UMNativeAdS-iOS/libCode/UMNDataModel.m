@@ -58,7 +58,7 @@
             
             if (ynOpen) {
                 self.showTrack = [[dic objectForKey:@"track"] objectForKey:@"show"];
-                self.clickTrack = [[dic objectForKey:@"track"] objectForKey:@"clk"];
+                self.clickTrack = [[dic objectForKey:@"track"] objectForKey:@"click"];
             }
         }
     }
