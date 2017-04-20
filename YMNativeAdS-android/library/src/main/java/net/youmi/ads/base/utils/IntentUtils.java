@@ -1,8 +1,11 @@
 package net.youmi.ads.base.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.pm.ProviderInfo;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.text.TextUtils;
@@ -11,6 +14,7 @@ import net.youmi.ads.base.log.DLog;
 
 import java.io.File;
 import java.lang.reflect.Method;
+import java.util.List;
 
 /**
  * @author zhitao
@@ -82,6 +86,71 @@ public class IntentUtils {
 			DLog.e(e);
 		}
 		return null;
+	}
+	
+	/**
+	 * 从uri中解析出Intent
+	 *
+	 * @param context 上下文
+	 * @param uri     uri
+	 * @param flags   intentFlags
+	 *
+	 * @return Intent
+	 */
+	public static Intent getIntentFromUri(Context context, String uri, int flags) {
+		try {
+			Intent intent = Intent.parseUri(uri, flags);
+			if (intent == null) {
+				return null;
+			}
+			List<ResolveInfo> list = context.getPackageManager().queryIntentActivities(intent, 0);
+			if (list == null || list.isEmpty()) {
+				return null;
+			}
+			if (!(context instanceof Activity)) {
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			}
+			return intent;
+		} catch (Throwable e) {
+			DLog.e(e);
+		}
+		return null;
+	}
+	
+	/**
+	 * 从uri中解析出Intent
+	 *
+	 * @param context 上下文
+	 * @param uri     uri
+	 *
+	 * @return Intent
+	 */
+	public static Intent getIntentFromUri(Context context, String uri) {
+		return getIntentFromUri(context, uri, 0);
+	}
+	
+	public static boolean startActivity(Context context, String packageName) {
+		return startActivity(context, packageName, 0);
+	}
+	
+	public static boolean startActivity(Context context, String packageName, int flags) {
+		try {
+			PackageManager pm = context.getPackageManager();
+			if (pm != null) {
+				Intent intent = pm.getLaunchIntentForPackage(packageName);
+				if (intent != null) {
+					if (!(context instanceof Activity)) {
+						intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					}
+					intent.addFlags(flags);
+					context.startActivity(intent);
+					return true;
+				}
+			}
+		} catch (Throwable e) {
+			DLog.e(e);
+		}
+		return false;
 	}
 	
 }

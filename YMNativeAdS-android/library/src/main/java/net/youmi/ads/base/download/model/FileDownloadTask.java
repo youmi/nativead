@@ -1,6 +1,7 @@
 package net.youmi.ads.base.download.model;
 
 import android.text.TextUtils;
+import android.util.SparseArray;
 
 import net.youmi.ads.base.hash.MD5;
 import net.youmi.ads.base.log.DLog;
@@ -65,7 +66,7 @@ public final class FileDownloadTask {
 	/**
 	 * 额外业务对象的存储模型
 	 */
-	private IFileDownloadTask mIFileDownloadTask;
+	private SparseArray<IFileDownloadTask> mIFileDownloadTaskSparseArray;
 	
 	private String mIdentify = null;
 	
@@ -135,12 +136,19 @@ public final class FileDownloadTask {
 		return true;
 	}
 	
-	public IFileDownloadTask getIFileDownloadTask() {
-		return mIFileDownloadTask;
+	public SparseArray<IFileDownloadTask> getIFileDownloadTaskSparseArray() {
+		return mIFileDownloadTaskSparseArray;
 	}
 	
-	public void setIFileDownloadTask(IFileDownloadTask IFileDownloadTask) {
-		mIFileDownloadTask = IFileDownloadTask;
+	public void setIFileDownloadTaskSparseArray(SparseArray<IFileDownloadTask> IFileDownloadTaskSparseArray) {
+		mIFileDownloadTaskSparseArray = IFileDownloadTaskSparseArray;
+	}
+	
+	public void addIFileDownloadTask(int key, IFileDownloadTask iFileDownloadTask) {
+		if (mIFileDownloadTaskSparseArray == null) {
+			mIFileDownloadTaskSparseArray = new SparseArray<>();
+		}
+		mIFileDownloadTaskSparseArray.put(key, iFileDownloadTask);
 	}
 	
 	/**
@@ -259,7 +267,7 @@ public final class FileDownloadTask {
 			sb.append("\n  mDownloadFileMd5sum='").append(mDownloadFileMd5sum).append('\'');
 			sb.append("\n  mTotalLength=").append(mTotalLength);
 			sb.append("\n  mIntervalTime_ms=").append(mIntervalTime_ms);
-			sb.append("\n  mIFileDownloadTask=").append(mIFileDownloadTask);
+			sb.append("\n  mIFileDownloadTaskSparseArray=").append(mIFileDownloadTaskSparseArray);
 			sb.append("\n  mIdentify='").append(mIdentify).append('\'');
 			sb.append("\n}");
 			return sb.toString();

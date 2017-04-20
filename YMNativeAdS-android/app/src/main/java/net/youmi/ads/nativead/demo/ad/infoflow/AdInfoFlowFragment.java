@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import net.youmi.ads.base.log.DLog;
+import net.youmi.ads.base.utils.PackageUtils;
 import net.youmi.ads.nativead.YoumiNativeAdHelper;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdModel;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdResposeModel;
@@ -69,12 +70,6 @@ public class AdInfoFlowFragment extends BaseFragment
 		if (model.getType() == AdInfoFlowModel.TYPE_AD_BANNER || model.getType() == AdInfoFlowModel.TYPE_AD_LARGE ||
 		    model.getType() == AdInfoFlowModel.TYPE_AD_RECTANGLE) {
 			
-			// 可以进入自定义的详情页，也可以直接下载
-			// 如果是应用广告，这里演示为直接下载
-			if (model.getAdModel().getAdType() == 0) {
-				YoumiNativeAdHelper.download(this.getActivity(), model.getAdModel());
-			}
-			
 			// 点击了图片之后需要发送点击记录
 			YoumiNativeAdHelper.newAdEffRequest(getActivity())
 			                   .withAppId(BuildConfig.APPID)
@@ -90,7 +85,31 @@ public class AdInfoFlowFragment extends BaseFragment
 			// 如果为app广告类型
 			// 可以进入自定义的详情页，也可以直接下载
 			if (model.getAdModel().getAdType() == 0) {
-				YoumiNativeAdHelper.download(getActivity(), model.getAdModel());
+				
+				if (!PackageUtils.isPakcageInstall(getActivity(), model.getAdModel().getAppModel().getPackageName())) {
+					
+					// 如果广告还没有安装的话，就创建一个广告下载任务
+					YoumiNativeAdHelper.newAdDownload(getActivity())
+					
+					                   // （必须）指定下载的广告
+					                   .withYoumiNativeAdModel(model.getAdModel())
+					
+					                   // （可选）是否显示下载过程中的通知栏提示（默认为true：显示）
+					                   .withDefaultDownloadNotification(true)
+					
+					                   // （可选）下载成功后是否打开安装界面（默认为false：不打开）
+					                   .installAfterDownloadSuccess(true)
+					
+					                   // （可选）安装成功后是否打开应用（默认为false：不打开）
+					                   .startAppAfterInstalled(true)
+					
+					                   // 开始下载
+					                   .download();
+				} else {
+					
+					// 如果广告已经安装的话就直接打开
+					YoumiNativeAdHelper.openApp(getActivity(), model.getAdModel());
+				}
 			}
 			
 			// 如果为wap广告类型

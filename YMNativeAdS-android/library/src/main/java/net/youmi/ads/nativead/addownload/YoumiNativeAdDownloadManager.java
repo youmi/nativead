@@ -29,7 +29,7 @@ public class YoumiNativeAdDownloadManager extends AbsCachedDownloadManager {
 	
 	private OnYoumiNativeAdDownloadListenerTransform mListenerTransform = new OnYoumiNativeAdDownloadListenerTransform();
 	
-	private OnDownloadNotificationPublisher mPublisher;
+	private DefaultDownloadListener mPublisher;
 	
 	private YoumiNativeAdDownloadManager() {
 		super();
@@ -66,24 +66,27 @@ public class YoumiNativeAdDownloadManager extends AbsCachedDownloadManager {
 	/**
 	 * 下载广告
 	 *
-	 * @param context 上下文
-	 * @param adModel 要下载的广告对象
+	 * @param context            上下文
+	 * @param adModel            要下载的广告对象
+	 * @param downloadTaskConfig 本次下载的一些配置信息，如是否显示通知栏等
 	 *
 	 * @return <ul>
 	 * <li>true：成功提交下载任务到线程池中异步执行</li>
 	 * <li>false：提交下载任务到线程池中异步执行失败</li>
 	 * </ul>
 	 */
-	public boolean download(Context context, YoumiNativeAdModel adModel) {
+	public boolean download(Context context, YoumiNativeAdModel adModel, DownloadTaskConfig downloadTaskConfig) {
 		if (adModel.getAdType() != 0) {
 			return false;
 		}
 		FileDownloadTask fileDownloadTask = new FileDownloadTask(adModel.getUrl());
-		fileDownloadTask.setIFileDownloadTask(adModel);
-		
-		if (mPublisher == null) {
-			mPublisher = new OnDownloadNotificationPublisher(context.getApplicationContext());
-			addOnDownloadListener(mPublisher);
+		fileDownloadTask.addIFileDownloadTask(YoumiNativeAdModel.class.hashCode(), adModel);
+		fileDownloadTask.addIFileDownloadTask(DownloadTaskConfig.class.hashCode(), downloadTaskConfig);
+		if (downloadTaskConfig.isShowDefaultNotification()) {
+			if (mPublisher == null) {
+				mPublisher = new DefaultDownloadListener(context.getApplicationContext());
+				addOnDownloadListener(mPublisher);
+			}
 		}
 		
 		return download(context.getApplicationContext(), fileDownloadTask);
@@ -99,7 +102,7 @@ public class YoumiNativeAdDownloadManager extends AbsCachedDownloadManager {
 			return;
 		}
 		FileDownloadTask fileDownloadTask = new FileDownloadTask(adModel.getUrl());
-		fileDownloadTask.setIFileDownloadTask(adModel);
+		fileDownloadTask.addIFileDownloadTask(YoumiNativeAdModel.class.hashCode(), adModel);
 		stopDownload(fileDownloadTask);
 	}
 	
