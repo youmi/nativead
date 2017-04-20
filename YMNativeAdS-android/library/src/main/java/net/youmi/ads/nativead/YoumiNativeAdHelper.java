@@ -52,6 +52,8 @@ public class YoumiNativeAdHelper {
 	 * 创建一个广告下载任务
 	 *
 	 * @param context 上下文，会自动取ApplicationContext
+	 *
+	 * @return 广告下载任务对象
 	 */
 	public static YoumiNativeAdDownloadBuilder newAdDownload(Context context) {
 		return new YoumiNativeAdDownloadBuilder(context.getApplicationContext());
