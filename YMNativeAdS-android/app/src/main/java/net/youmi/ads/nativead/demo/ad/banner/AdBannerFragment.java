@@ -95,13 +95,17 @@ public class AdBannerFragment extends BaseFragment implements View.OnClickListen
 				                   .withYoumiNativeAdModel(mYoumiNativeAdModel)
 				
 				                   // （可选）是否显示下载过程中的通知栏提示（默认为true：显示）
-				                   .withDefaultDownloadNotification(true)
+				                   .showDownloadNotification(true)
 				
 				                   // （可选）下载成功后是否打开安装界面（默认为false：不打开）
-				                   .installAfterDownloadSuccess(true)
+				                   .installApkAfterDownloadSuccess(true)
 				
 				                   // （可选）安装成功后是否打开应用（默认为false：不打开）
 				                   .startAppAfterInstalled(true)
+				
+				                   // （可选）安装成功后是否删除对应的APK文件（默认为true：立即删除）
+				                   // 此方法需要设置安装成功后打开广告应用的方法才生效，即调用了 startAppAfterInstalled(true) 才生效
+				                   .deleteApkAfterInstalled(true)
 				
 				                   // 开始下载
 				                   .download();

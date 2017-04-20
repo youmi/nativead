@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import net.youmi.ads.base.hash.MD5;
 import net.youmi.ads.base.log.DLog;
+import net.youmi.ads.base.utils.FileUtils;
 import net.youmi.ads.base.utils.JSONUtils;
 import net.youmi.ads.base.utils.SPUtils;
 
@@ -37,6 +38,13 @@ class ApkInstallBroadcastReceiver extends BroadcastReceiver {
 				String uri = JSONUtils.getString(jo, "a", null);
 				long startInstallTime = JSONUtils.getLong(jo, "b", -1);
 				boolean isNeed2OpenApp = JSONUtils.getBoolean(jo, "c", false);
+				boolean isNeed2DeleteApkAfterInstalled = JSONUtils.getBoolean(jo, "d", true);
+				String apkFileAbsPath = JSONUtils.getString(jo, "e", null);
+				
+				// 如果需要删除apk的话
+				if (isNeed2DeleteApkAfterInstalled && !TextUtils.isEmpty(apkFileAbsPath)) {
+					FileUtils.delete(apkFileAbsPath);
+				}
 				
 				// 如果不需要打开app的话就不继续了
 				if (!isNeed2OpenApp) {

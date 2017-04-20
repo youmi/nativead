@@ -42,7 +42,7 @@ public class YoumiNativeAdDownloadBuilder {
 	 *
 	 * @return this
 	 */
-	public YoumiNativeAdDownloadBuilder withDefaultDownloadNotification(boolean isShowDefaultNotification) {
+	public YoumiNativeAdDownloadBuilder showDownloadNotification(boolean isShowDefaultNotification) {
 		downloadTaskConfig.setShowDefaultNotification(isShowDefaultNotification);
 		return this;
 	}
@@ -57,7 +57,7 @@ public class YoumiNativeAdDownloadBuilder {
 	 *
 	 * @return this
 	 */
-	public YoumiNativeAdDownloadBuilder installAfterDownloadSuccess(boolean isNeed2StartInstallAfterDownloadSuccess) {
+	public YoumiNativeAdDownloadBuilder installApkAfterDownloadSuccess(boolean isNeed2StartInstallAfterDownloadSuccess) {
 		downloadTaskConfig.setNeed2StartInstallAfterDownloadSuccess(isNeed2StartInstallAfterDownloadSuccess);
 		return this;
 	}
@@ -74,6 +74,27 @@ public class YoumiNativeAdDownloadBuilder {
 	 */
 	public YoumiNativeAdDownloadBuilder startAppAfterInstalled(boolean isNeed2StartAppAfterInstalled) {
 		downloadTaskConfig.setNeed2OpenAppAfterInstalled(isNeed2StartAppAfterInstalled);
+		return this;
+	}
+	
+	/**
+	 * 安装广告完毕之后是否立即删除广告APk文件
+	 * <p>
+	 * 注意：
+	 * <p>
+	 * 此方法需要设置安装成功后打开广告应用的方法才生效，即 {@link #startAppAfterInstalled(boolean)} 方法被调用了且传入 {@code true}才生效
+	 *
+	 * @param isNeed2DeleteApkAfterInstalled <ul>
+	 *                                       <li>true（默认）：立即删除</li>
+	 *                                       <li>false：不删除，一段时候后，sdk也会自动删除</li>
+	 *                                       </ul>
+	 *
+	 * @return this
+	 *
+	 * @see #startAppAfterInstalled(boolean)
+	 */
+	public YoumiNativeAdDownloadBuilder deleteApkAfterInstalled(boolean isNeed2DeleteApkAfterInstalled) {
+		downloadTaskConfig.setNeed2DeleteApkAfterInstalled(isNeed2DeleteApkAfterInstalled);
 		return this;
 	}
 	

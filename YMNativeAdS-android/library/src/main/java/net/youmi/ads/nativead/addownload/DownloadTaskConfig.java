@@ -14,6 +14,8 @@ class DownloadTaskConfig implements IFileDownloadTask {
 	
 	private boolean isNeed2OpenAppAfterInstalled = false;
 	
+	private boolean isNeed2DeleteApkAfterInstalled = true;
+	
 	DownloadTaskConfig() {
 	}
 	
@@ -39,5 +41,13 @@ class DownloadTaskConfig implements IFileDownloadTask {
 	
 	void setNeed2OpenAppAfterInstalled(boolean need2OpenAppAfterInstalled) {
 		isNeed2OpenAppAfterInstalled = need2OpenAppAfterInstalled;
+	}
+	
+	boolean isNeed2DeleteApkAfterInstalled() {
+		return isNeed2DeleteApkAfterInstalled;
+	}
+	
+	void setNeed2DeleteApkAfterInstalled(boolean need2DeleteApkAfterInstalled) {
+		isNeed2DeleteApkAfterInstalled = need2DeleteApkAfterInstalled;
 	}
 }

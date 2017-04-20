@@ -196,6 +196,8 @@ class DefaultDownloadListener implements OnDownloadListener {
 						JSONUtils.putObject(jo, "a", adModel.getUri());
 						JSONUtils.putObject(jo, "b", System.currentTimeMillis());
 						JSONUtils.putObject(jo, "c", downloadTaskConfig.isNeed2OpenAppAfterInstalled());
+						JSONUtils.putObject(jo, "d", downloadTaskConfig.isNeed2DeleteApkAfterInstalled());
+						JSONUtils.putObject(jo, "e", fileDownloadTask.getStoreFile().getAbsolutePath());
 						if (SPUtils.putString(mApplicationContext,
 								MD5.md5(adModel.getAppModel().getPackageName()),
 								jo.toString()
