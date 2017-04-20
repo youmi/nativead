@@ -14,7 +14,7 @@
 
 @property(nonatomic,retain) NSString *rsd; ///请求唯一码
 @property(nonatomic,assign) int jm;//打开App Store方式    0外部 ／ 1内部
-@property(nonatomic,assign) int spotid; ///广告id
+@property(nonatomic,assign) NSString* spotid; ///广告id
 @property(nonatomic,retain) NSString *slotid;//广告位id
 @property(nonatomic, retain) NSString *e; ///中间层返回的秘串
 @property(nonatomic, assign) int asid; ///appstore id

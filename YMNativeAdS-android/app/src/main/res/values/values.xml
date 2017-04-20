@@ -1,0 +1,6 @@
+<resources >
+	<item name="recycleview_tag_position"
+	      type="id" />
+	<item name="recycleview_tag_model"
+	      type="id" />
+</resources >

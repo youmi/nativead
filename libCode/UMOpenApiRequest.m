@@ -73,9 +73,10 @@ void sendSpotURLRequestWithBlock(ListBlock block){
                     
                     NSMutableDictionary *preDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                    YM_ASSIGN_STRING_SAFELY([jsonDic objectForKey:@"rsd"]),@"rsd",
-                                                   [jsonDic objectForKey:@"jm"],@"jm",
-                                                   [jsonDic objectForKey:@"sal"],@"sal",
-                                                   [jsonDic objectForKey:@"pl"],@"pl", nil];
+//                                                   [jsonDic objectForKey:@"jm"],@"jm",
+//                                                   [jsonDic objectForKey:@"sal"],@"sal",
+//                                                   [jsonDic objectForKey:@"pl"],@"pl",
+                                                   nil];
                     
                     NSArray *ad = [jsonDic objectForKey:@"ad"];
                     NSMutableArray *mutabArray = [[NSMutableArray alloc] initWithCapacity:ad.count];
@@ -152,7 +153,7 @@ NSString *spotRequestURL(NSString *type){
     
     NSString *urlArg = getUrlArg();
     
-    NSString *requestHead = @"https://native.umapi.cn/ios/v1/oreq";//请求广告的url
+    NSString *requestHead = @"http://native.umapi.cn/ios/v1/oreq";//请求广告的url
     
     NSString *requestURL = [NSString stringWithFormat:@"%@?%@",requestHead,urlArg];
     requestURL = [requestURL  stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];

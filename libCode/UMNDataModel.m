@@ -17,12 +17,10 @@
     if (self) {
         if (dic) {
  
-            self.jm = [[preDic objectForKey:@"jm"] intValue];
+            
             self.rsd = [preDic objectForKey:@"rsd"];
-            self.sal = [[preDic objectForKey:@"sal"] intValue];
-            self.pl = [[preDic objectForKey:@"pl"] intValue];
-            self.spotid = [[dic objectForKey:@"spotid"] intValue];
-            self.slotid = [NSString stringWithFormat:@"%d",[[dic objectForKey:@"slotid"] intValue]];
+            self.spotid = [dic objectForKey:@"id"];
+            self.slotid = [dic objectForKey:@"slotid"];
             self.e = [dic objectForKey:@"e"];
             self.asid = [[dic objectForKey:@"asid"] intValue];
             self.bid = [dic objectForKey:@"bid"];
@@ -34,8 +32,7 @@
             self.url = [dic objectForKey:@"url"];
             self.uri = [dic objectForKey:@"uri"];
             self.cpt = [[dic objectForKey:@"cpt"] intValue];
-            self.io = [[dic objectForKey:@"io"] intValue];
-            self.delay = [[dic objectForKey:@"delay"] intValue];
+            
             self.track = [dic objectForKey:@"track"];
             
             NSDictionary *appDic = [dic objectForKey:@"app"];
@@ -46,6 +43,17 @@
                 self.appDescription = [appDic objectForKey:@"description"];
                 self.appScreenshotArr = [appDic objectForKey:@"screenshot"];
             }
+            
+            NSDictionary *ext = [dic objectForKey:@"ext"];
+            if (ext && [ext isKindOfClass:[NSDictionary class]]) {
+                self.io = [[ext objectForKey:@"io"] intValue];
+                self.jm = [[ext objectForKey:@"jm"] intValue];
+                self.sal = [[ext objectForKey:@"sal"] intValue];
+                self.pl = [[ext objectForKey:@"pl"] intValue];
+                self.delay = [[ext objectForKey:@"delay"] intValue];
+            }
+            
+            
             
             
             if (ynOpen) {
