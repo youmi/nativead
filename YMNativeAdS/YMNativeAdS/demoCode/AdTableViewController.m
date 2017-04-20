@@ -120,11 +120,11 @@ static void *propertyKey = (void *)@"propertyKey";
         if (_adArray && _adArray.count > 0) {
             UMNDataModel *addata = [_adArray objectAtIndex:0];
             
-            if ([addata.slotid isEqualToString:@"7749"]) {
+            if ([addata.slotid isEqualToString:@"7748"]) {
                 return 278;
-            }else if ([addata.slotid isEqualToString:@"7745"]) {
+            }else if ([addata.slotid isEqualToString:@"7744"]) {
                 return 84;
-            }else if ([addata.slotid isEqualToString:@"7747"]) {
+            }else if ([addata.slotid isEqualToString:@"7746"]) {
                 return 98;
             }
         }
@@ -143,7 +143,7 @@ static void *propertyKey = (void *)@"propertyKey";
             
         }];
         
-        if ([addata.slotid isEqualToString:@"7749"]) {
+        if ([addata.slotid isEqualToString:@"7748"]) {
             if (_adArray && _adArray.count > 0) {
                 static NSString *CellIdentifier = @"adcell";
                 AdTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -155,7 +155,7 @@ static void *propertyKey = (void *)@"propertyKey";
                 [cell setCellInfo:addata];
                 return cell;
             }
-        }else if ([addata.slotid isEqualToString:@"7747"]){
+        }else if ([addata.slotid isEqualToString:@"7746"]){
             
             if (_adArray && _adArray.count > 0) {
                 static NSString *CellIdentifier = @"adlittlecell";
@@ -168,7 +168,7 @@ static void *propertyKey = (void *)@"propertyKey";
                 [cell setCellInfo:addata];
                 return cell;
             }
-        }else if ([addata.slotid isEqualToString:@"7745"]){
+        }else if ([addata.slotid isEqualToString:@"7744"]){
             
             if (_adArray && _adArray.count > 0) {
                 static NSString *CellIdentifier = @"adbannercell";

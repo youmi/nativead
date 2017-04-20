@@ -4,10 +4,12 @@
 
 # 快速入门
 
-不知道如何使用有米原生封装代码的朋友可以移步查看我们为大家准备的快速入门文档：[有米iOS原生广告开源API接口使用说明](https://github.com/youmi/nativead/blob/master/docs/有米iOS原生广告开源API接口使用说明.md)
-
 API接口文档链接：[有米原生广告API文档](https://github.com/youmi/nativead/blob/master/docs/有米原生广告API文档.md)
 
+我们已经为各位同学提供iOS和Android平台对上述协议进行封装后的sdk，欢迎大家使用：
+
+* [有米iOS原生广告开源API接口使用说明](https://github.com/youmi/nativead/blob/master/docs/有米iOS原生广告开源API接口使用说明.md)
+* [有米Android原生广告开源API接口使用说明](https://github.com/youmi/nativead/blob/master/YMNativeAdS-android/README.md)
 
 # 在CocoaPod中安装有米原生广告
 
@@ -28,13 +30,11 @@ pod install
 
 # 目录说明
 
-libCode文件夹是原生广告开源代码，开发者导入到自己的项目使用。
-YMNativeAdS文件夹是例子程序，开发者可打开查看如何使用。
-doc中有两份pdf文档，一份是（api接入文档.pdf）， 另外一份是（api开源代码使用文档.pdf）
-
+* libCode：文件夹是原生广告开源代码，开发者导入到自己的项目使用
+* YMNativeAdS：iOS DEMO
+* YMNativeAdS-android：Android SDK 及 DEMO源码
 
 # 有米官方网站
 
-官方网址：https://www.youmi.net/
-
-联系我们：https://www.youmi.net/page/contact_us
+* 官方网址：https://www.youmi.net/
+* 联系我们：https://www.youmi.net/page/contact_us

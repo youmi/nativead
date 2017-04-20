@@ -34,7 +34,7 @@
         self.adSloganLb = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
 //        self.adSloganLb.text = @"广告语";
         self.adSloganLb.numberOfLines = 0;
-        self.adSloganLb.backgroundColor = [UIColor redColor];
+//        self.adSloganLb.backgroundColor = [UIColor redColor];
         self.adSloganLb.font = [UIFont systemFontOfSize:15];
         [self.contentView addSubview:self.adSloganLb];
         
@@ -44,8 +44,6 @@
 //        self.adImgV.layer.cornerRadius = 3;
 //        self.adImgV.layer.masksToBounds = YES;
         
-        
-
         self.adTip = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
         self.adTip.text = @"广告";
         self.adTip.font = [UIFont systemFontOfSize:10];
