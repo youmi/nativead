@@ -11,7 +11,7 @@
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme" >
 		<activity
-			android:name=".ad.splash.SplashActivity"
+			android:name=".PermissionCheckActivity"
 			android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
 			android:theme="@style/AppTheme.NoActionBar" >
 			<intent-filter >
@@ -19,6 +19,11 @@
 				
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter >
+		</activity >
+		<activity
+			android:name=".ad.splash.SplashActivity"
+			android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+			android:theme="@style/AppTheme.NoActionBar" >
 		</activity >
 		
 		<activity

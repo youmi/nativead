@@ -66,6 +66,10 @@ dependencies {
 	// 使用Glide图片加载库来加载图片
 	compile 'com.github.bumptech.glide:glide:3.7.0'
 
+	// 使用permissiondispatcher来处理Android 6.0+运行时权限
+	compile 'com.github.hotchemi:permissionsdispatcher:2.3.2'
+	annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.3.2'
+
 	// 依赖本地project
 	compile project(':library')
 
@@ -74,6 +78,8 @@ dependencies {
 
 	// 依赖线上aar
 	// compile 'net.youmi.ads:nativead:1.0.0@aar'
+
+
 }
 
 // 依赖本地aar时开启注释(测试用)
