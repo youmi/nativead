@@ -163,24 +163,55 @@ YoumiNativeAdHelper
 
 1. 广告类型目前有 **APP类型** 和 **WAP类型** 广告，两者在点击后的流程存在不同
 2. 根据 ``YoumiNativeAdModel#getAdType()`` 方法可以获取广告当前的类型
-3. 如果为APP类型广告：
-	1. 如果app还没有安装，则使用 ``YoumiNativeAdModel#getUrl()`` 进行下载安装，安装完毕后，检查 ``YoumiNativeAdModel#getUri()`` 
-  是否存在，存在就打开 ``YoumiNativeAdModel#getUri()`` ，不存在就直接根据包名打开app，跳转逻辑结束
-	2. 如果app已经安装，``YoumiNativeAdModel#getUri()`` 存在，则把uri解析为Intent，然后打开Intent，跳转逻辑结束
-	3. 如果app已经安装，``YoumiNativeAdModel#getUri()`` 不存在，这根据包名打开app，跳转逻辑结束
-4. 如果为WAP类型广告：
-	1. 直接打开该广告的页面链接URL地址
 
-##### 2.2.4.1 APP类型广告下载相关API
+##### 2.2.4.1 APP类型广告下载打开
 
-###### 1. 下载广告
+流程：
+
+1. 如果app还没有安装，则使用 ``YoumiNativeAdModel#getUrl()`` 进行下载安装，安装完毕后，检查 ``YoumiNativeAdModel#getUri()`` 
+是否存在，存在就打开 ``YoumiNativeAdModel#getUri()`` ，不存在就直接根据包名打开app，跳转逻辑结束
+2. 如果app已经安装，``YoumiNativeAdModel#getUri()`` 存在，则把uri解析为Intent，然后打开Intent，跳转逻辑结束
+3. 如果app已经安装，``YoumiNativeAdModel#getUri()`` 不存在，这根据包名打开app，跳转逻辑结束
+
+开发者可以自行实现上述流程，也可以使用sdk已经封装好的API，直接使用下面代码即可实现
+
+<a name="app-download" id="app-download"></a>
+
+###### 1. 下载或者打开广告
 
 **注意：**
 
-1. 下载时，SDK会默认发送下载通知到通知栏中以显示进度，下载完成时，存在下载成功的通知，如果需要在Android 7.0系统以上能打开下载这个安装通知，需要配置FileProvider，可以参考demo配置
+1. 如果需要在Android 7.0系统以上能打开下载这个安装通知，需要配置FileProvider，可以参考demo配置
 
 ``` java
-YoumiNativeAdHelper.download(Context context, YoumiNativeAdModel adModel);
+if (!PackageUtils.isPakcageInstall(this, mYoumiNativeAdModel.getAppModel().getPackageName())) {
+			
+	// 如果广告还没有安装的话，就创建一个广告下载任务
+	YoumiNativeAdHelper.newAdDownload(this)
+	
+		// （必须）指定下载的广告
+		.withYoumiNativeAdModel(mYoumiNativeAdModel)
+		
+		// （可选）是否显示下载过程中的通知栏提示（默认为true：显示）
+		.showDownloadNotification(true)
+		
+		// （可选）下载成功后是否打开安装界面（默认为false：不打开）
+		.installApkAfterDownloadSuccess(true)
+		
+		// （可选）安装成功后是否打开应用（默认为false：不打开）
+		.startAppAfterInstalled(true)
+		
+		// （可选）安装成功后是否删除对应的APK文件（默认为true：立即删除）
+		// 此方法需要设置安装成功后打开广告应用的方法才生效，即调用了 startAppAfterInstalled(true) 才生效
+		.deleteApkAfterInstalled(true)
+		
+		// 开始下载
+		.download();
+} else {
+	
+	// 如果广告已经安装的话就直接打开
+	YoumiNativeAdHelper.openApp(this, mYoumiNativeAdModel);
+}
 ```
 
 ###### 2. 停止下载
@@ -203,7 +234,26 @@ YoumiNativeAdHelper.removeOnYoumiNativeAdDownloadListener(OnYoumiNativeAdDownloa
 
 #### 2.2.4.2 WAP类型广告相关处理
 
-采用外部浏览器或者内部WebView打开 ``YoumiNativeAdModel#getUrl()`` 即可
+采用外部浏览器或者内部WebView打开 ``YoumiNativeAdModel#getUrl()`` 即可，更多实现可以参考demo中实现。
+
+e.g.
+
+```
+public class Utils {
+	
+	public static void startActivity2OpenUrl(Context context, String url) {
+		Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+		if (!(context instanceof Activity)) {
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		}
+		context.startActivity(intent);
+	}
+}
+
+
+Utils.startActivity2OpenUrl(this, adModel.getUrl);
+```
+
 
 ### 2.3 更多使用
 
