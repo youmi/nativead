@@ -30,8 +30,9 @@ pod install
 
 # 目录说明
 
-* libCode：文件夹是原生广告开源代码，开发者导入到自己的项目使用
-* YMNativeAdS：iOS DEMO
+ 
+* YMNativeAdS-iOS：iOS开源代码 及 DEMO源码 （注： 本目录下的libCode文件夹是原生广告开源代码，开发者导入到自己的项目使用，使用方式请查看文档和DEMO）
+
 * YMNativeAdS-android：Android SDK 及 DEMO源码
 
 # 有米官方网站
