@@ -26,6 +26,7 @@ ext {
 android {
 	compileSdkVersion 25
 	buildToolsVersion "25.0.1"
+	publishNonDefault true
 
 	defaultConfig {
 		minSdkVersion 14
@@ -43,6 +44,8 @@ android {
 		targetCompatibility JavaVersion.VERSION_1_7
 	}
 	buildTypes {
+		debug {
+		}
 		release {
 			minifyEnabled false
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

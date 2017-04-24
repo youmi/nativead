@@ -201,7 +201,7 @@ afterEvaluate { project ->
 			//	// 跳过出错时的报错 java8编译 文档要求比较高，错了跳不过
 			//	failOnError false
 
-			exclude '**/BuildConfig.java'
+			//exclude '**/BuildConfig.java'
 			if (!project.ext.isPackageResources) {
 				exclude '**/R.java'
 			}
