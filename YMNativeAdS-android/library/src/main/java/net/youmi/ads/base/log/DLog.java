@@ -3,6 +3,8 @@ package net.youmi.ads.base.log;
 import android.text.TextUtils;
 import android.util.Log;
 
+import net.youmi.ads.nativead.BuildConfig;
+
 import java.util.Locale;
 
 /**
@@ -14,12 +16,12 @@ public class DLog {
 	/**
 	 * 是否开启下载相关的log，打包aar时需要设置为false
 	 */
-	public static final boolean isDownloadLog = false;
+	public static final boolean isDownloadLog = BuildConfig.DEBUG;
 	
 	/**
 	 * 是否开启网络相关的log，打包aar时需要设置为false
 	 */
-	public static final boolean isNetLog = false;
+	public static final boolean isNetLog = BuildConfig.DEBUG;
 	
 	// ------------------------------------------------------------------
 	
