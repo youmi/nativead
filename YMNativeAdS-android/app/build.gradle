@@ -75,10 +75,10 @@ dependencies {
 	releaseCompile project(path: ':library', configuration: 'release')
 
 	// 依赖本地aar
-	// compile(name: 'nativead-release-1.0.0', ext: 'aar')
+	// compile(name: 'nativead-release-1.1.1', ext: 'aar')
 
 	// 依赖线上aar
-	// compile 'net.youmi.ads:nativead:1.0.0@aar'
+	// compile 'net.youmi.ads:nativead:1.1.1@aar'
 
 
 }
