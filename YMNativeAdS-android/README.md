@@ -23,7 +23,7 @@
 ### 2.1 下载并导入sdk
 
 ``` gradle
-compile 'net.youmi.ads:nativead:1.1.1@aar'
+compile 'net.youmi.ads:nativead:1.1.1:release@aar'
 ```
 
 ### 2.2 快速使用
