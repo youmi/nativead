@@ -165,17 +165,13 @@ class DefaultDownloadListener implements OnDownloadListener {
 		
 		DownloadTaskConfig downloadTaskConfig = getDownloadTaskConfig(fileDownloadTask);
 		
-		// 只有在下载成功的时候不自动发起安装，才发送通知栏通知
 		// 发送下载进度到通知栏
-		if (!downloadTaskConfig.isNeed2StartInstallAfterDownloadSuccess()) {
-			if (downloadTaskConfig.isShowDefaultNotification()) {
-				DownloadNotification notification = getNotification(fileDownloadTask);
-				if (notification == null || fileDownloadTask.getStoreFile() == null ||
-				    !fileDownloadTask.getStoreFile().exists()) {
-					return;
-				}
-				notification.notifyDownloadSuccess(fileDownloadTask.getStoreFile().getPath());
+		if (downloadTaskConfig.isShowDefaultNotification()) {
+			DownloadNotification notification = getNotification(fileDownloadTask);
+			if (notification == null || fileDownloadTask.getStoreFile() == null || !fileDownloadTask.getStoreFile().exists()) {
+				return;
 			}
+			notification.notifyDownloadSuccess(fileDownloadTask.getStoreFile().getPath());
 		}
 		
 		// 处理下载成功后打开apk安装的逻辑

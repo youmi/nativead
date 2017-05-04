@@ -86,6 +86,11 @@ public class AdLargeFragment extends BaseFragment implements View.OnClickListene
 	
 	@Override
 	public void onClick(View v) {
+		// 如果还没有请求到数据就不处理
+		if (mYoumiNativeAdModel == null) {
+			return;
+		}
+		
 		// 点击了图片之后需要发送点击记录
 		YoumiNativeAdHelper.newAdEffRequest(getActivity())
 		                   .withAppId(BuildConfig.APPID)
