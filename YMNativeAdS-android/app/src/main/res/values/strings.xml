@@ -1,4 +1,6 @@
 <resources >
 	<string name="app_name" >有米原生广告演示程序</string >
 	<string name="action_settings" >Settings</string >
+	
+	<string name="ad_label" >广告</string >
 </resources >
