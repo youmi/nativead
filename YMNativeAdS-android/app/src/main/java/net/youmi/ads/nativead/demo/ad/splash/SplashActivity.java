@@ -252,8 +252,6 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 					continue;
 				}
 				activity.mTextView.setText("请求广告成功，开始加载图片");
-				activity.mImageView.bringToFront();
-				
 				// 直接加载第一张图片
 				// 实际使用时，可根据具体要求进行处理
 				// 比如：有多张图片返回时，采用合适分辨率的图片，而不是第一张
