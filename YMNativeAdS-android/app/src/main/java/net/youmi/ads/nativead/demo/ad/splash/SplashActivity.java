@@ -2,11 +2,15 @@ package net.youmi.ads.nativead.demo.ad.splash;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,22 +44,27 @@ import java.util.Locale;
  */
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener {
 	
-	private final static int MSG_START_MAIN_ACTIVITY = 1;
-	
-	/**
-	 * 为了展示方便，这里设置大一点的时间
-	 */
-	private final static int DELAY_TIME = 5000;
+	private final static int MSG_UPDATE_REMAINING_TIME = 1;
 	
 	private ImageView mImageView;
 	
-	private TextView mTextView;
+	private TextView mTipsTextView;
+	
+	private TextView mRemainingTextView;
 	
 	private boolean mIsDestroy;
 	
-	private YoumiNativeAdModel mYoumiNativeAdModel;
-	
 	private MyHandler mHandler;
+	
+	/**
+	 * 剩余倒计时，起始位5秒
+	 */
+	private int mRemainingTimeS = 5;
+	
+	/**
+	 * 广告返回数据模型
+	 */
+	private YoumiNativeAdModel mYoumiNativeAdModel;
 	
 	private static class MyHandler extends Handler {
 		
@@ -72,9 +81,17 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 				return;
 			}
 			switch (msg.what) {
-			case MSG_START_MAIN_ACTIVITY:
-				activity.startActivity(new Intent(activity, MainActivity.class));
-				activity.finish();
+			case MSG_UPDATE_REMAINING_TIME:
+				activity.mRemainingTimeS -= 1;
+				if (activity.mRemainingTimeS <= 0) {
+					// 倒计时结束就打开主界面
+					activity.startActivity(new Intent(activity, MainActivity.class));
+					activity.finish();
+				} else {
+					// 倒计时没有结束就更新倒计时
+					activity.updateRemainTime();
+					sendEmptyMessageDelayed(MSG_UPDATE_REMAINING_TIME, 1000);
+				}
 				break;
 			default:
 				break;
@@ -87,13 +104,15 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_splash);
-		mTextView = (TextView) findViewById(R.id.tv_splash_msg);
+		mRemainingTextView = (TextView) findViewById(R.id.tv_splash_remaining_time);
+		mRemainingTextView.setOnClickListener(this);
+		mTipsTextView = (TextView) findViewById(R.id.tv_splash_msg);
 		mImageView = (ImageView) findViewById(R.id.iv_splash_ad);
 		mImageView.setOnClickListener(this);
 		
 		// 延迟一定时间后打开主界面
 		mHandler = new MyHandler(this);
-		mHandler.sendEmptyMessageDelayed(MSG_START_MAIN_ACTIVITY, DELAY_TIME);
+		mHandler.sendEmptyMessageDelayed(MSG_UPDATE_REMAINING_TIME, 1000);
 		
 		// 发起一个原生开屏广告位广告请求
 		YoumiNativeAdHelper
@@ -126,17 +145,33 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 		
 	}
 	
+	/**
+	 * 更新倒计时
+	 */
+	private void updateRemainTime() {
+		if (mRemainingTextView.getVisibility() != View.VISIBLE) {
+			mRemainingTextView.setVisibility(View.VISIBLE);
+		}
+		SpannableString ss = new SpannableString(String.format(Locale.getDefault(), "%ds 跳过广告", mRemainingTimeS));
+		ss.setSpan(new ForegroundColorSpan(Color.parseColor("#ffa012")), 0, 2, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+		mRemainingTextView.setText(ss);
+	}
+	
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		mHandler.removeMessages(MSG_START_MAIN_ACTIVITY);
+		mHandler.removeMessages(MSG_UPDATE_REMAINING_TIME);
 		mIsDestroy = true;
-		
 	}
 	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.tv_splash_remaining_time:
+			mHandler.removeMessages(MSG_UPDATE_REMAINING_TIME);
+			startActivity(new Intent(this, MainActivity.class));
+			this.finish();
+			break;
 		case R.id.iv_splash_ad:
 			if (mYoumiNativeAdModel == null) {
 				break;
@@ -251,9 +286,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 				if (pic == null) {
 					continue;
 				}
-				activity.mTextView.setText("请求广告成功，开始加载图片");
-				activity.mImageView.bringToFront();
-				
+				activity.mTipsTextView.setText("请求广告成功，开始加载图片");
 				// 直接加载第一张图片
 				// 实际使用时，可根据具体要求进行处理
 				// 比如：有多张图片返回时，采用合适分辨率的图片，而不是第一张

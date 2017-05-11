@@ -46,6 +46,13 @@
 			android:textAppearance="?android:textAppearanceMedium"
 			tools:text="子标题子标题子标题子标题子标题子标题子标题子标题子标题子标题"
 			/>
+		
+		<TextView
+			android:id="@+id/ad_label"
+			style="@style/AdLabelBlueForRightBottom"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentRight="true"
+			/>
 	
 	</RelativeLayout >
 
