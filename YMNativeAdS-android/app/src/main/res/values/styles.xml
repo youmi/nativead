@@ -34,7 +34,7 @@
 	<style name="AdLabelTranslucenceForRightTop" >
 		<item name="android:layout_width" >wrap_content</item >
 		<item name="android:layout_height" >wrap_content</item >
-		<item name="android:background" >@drawable/ad_label_translucence_right_top</item >
+		<item name="android:background" >@drawable/bg_ad_label_translucence_right_top</item >
 		<item name="android:text" >@string/ad_label</item >
 		<item name="android:textAppearance" >?android:textAppearanceSmall</item >
 		<item name="android:textColor" >@android:color/white</item >
@@ -44,7 +44,7 @@
 	<style name="AdLabelTranslucenceForRightBottom" >
 		<item name="android:layout_width" >wrap_content</item >
 		<item name="android:layout_height" >wrap_content</item >
-		<item name="android:background" >@drawable/ad_label_translucence_right_bottom</item >
+		<item name="android:background" >@drawable/bg_ad_label_translucence_right_bottom</item >
 		<item name="android:text" >@string/ad_label</item >
 		<item name="android:textAppearance" >?android:textAppearanceSmall</item >
 		<item name="android:textColor" >@android:color/white</item >
@@ -54,7 +54,7 @@
 	<style name="AdLabelBlueForCenter" >
 		<item name="android:layout_width" >wrap_content</item >
 		<item name="android:layout_height" >wrap_content</item >
-		<item name="android:background" >@drawable/ad_label_blue</item >
+		<item name="android:background" >@drawable/bg_ad_label_blue</item >
 		<item name="android:text" >@string/ad_label</item >
 		<item name="android:textAppearance" >?android:textAppearanceSmall</item >
 		<item name="android:textColor" >@color/adlabel</item >
