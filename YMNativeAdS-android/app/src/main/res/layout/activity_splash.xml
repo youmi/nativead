@@ -12,8 +12,17 @@
 	<RelativeLayout
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
-		android:layout_weight="18"
+		android:layout_weight="19"
 		>
+		
+		<TextView
+			android:id="@+id/tv_splash_msg"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:text="演示用\n\n将请求原生开屏广告位7906"
+			android:textColor="@android:color/black"
+			/>
 		
 		<ImageView
 			android:id="@+id/iv_splash_ad"
@@ -25,13 +34,27 @@
 			/>
 		
 		<TextView
-			android:id="@+id/tv_splash_msg"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:gravity="center"
-			android:text="演示用\n\n将请求原生开屏广告位7906"
-			android:textColor="@android:color/black"
+			android:id="@+id/ad_label"
+			style="@style/AdLabelTranslucenceForRightBottom"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentRight="true"
 			/>
+		
+		<TextView
+			android:id="@+id/tv_splash_remaining_time"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentTop="true"
+			android:layout_marginRight="8dp"
+			android:layout_marginTop="24dp"
+			android:background="@drawable/bg_remaining_time"
+			android:textAppearance="?android:textAppearanceSmall"
+			android:textColor="@android:color/white"
+			android:visibility="gone"
+			tools:text="5s 跳过广告"
+			/>
+	
 	</RelativeLayout >
 	
 	<TextView

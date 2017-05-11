@@ -19,7 +19,6 @@
 	<style name="AppTheme.PopupOverlay"
 	       parent="ThemeOverlay.AppCompat.Light" />
 	
-	
 	<style name="ToolbarPopupTheme"
 	       parent="@style/ThemeOverlay.AppCompat.Light" >
 		<!--<item name="android:colorBackground">#000000</item>-->
@@ -30,4 +29,38 @@
 	       parent="Widget.AppCompat.Light.PopupMenu.Overflow" >
 		<item name="overlapAnchor" >false</item >  <!--把该属性改为false即可使menu位置位于toolbar之下-->
 	</style >
+	
+	<!--广告标签：半透明，适合放右上方-->
+	<style name="AdLabelTranslucenceForRightTop" >
+		<item name="android:layout_width" >wrap_content</item >
+		<item name="android:layout_height" >wrap_content</item >
+		<item name="android:background" >@drawable/bg_ad_label_translucence_right_top</item >
+		<item name="android:text" >@string/ad_label</item >
+		<item name="android:textAppearance" >?android:textAppearanceSmall</item >
+		<item name="android:textColor" >@android:color/white</item >
+	</style >
+	
+	<!--广告标签：半透明，适合放右下方-->
+	<style name="AdLabelTranslucenceForRightBottom" >
+		<item name="android:layout_width" >wrap_content</item >
+		<item name="android:layout_height" >wrap_content</item >
+		<item name="android:background" >@drawable/bg_ad_label_translucence_right_bottom</item >
+		<item name="android:text" >@string/ad_label</item >
+		<item name="android:textAppearance" >?android:textAppearanceSmall</item >
+		<item name="android:textColor" >@android:color/white</item >
+	</style >
+	
+	<!--广告标签：不透明，蓝色框，适合居中-->
+	<style name="AdLabelBlueForCenter" >
+		<item name="android:layout_width" >wrap_content</item >
+		<item name="android:layout_height" >wrap_content</item >
+		<item name="android:background" >@drawable/bg_ad_label_blue</item >
+		<item name="android:text" >@string/ad_label</item >
+		<item name="android:textAppearance" >?android:textAppearanceSmall</item >
+		<item name="android:textColor" >@color/adlabel</item >
+	</style >
+	
+	<!--广告标签：不透明，蓝色框，适合右下-->
+	<style name="AdLabelBlueForRightBottom"
+	       parent="AdLabelBlueForCenter" />
 </resources >
