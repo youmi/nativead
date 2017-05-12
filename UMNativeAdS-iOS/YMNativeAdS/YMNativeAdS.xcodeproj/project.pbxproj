@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A81176B61E7A36B600231710 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A84CEFC21E6D543C001C8CCA /* libz.tbd */; };
-		A81176B71E7A36CF00231710 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A8812F781E6E4E4300976A2A /* libsqlite3.tbd */; };
 		A81878861E8271A600287266 /* AdLittleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A81878851E8271A300287266 /* AdLittleTableViewCell.m */; };
 		A81878891E82754900287266 /* AdBannerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A81878881E82754900287266 /* AdBannerTableViewCell.m */; };
 		A82384901E70FBEF00B58CF3 /* AdTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A823848F1E70FBEF00B58CF3 /* AdTableViewCell.m */; };
@@ -56,18 +54,6 @@
 		A8C86E5E1E6FB98C00A3677B /* NativeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A8C86E5D1E6FB98C00A3677B /* NativeViewController.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		A84CEFAA1E6D5167001C8CCA /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		A81878841E8271A300287266 /* AdLittleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdLittleTableViewCell.h; sourceTree = "<group>"; };
 		A81878851E8271A300287266 /* AdLittleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdLittleTableViewCell.m; sourceTree = "<group>"; };
@@ -99,8 +85,6 @@
 		A84CEF821E6D4B7E001C8CCA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A84CEF851E6D4B7E001C8CCA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A84CEF871E6D4B7E001C8CCA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A84CEFAC1E6D5167001C8CCA /* libNativeAd.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNativeAd.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		A84CEFC21E6D543C001C8CCA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		A85670C61E9727260037922E /* Macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macro.h; sourceTree = "<group>"; };
 		A85670C71E9727260037922E /* UMAdManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMAdManager.h; sourceTree = "<group>"; };
 		A85670C81E9727260037922E /* UMAdManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMAdManager.m; sourceTree = "<group>"; };
@@ -148,7 +132,6 @@
 		A85670F81E9727260037922E /* YMNativeAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMNativeAd.m; sourceTree = "<group>"; };
 		A8812F5C1E6E4A4700976A2A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A8812F761E6E4DEC00976A2A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		A8812F781E6E4E4300976A2A /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		A8C86E591E6FB42800A3677B /* AdTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdTableViewController.h; sourceTree = "<group>"; };
 		A8C86E5A1E6FB42800A3677B /* AdTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdTableViewController.m; sourceTree = "<group>"; };
 		A8C86E5C1E6FB98C00A3677B /* NativeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NativeViewController.h; sourceTree = "<group>"; };
@@ -160,17 +143,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A81176B71E7A36CF00231710 /* libsqlite3.tbd in Frameworks */,
-				A81176B61E7A36B600231710 /* libz.tbd in Frameworks */,
 				A8812F771E6E4DEC00976A2A /* UIKit.framework in Frameworks */,
 				A8812F5D1E6E4A4700976A2A /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A84CEFA91E6D5167001C8CCA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,7 +192,6 @@
 			isa = PBXGroup;
 			children = (
 				A84CEF731E6D4B7E001C8CCA /* YMNativeAdS.app */,
-				A84CEFAC1E6D5167001C8CCA /* libNativeAd.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -248,10 +221,8 @@
 		A84CEFC11E6D543C001C8CCA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A8812F781E6E4E4300976A2A /* libsqlite3.tbd */,
 				A8812F761E6E4DEC00976A2A /* UIKit.framework */,
 				A8812F5C1E6E4A4700976A2A /* Foundation.framework */,
-				A84CEFC21E6D543C001C8CCA /* libz.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -360,23 +331,6 @@
 			productReference = A84CEF731E6D4B7E001C8CCA /* YMNativeAdS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A84CEFAB1E6D5167001C8CCA /* NativeAd */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A84CEFB21E6D5167001C8CCA /* Build configuration list for PBXNativeTarget "NativeAd" */;
-			buildPhases = (
-				A84CEFA81E6D5167001C8CCA /* Sources */,
-				A84CEFA91E6D5167001C8CCA /* Frameworks */,
-				A84CEFAA1E6D5167001C8CCA /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = NativeAd;
-			productName = NativeAd;
-			productReference = A84CEFAC1E6D5167001C8CCA /* libNativeAd.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -389,11 +343,6 @@
 					A84CEF721E6D4B7E001C8CCA = {
 						CreatedOnToolsVersion = 8.2;
 						DevelopmentTeam = RUDNP34A78;
-						ProvisioningStyle = Automatic;
-					};
-					A84CEFAB1E6D5167001C8CCA = {
-						CreatedOnToolsVersion = 8.2;
-						DevelopmentTeam = 4J463NHQ74;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -412,7 +361,6 @@
 			projectRoot = "";
 			targets = (
 				A84CEF721E6D4B7E001C8CCA /* YMNativeAdS */,
-				A84CEFAB1E6D5167001C8CCA /* NativeAd */,
 			);
 		};
 /* End PBXProject section */
@@ -475,13 +423,6 @@
 				A81878891E82754900287266 /* AdBannerTableViewCell.m in Sources */,
 				A85670FD1E9727260037922E /* UMNDataModel.m in Sources */,
 				A856710A1E9727260037922E /* UMSDKPhoneStatus.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A84CEFA81E6D5167001C8CCA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,26 +568,6 @@
 			};
 			name = Release;
 		};
-		A84CEFB31E6D5167001C8CCA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEVELOPMENT_TEAM = 4J463NHQ74;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		A84CEFB41E6D5167001C8CCA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEVELOPMENT_TEAM = 4J463NHQ74;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -664,15 +585,6 @@
 			buildConfigurations = (
 				A84CEF8B1E6D4B7E001C8CCA /* Debug */,
 				A84CEF8C1E6D4B7E001C8CCA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A84CEFB21E6D5167001C8CCA /* Build configuration list for PBXNativeTarget "NativeAd" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A84CEFB31E6D5167001C8CCA /* Debug */,
-				A84CEFB41E6D5167001C8CCA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
