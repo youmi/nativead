@@ -46,12 +46,9 @@
 		A85671081E9727260037922E /* UMOpenApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A85670E61E9727260037922E /* UMOpenApiRequest.m */; };
 		A85671091E9727260037922E /* UMRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A85670E81E9727260037922E /* UMRequest.m */; };
 		A856710A1E9727260037922E /* UMSDKPhoneStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = A85670EA1E9727260037922E /* UMSDKPhoneStatus.m */; };
-		A856710B1E9727260037922E /* UMSPSimulateIDFA.m in Sources */ = {isa = PBXBuildFile; fileRef = A85670EC1E9727260037922E /* UMSPSimulateIDFA.m */; };
 		A856710C1E9727260037922E /* UMStoreKitUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = A85670EE1E9727260037922E /* UMStoreKitUtil.m */; };
 		A856710D1E9727260037922E /* UMSystemInfoUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = A85670F01E9727260037922E /* UMSystemInfoUtil.m */; };
 		A856710E1E9727260037922E /* UMURLPathUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = A85670F21E9727260037922E /* UMURLPathUtil.m */; };
-		A856710F1E9727260037922E /* UMxxtea.m in Sources */ = {isa = PBXBuildFile; fileRef = A85670F41E9727260037922E /* UMxxtea.m */; };
-		A85671101E9727260037922E /* UMZiP.m in Sources */ = {isa = PBXBuildFile; fileRef = A85670F61E9727260037922E /* UMZiP.m */; };
 		A85671111E9727260037922E /* YMNativeAd.m in Sources */ = {isa = PBXBuildFile; fileRef = A85670F81E9727260037922E /* YMNativeAd.m */; };
 		A8812F5D1E6E4A4700976A2A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8812F5C1E6E4A4700976A2A /* Foundation.framework */; };
 		A8812F771E6E4DEC00976A2A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8812F761E6E4DEC00976A2A /* UIKit.framework */; };
@@ -141,18 +138,12 @@
 		A85670E81E9727260037922E /* UMRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMRequest.m; sourceTree = "<group>"; };
 		A85670E91E9727260037922E /* UMSDKPhoneStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSDKPhoneStatus.h; sourceTree = "<group>"; };
 		A85670EA1E9727260037922E /* UMSDKPhoneStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSDKPhoneStatus.m; sourceTree = "<group>"; };
-		A85670EB1E9727260037922E /* UMSPSimulateIDFA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSPSimulateIDFA.h; sourceTree = "<group>"; };
-		A85670EC1E9727260037922E /* UMSPSimulateIDFA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSPSimulateIDFA.m; sourceTree = "<group>"; };
 		A85670ED1E9727260037922E /* UMStoreKitUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMStoreKitUtil.h; sourceTree = "<group>"; };
 		A85670EE1E9727260037922E /* UMStoreKitUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMStoreKitUtil.m; sourceTree = "<group>"; };
 		A85670EF1E9727260037922E /* UMSystemInfoUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSystemInfoUtil.h; sourceTree = "<group>"; };
 		A85670F01E9727260037922E /* UMSystemInfoUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSystemInfoUtil.m; sourceTree = "<group>"; };
 		A85670F11E9727260037922E /* UMURLPathUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMURLPathUtil.h; sourceTree = "<group>"; };
 		A85670F21E9727260037922E /* UMURLPathUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMURLPathUtil.m; sourceTree = "<group>"; };
-		A85670F31E9727260037922E /* UMxxtea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMxxtea.h; sourceTree = "<group>"; };
-		A85670F41E9727260037922E /* UMxxtea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMxxtea.m; sourceTree = "<group>"; };
-		A85670F51E9727260037922E /* UMZiP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMZiP.h; sourceTree = "<group>"; };
-		A85670F61E9727260037922E /* UMZiP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMZiP.m; sourceTree = "<group>"; };
 		A85670F71E9727260037922E /* YMNativeAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMNativeAd.h; sourceTree = "<group>"; };
 		A85670F81E9727260037922E /* YMNativeAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMNativeAd.m; sourceTree = "<group>"; };
 		A8812F5C1E6E4A4700976A2A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -305,18 +296,12 @@
 				A85670E81E9727260037922E /* UMRequest.m */,
 				A85670E91E9727260037922E /* UMSDKPhoneStatus.h */,
 				A85670EA1E9727260037922E /* UMSDKPhoneStatus.m */,
-				A85670EB1E9727260037922E /* UMSPSimulateIDFA.h */,
-				A85670EC1E9727260037922E /* UMSPSimulateIDFA.m */,
 				A85670ED1E9727260037922E /* UMStoreKitUtil.h */,
 				A85670EE1E9727260037922E /* UMStoreKitUtil.m */,
 				A85670EF1E9727260037922E /* UMSystemInfoUtil.h */,
 				A85670F01E9727260037922E /* UMSystemInfoUtil.m */,
 				A85670F11E9727260037922E /* UMURLPathUtil.h */,
 				A85670F21E9727260037922E /* UMURLPathUtil.m */,
-				A85670F31E9727260037922E /* UMxxtea.h */,
-				A85670F41E9727260037922E /* UMxxtea.m */,
-				A85670F51E9727260037922E /* UMZiP.h */,
-				A85670F61E9727260037922E /* UMZiP.m */,
 				A85670F71E9727260037922E /* YMNativeAd.h */,
 				A85670F81E9727260037922E /* YMNativeAd.m */,
 			);
@@ -459,13 +444,11 @@
 				A856710C1E9727260037922E /* UMStoreKitUtil.m in Sources */,
 				A82384901E70FBEF00B58CF3 /* AdTableViewCell.m in Sources */,
 				A8C86E5E1E6FB98C00A3677B /* NativeViewController.m in Sources */,
-				A85671101E9727260037922E /* UMZiP.m in Sources */,
 				A82384A11E728E1A00B58CF3 /* CarouselCellInfo.m in Sources */,
 				A85671031E9727260037922E /* UMNSDKConfig.m in Sources */,
 				A856710D1E9727260037922E /* UMSystemInfoUtil.m in Sources */,
 				A85671021E9727260037922E /* UMNReachability.m in Sources */,
 				A82384931E713E7C00B58CF3 /* HeadView.m in Sources */,
-				A856710F1E9727260037922E /* UMxxtea.m in Sources */,
 				A82384A31E728E1A00B58CF3 /* ImageCarouselView.m in Sources */,
 				A85670FC1E9727260037922E /* UMNDataHandlerUtil.m in Sources */,
 				A85671091E9727260037922E /* UMRequest.m in Sources */,
@@ -479,7 +462,6 @@
 				A85671111E9727260037922E /* YMNativeAd.m in Sources */,
 				A85671061E9727260037922E /* UMNSDKPicConstants.m in Sources */,
 				A84CEF7B1E6D4B7E001C8CCA /* AppDelegate.m in Sources */,
-				A856710B1E9727260037922E /* UMSPSimulateIDFA.m in Sources */,
 				A85670FE1E9727260037922E /* UMNError.m in Sources */,
 				A856710E1E9727260037922E /* UMURLPathUtil.m in Sources */,
 				A8C86E5B1E6FB42800A3677B /* AdTableViewController.m in Sources */,
