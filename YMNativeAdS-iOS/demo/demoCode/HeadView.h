@@ -9,5 +9,4 @@
 #import <UIKit/UIKit.h>
 
 @interface HeadView : UIView
--(void)showAdView;
 @end

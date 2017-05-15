@@ -12,31 +12,37 @@
 #import "HeadView.h"
 #import "AdLittleTableViewCell.h"
 #import "AdBannerTableViewCell.h"
-@interface UMNDataModel(ExtendedProperties)
-@property (nonatomic,assign)id cellRow;
+
+@interface UMNDataModel (ExtendedProperties)
+
+@property (nonatomic,assign) id cellRow;
+
 @end
 
 static void *propertyKey = (void *)@"propertyKey";
+
 @implementation UMNDataModel (ExtendedProperties)
 
-- (id)cellRow
-{
+- (id) cellRow {
     return objc_getAssociatedObject(self, propertyKey);
 }
 
-- (void)setcellRow:(id)myCustomProperty
-{
+- (void) setCellRow:(id)myCustomProperty {
     objc_setAssociatedObject(self, propertyKey, myCustomProperty, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end
 
-@interface AdTableViewController (){
+@interface AdTableViewController () {
+    
     YMNativeAd *_nativeAd;//广告实例
     NSArray *_adArray;//广告数组（UMNSataModel实例集合）
     int _currentNum;//顺序拿广告，从0开始
+    
 }
-@property (nonatomic,strong)UITableView *feedtableview;
+
+@property (nonatomic,strong) UITableView *feedtableview;
+
 @end
 
 @implementation AdTableViewController
@@ -138,7 +144,7 @@ static void *propertyKey = (void *)@"propertyKey";
     
     if (indexPath.row == 10  ) {
         UMNDataModel *addata = [_adArray objectAtIndex:0];
-        [addata setcellRow:indexPath];
+        [addata setCellRow:indexPath];
         [_nativeAd showAd:addata callBackBlock:^(NSError *error) {
             
         }];
@@ -204,7 +210,7 @@ static void *propertyKey = (void *)@"propertyKey";
     
     //        for (int i=0; i<_adArray.count; i++) {
     UMNDataModel *addata = [_adArray objectAtIndex:0];
-    NSIndexPath *path = [addata cellRow];
+    //    NSIndexPath *path = [addata cellRow];
     //            if (path.row == indexPath.row) {
     //                NSLog(@"点击了%@广告",addata.name);
     /* 点击广告，调用点击接口*/
