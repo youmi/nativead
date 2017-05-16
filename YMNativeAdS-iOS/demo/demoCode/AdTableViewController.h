@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "YMNativeAd.h" //原生广告头文件
+#import "YMNativeAd.h"
 
-@interface AdTableViewController : UIViewController<YMNativeAdDelegate,UITableViewDelegate,UITableViewDataSource>//代理
+@interface AdTableViewController : UIViewController<YMNativeAdDelegate,UITableViewDelegate,UITableViewDataSource>
 
 -(void)loadAd:(NSString *)slotId;
+
 @end
