@@ -22,7 +22,6 @@
 #import "UMURLPathUtil.h"
 #import "UMSDKPhoneStatus.h"
 #import "UMNSPOpenIDFA.h"
-#import "UMSPSimulateIDFA.h"
 #import "UMNError.h"
 
 
