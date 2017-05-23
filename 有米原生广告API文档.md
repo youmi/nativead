@@ -59,6 +59,7 @@ Authorization: Bearer <Token>
 | mac         | string | 否    | 设备的mac地址，明文不加密。                          |
 | imei        | string | 是    | 设备的imei码，明文不加密; Android必须填写。             |
 | androidid   | string | 否    | 设备的android id，明文不加密。                     |
+| imsi        | string | 否    | 设备的imsi id, 明文不加密。                        |
 | ip          | string | 否    | 当前请求的IP地址，如果是从移动终端发起请求则可以不填写。            |
 | ua          | string | 否    | UserAgent。                               |
 | os          | string | 否    | 操作系统，可选（android，ios）。                    |
