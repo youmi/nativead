@@ -229,10 +229,10 @@ Authorization: Bearer <Token>
   "click": [ 
           "http://track3.youmi.net/click/dfhehfqeeqfef", 
           "http://track4.youmi.net/click/adfaaadkfdfdd" 
-        ]
+        ],
   "download": [
           "http://track3.youmi.net/eff/dfhehfqeeqfef",
-        ]
+        ],
   "install": [
           "http://track3.youmi.net/eff/dfhehfqeeqfef",
   ]
