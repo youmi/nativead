@@ -216,7 +216,7 @@ Authorization: Bearer <Token>
 
 ## 效果监控上报
 
-**注意：曝光监控和点击监控十分重要，需要贵司确保App内已经能够很好的支持曝光和点击监控的上报功能，否则可能会导致结算问题。下载和安装监控用于优化广告投放效果。**
+**注意：曝光监控和点击监控十分重要，需要贵司确保App内已经能够很好的支持曝光和点击监控的上报功能，否则可能会导致结算问题。下载和安装监控用于安卓平台的优化广告投放效果。**
 
 效果监控上报的数据从[返回值参数列表](#返回值参数列表)的`track`字段中提取。该字段中包含show，click，download和install 四个参数，分别用于曝光监控，点击监控，下载监控和安装监控。track字段的结构大致如下：
 
@@ -230,11 +230,12 @@ Authorization: Bearer <Token>
           "http://track3.youmi.net/click/dfhehfqeeqfef", 
           "http://track4.youmi.net/click/adfaaadkfdfdd" 
         ],
+  // 安卓平台才有 download 和 install 监控
   "download": [
-          "http://track3.youmi.net/eff/dfhehfqeeqfef",
+          "http://track5.youmi.net/eff/pdkpfpwwsdsrrtf",
         ],
   "install": [
-          "http://track3.youmi.net/eff/dfhehfqeeqfef",
+          "http://track6.youmi.net/eff/wadasafsfryrtrt",
   ]
 }
 ```
@@ -244,8 +245,8 @@ Authorization: Bearer <Token>
 1. 广告曝光时，调用show列表里的url上报曝光监控，链接需要从**客户端**发起。
 2. 用户点击时，调用click列表里的url上报点击监控，需要从**客户端**发起请求。
 3. 注意：若click列表不为空，则需要等待点击监控全部发送完成后再跳转到落地页。
-4. 用户下载完成时，调用download列表里的url上报下载监控，需要从**客户端**发起请求。
-5. 用户安装完成时，调用install列表里的url上报安装监控，需要从**客户端**发起请求。
+4. 安卓平台的用户下载完成时，调用download列表里的url上报下载监控，需要从**客户端**发起请求。
+5. 安卓平台的用户安装完成时，调用install列表里的url上报安装监控，需要从**客户端**发起请求。
 6. 注意：若监控不到用户下载安装行为，则可不传，但切勿乱传。
 
 
