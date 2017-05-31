@@ -19,9 +19,9 @@ public class YoumiNativeAdConfigBuilder {
 	/**
 	 * 设置APPID
 	 *
-	 * @param appId
+	 * @param appId APPID
 	 *
-	 * @return
+	 * @return this
 	 */
 	public YoumiNativeAdConfigBuilder withAppId(String appId) {
 		YoumiSpConfig.setAppId(applicationContext, appId);
