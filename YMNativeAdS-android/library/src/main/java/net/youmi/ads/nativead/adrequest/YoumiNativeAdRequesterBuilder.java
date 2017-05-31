@@ -12,6 +12,7 @@ import net.youmi.ads.base.pool.GlobalCacheExecutor;
 import net.youmi.ads.base.utils.JSONUtils;
 import net.youmi.ads.base.utils.NetworkUtils;
 import net.youmi.ads.base.utils.UIHandler;
+import net.youmi.ads.nativead.adconfig.YoumiSpConfig;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,11 +30,6 @@ public class YoumiNativeAdRequesterBuilder {
 	private final static String REQ_URL = "https://native.umapi.cn/aos/v1/oreq";
 	
 	private Context applicationContext;
-	
-	/**
-	 * appId
-	 */
-	private String appId;
 	
 	/**
 	 * （必须）请求广告位Id
@@ -77,18 +73,6 @@ public class YoumiNativeAdRequesterBuilder {
 	
 	public YoumiNativeAdRequesterBuilder(Context context) {
 		applicationContext = context.getApplicationContext();
-	}
-	
-	/**
-	 * （必须）设置应用APPID
-	 *
-	 * @param appId （必须）应用APPID
-	 *
-	 * @return this
-	 */
-	public YoumiNativeAdRequesterBuilder withAppId(String appId) {
-		this.appId = appId;
-		return this;
 	}
 	
 	/**
@@ -215,7 +199,7 @@ public class YoumiNativeAdRequesterBuilder {
 	 * @return YoumiNativeAdResposeModel 对象
 	 */
 	public YoumiNativeAdResposeModel request() {
-		if (TextUtils.isEmpty(appId)) {
+		if (TextUtils.isEmpty(YoumiSpConfig.getAppId(applicationContext))) {
 			throw new IllegalArgumentException("can not request without appId");
 		}
 		if (TextUtils.isEmpty(slotId)) {
@@ -262,7 +246,10 @@ public class YoumiNativeAdRequesterBuilder {
 			
 			// 添加指定的header
 			ArrayList<BaseHttpRequesterModel.Header> headers = new ArrayList<>();
-			headers.add(new BaseHttpRequesterModel.Header("Authorization", "Bearer " + appId));
+			headers.add(new BaseHttpRequesterModel.Header(
+					"Authorization",
+					"Bearer " + YoumiSpConfig.getAppId(applicationContext)
+			));
 			
 			// 发起请求
 			String respJsonStr = YoumiHttpRequester.httpGetForString(applicationContext, sb.toString(), headers);

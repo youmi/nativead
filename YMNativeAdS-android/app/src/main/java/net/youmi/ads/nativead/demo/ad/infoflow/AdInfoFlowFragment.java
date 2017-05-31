@@ -16,7 +16,6 @@ import net.youmi.ads.base.utils.PackageUtils;
 import net.youmi.ads.nativead.YoumiNativeAdHelper;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdModel;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdResposeModel;
-import net.youmi.ads.nativead.demo.BuildConfig;
 import net.youmi.ads.nativead.demo.R;
 import net.youmi.ads.nativead.demo.ad.BaseFragment;
 import net.youmi.ads.nativead.demo.ad.SlotIdConfig;
@@ -71,10 +70,7 @@ public class AdInfoFlowFragment extends BaseFragment
 		    model.getType() == AdInfoFlowModel.TYPE_AD_RECTANGLE) {
 			
 			// 点击了图片之后需要发送点击记录
-			YoumiNativeAdHelper.newAdEffRequest(getActivity())
-			                   .withAppId(BuildConfig.APPID)
-			                   .withYoumiNativeAdModel(model.getAdModel())
-			                   .asyncSendClickEff();
+			YoumiNativeAdHelper.newAdEffRequest(getActivity()).withYoumiNativeAdModel(model.getAdModel()).asyncSendClickEff();
 			
 			Toast.makeText(
 					getActivity(),
@@ -102,7 +98,7 @@ public class AdInfoFlowFragment extends BaseFragment
 					
 					                   // （可选）安装成功后是否打开应用（默认为false：不打开）
 					                   .startAppAfterInstalled(true)
-					                   
+					
 					                   // （可选）安装成功后是否删除对应的APK文件（默认为true：立即删除）
 					                   // 此方法需要设置安装成功后打开广告应用的方法才生效，即调用了 startAppAfterInstalled(true) 才生效
 					                   .deleteApkAfterInstalled(true)
@@ -195,10 +191,8 @@ public class AdInfoFlowFragment extends BaseFragment
 		}
 		
 		private YoumiNativeAdModel getYoumiNativeAdModel(String slotId) {
-			YoumiNativeAdResposeModel adResp = YoumiNativeAdHelper.newAdRequest(mFragment.getActivity())
-			                                                      .withAppId(BuildConfig.APPID)
-			                                                      .withSlotId(slotId)
-			                                                      .request();
+			YoumiNativeAdResposeModel adResp =
+					YoumiNativeAdHelper.newAdRequest(mFragment.getActivity()).withSlotId(slotId).request();
 			
 			if (adResp == null || adResp.getCode() != 0) {
 				return null;

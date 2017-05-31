@@ -21,7 +21,6 @@ import net.youmi.ads.nativead.YoumiNativeAdHelper;
 import net.youmi.ads.nativead.adrequest.OnYoumiNativeAdRequestListener;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdModel;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdResposeModel;
-import net.youmi.ads.nativead.demo.BuildConfig;
 import net.youmi.ads.nativead.demo.R;
 import net.youmi.ads.nativead.demo.ad.BaseFragment;
 import net.youmi.ads.nativead.demo.ad.SlotIdConfig;
@@ -73,9 +72,6 @@ public class AdLargeFragment extends BaseFragment implements View.OnClickListene
 				// 创建一个原生广告请求
 				.newAdRequest(getActivity())
 				
-				// （必须）指定appId
-				.withAppId(BuildConfig.APPID)
-				
 				// （必须）指定请求广告位
 				.withSlotId(SlotIdConfig.LARGE_SLOIID)
 				
@@ -92,10 +88,7 @@ public class AdLargeFragment extends BaseFragment implements View.OnClickListene
 		}
 		
 		// 点击了图片之后需要发送点击记录
-		YoumiNativeAdHelper.newAdEffRequest(getActivity())
-		                   .withAppId(BuildConfig.APPID)
-		                   .withYoumiNativeAdModel(mYoumiNativeAdModel)
-		                   .asyncSendClickEff();
+		YoumiNativeAdHelper.newAdEffRequest(getActivity()).withYoumiNativeAdModel(mYoumiNativeAdModel).asyncSendClickEff();
 		
 		Toast.makeText(
 				getActivity(),
@@ -127,7 +120,7 @@ public class AdLargeFragment extends BaseFragment implements View.OnClickListene
 				                   // （可选）安装成功后是否删除对应的APK文件（默认为true：立即删除）
 				                   // 此方法需要设置安装成功后打开广告应用的方法才生效，即调用了 startAppAfterInstalled(true) 才生效
 				                   .deleteApkAfterInstalled(true)
-				                   
+				
 				                   // 开始下载
 				                   .download();
 			} else {
@@ -217,34 +210,30 @@ public class AdLargeFragment extends BaseFragment implements View.OnClickListene
 				// 直接加载第一张图片
 				// 实际使用时，可根据具体要求进行处理
 				// 比如：有多张图片返回时，采用合适分辨率的图片，而不是第一张
-				Glide.with(adLargeFragment)
-				     .load(pic.getUrl())
-				     .listener(new RequestListener<String, GlideDrawable>() {
-					     @Override
-					     public boolean onException(Exception e, String model, Target<GlideDrawable> target,
-							     boolean isFirstResource) {
-						     return false;
-					     }
+				Glide.with(adLargeFragment).load(pic.getUrl()).listener(new RequestListener<String, GlideDrawable>() {
+					@Override
+					public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean
+							isFirstResource) {
+						return false;
+					}
 					
-					     @Override
-					     public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target,
-							     boolean isFromMemoryCache, boolean isFirstResource) {
-						     adLargeFragment.mYoumiNativeAdModel = adModel;
-						     // 发送曝光记录
-						     YoumiNativeAdHelper.newAdEffRequest(adLargeFragment.getActivity())
-						                        .withAppId(BuildConfig.APPID)
-						                        .withYoumiNativeAdModel(adModel)
-						                        .asyncSendShowEff();
-						     Toast.makeText(
-								     adLargeFragment.getActivity(),
-								     String.format(Locale.getDefault(), "发送广告位 %s 的曝光记录", adModel.getSlotId()),
-								     Toast.LENGTH_SHORT
-						     ).show();
-						     return false;
+					@Override
+					public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target,
+							boolean isFromMemoryCache, boolean isFirstResource) {
+						adLargeFragment.mYoumiNativeAdModel = adModel;
+						// 发送曝光记录
+						YoumiNativeAdHelper.newAdEffRequest(adLargeFragment.getActivity())
+						                   .withYoumiNativeAdModel(adModel)
+						                   .asyncSendShowEff();
+						Toast.makeText(
+								adLargeFragment.getActivity(),
+								String.format(Locale.getDefault(), "发送广告位 %s 的曝光记录", adModel.getSlotId()),
+								Toast.LENGTH_SHORT
+						).show();
+						return false;
 						
-					     }
-				     })
-				     .into(adLargeFragment.mPicView);
+					}
+				}).into(adLargeFragment.mPicView);
 			}
 		}
 	}

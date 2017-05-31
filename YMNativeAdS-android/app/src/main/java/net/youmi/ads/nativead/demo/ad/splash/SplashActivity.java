@@ -26,7 +26,6 @@ import net.youmi.ads.nativead.YoumiNativeAdHelper;
 import net.youmi.ads.nativead.adrequest.OnYoumiNativeAdRequestListener;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdModel;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdResposeModel;
-import net.youmi.ads.nativead.demo.BuildConfig;
 import net.youmi.ads.nativead.demo.MainActivity;
 import net.youmi.ads.nativead.demo.R;
 import net.youmi.ads.nativead.demo.ad.SlotIdConfig;
@@ -120,9 +119,6 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 				// 创建一个原生广告请求
 				.newAdRequest(this)
 				
-				// （必须）指定appId
-				.withAppId(BuildConfig.APPID)
-				
 				// （必须）指定请求广告位
 				.withSlotId(SlotIdConfig.SPLASH_SLOIID)
 				
@@ -177,10 +173,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 				break;
 			}
 			// 点击了图片之后需要发送点击记录
-			YoumiNativeAdHelper.newAdEffRequest(this)
-			                   .withAppId(BuildConfig.APPID)
-			                   .withYoumiNativeAdModel(mYoumiNativeAdModel)
-			                   .asyncSendClickEff();
+			YoumiNativeAdHelper.newAdEffRequest(this).withYoumiNativeAdModel(mYoumiNativeAdModel).asyncSendClickEff();
 			
 			Toast.makeText(
 					this,
@@ -302,10 +295,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 							boolean isFromMemoryCache, boolean isFirstResource) {
 						activity.mYoumiNativeAdModel = adModel;
 						// 发送曝光记录
-						YoumiNativeAdHelper.newAdEffRequest(activity)
-						                   .withAppId(BuildConfig.APPID)
-						                   .withYoumiNativeAdModel(adModel)
-						                   .asyncSendShowEff();
+						YoumiNativeAdHelper.newAdEffRequest(activity).withYoumiNativeAdModel(adModel).asyncSendShowEff();
 						Toast.makeText(
 								activity,
 								String.format(Locale.getDefault(), "发送广告位 %s 的曝光记录", adModel.getSlotId()),

@@ -1,5 +1,7 @@
 package net.youmi.ads.nativead.adconfig;
 
+import android.content.Context;
+
 import net.youmi.ads.base.log.DLog;
 
 /**
@@ -8,8 +10,22 @@ import net.youmi.ads.base.log.DLog;
  */
 public class YoumiNativeAdConfigBuilder {
 	
-	public YoumiNativeAdConfigBuilder() {
-		
+	private Context applicationContext;
+	
+	public YoumiNativeAdConfigBuilder(Context context) {
+		applicationContext = context.getApplicationContext();
+	}
+	
+	/**
+	 * 设置APPID
+	 *
+	 * @param appId
+	 *
+	 * @return
+	 */
+	public YoumiNativeAdConfigBuilder withAppId(String appId) {
+		YoumiSpConfig.setAppId(applicationContext, appId);
+		return this;
 	}
 	
 	/**
@@ -19,7 +35,8 @@ public class YoumiNativeAdConfigBuilder {
 	 *
 	 * @return this
 	 */
-	public YoumiNativeAdConfigBuilder showDebugLog(boolean isShowDebugLog) {
+	@Deprecated
+	YoumiNativeAdConfigBuilder showDebugLog(boolean isShowDebugLog) {
 		DLog.setIsDebug(isShowDebugLog);
 		return this;
 	}
@@ -31,7 +48,8 @@ public class YoumiNativeAdConfigBuilder {
 	 *
 	 * @return this
 	 */
-	public YoumiNativeAdConfigBuilder withTag(String tag) {
+	@Deprecated
+	YoumiNativeAdConfigBuilder withTag(String tag) {
 		DLog.setTag(tag);
 		return this;
 	}
@@ -45,7 +63,8 @@ public class YoumiNativeAdConfigBuilder {
 	 *
 	 * @see #showDebugLog(boolean)
 	 */
-	public YoumiNativeAdConfigBuilder withClassNameInTag(boolean isWithClassNameInTag) {
+	@Deprecated
+	YoumiNativeAdConfigBuilder withClassNameInTag(boolean isWithClassNameInTag) {
 		DLog.setIsShowClassNameInTag(isWithClassNameInTag);
 		return this;
 	}

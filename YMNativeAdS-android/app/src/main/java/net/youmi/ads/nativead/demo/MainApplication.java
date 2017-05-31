@@ -19,6 +19,6 @@ public class MainApplication extends Application {
 		// 1. 开启调试Log
 		// 2. 设置调试Log的Tag为YoumiSdk
 		//
-		YoumiNativeAdHelper.initConfig().showDebugLog(true).withTag("YoumiSdk");
+		YoumiNativeAdHelper.initConfig(this).withAppId(BuildConfig.APPID);
 	}
 }

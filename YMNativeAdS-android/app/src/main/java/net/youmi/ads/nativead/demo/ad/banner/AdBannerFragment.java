@@ -18,7 +18,6 @@ import net.youmi.ads.nativead.YoumiNativeAdHelper;
 import net.youmi.ads.nativead.adrequest.OnYoumiNativeAdRequestListener;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdModel;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdResposeModel;
-import net.youmi.ads.nativead.demo.BuildConfig;
 import net.youmi.ads.nativead.demo.R;
 import net.youmi.ads.nativead.demo.ad.BaseFragment;
 import net.youmi.ads.nativead.demo.ad.SlotIdConfig;
@@ -58,9 +57,6 @@ public class AdBannerFragment extends BaseFragment implements View.OnClickListen
 				// 创建一个原生广告请求
 				.newAdRequest(getActivity())
 				
-				// （必须）指定appId
-				.withAppId(BuildConfig.APPID)
-				
 				// （必须）指定请求广告位
 				.withSlotId(SlotIdConfig.BANNER_SLOIID)
 				
@@ -76,10 +72,7 @@ public class AdBannerFragment extends BaseFragment implements View.OnClickListen
 		}
 		
 		// 点击了图片之后需要发送点击记录
-		YoumiNativeAdHelper.newAdEffRequest(getActivity())
-		                   .withAppId(BuildConfig.APPID)
-		                   .withYoumiNativeAdModel(mYoumiNativeAdModel)
-		                   .asyncSendClickEff();
+		YoumiNativeAdHelper.newAdEffRequest(getActivity()).withYoumiNativeAdModel(mYoumiNativeAdModel).asyncSendClickEff();
 		
 		Toast.makeText(
 				getActivity(),
@@ -205,7 +198,6 @@ public class AdBannerFragment extends BaseFragment implements View.OnClickListen
 						     adBannerFragment.mYoumiNativeAdModel = adModel;
 						     // 发送曝光记录
 						     YoumiNativeAdHelper.newAdEffRequest(adBannerFragment.getActivity())
-						                        .withAppId(BuildConfig.APPID)
 						                        .withYoumiNativeAdModel(adModel)
 						                        .asyncSendShowEff();
 						     Toast.makeText(

@@ -19,7 +19,6 @@ import net.youmi.ads.base.utils.PackageUtils;
 import net.youmi.ads.nativead.YoumiNativeAdHelper;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdModel;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdResposeModel;
-import net.youmi.ads.nativead.demo.BuildConfig;
 import net.youmi.ads.nativead.demo.R;
 import net.youmi.ads.nativead.demo.ad.BaseFragment;
 import net.youmi.ads.nativead.demo.ad.SlotIdConfig;
@@ -73,10 +72,7 @@ public class AdRectangleFragment extends BaseFragment implements View.OnClickLis
 			return;
 		}
 		// 点击了图片之后需要发送点击记录
-		YoumiNativeAdHelper.newAdEffRequest(getActivity())
-		                   .withAppId(BuildConfig.APPID)
-		                   .withYoumiNativeAdModel(mYoumiNativeAdModel)
-		                   .asyncSendClickEff();
+		YoumiNativeAdHelper.newAdEffRequest(getActivity()).withYoumiNativeAdModel(mYoumiNativeAdModel).asyncSendClickEff();
 		
 		Toast.makeText(
 				getActivity(),
@@ -151,9 +147,6 @@ public class AdRectangleFragment extends BaseFragment implements View.OnClickLis
 					// 创建一个原生广告请求
 					.newAdRequest(mAdRectangleFragment.getActivity())
 					
-					// （必须）指定appId
-					.withAppId(BuildConfig.APPID)
-					
 					// （必须）指定请求广告位
 					.withSlotId(SlotIdConfig.RECTANGLE_SLOIID)
 					
@@ -220,7 +213,6 @@ public class AdRectangleFragment extends BaseFragment implements View.OnClickLis
 						mAdRectangleFragment.mYoumiNativeAdModel = adModel;
 						// 发送曝光记录
 						YoumiNativeAdHelper.newAdEffRequest(mAdRectangleFragment.getActivity())
-						                   .withAppId(BuildConfig.APPID)
 						                   .withYoumiNativeAdModel(adModel)
 						                   .asyncSendShowEff();
 						Toast.makeText(
