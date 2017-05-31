@@ -1,9 +1,8 @@
 package net.youmi.ads.nativead.adconfig;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
-import net.youmi.ads.nativead.BuildConfig;
+import net.youmi.ads.base.utils.SPUtils;
 
 /**
  * @author zhitao
@@ -14,17 +13,11 @@ public class YoumiSpConfig {
 	private final static String KEY_APPID = "appid";
 	
 	public static String getAppId(Context context) {
-		SharedPreferences sharedPreferences =
-				context.getApplicationContext().getSharedPreferences(BuildConfig.APPLICATION_ID, Context.MODE_PRIVATE);
-		return sharedPreferences.getString(KEY_APPID, null);
+		return SPUtils.getString(context, KEY_APPID);
 	}
 	
 	static void setAppId(Context context, String appId) {
-		SharedPreferences sharedPreferences =
-				context.getApplicationContext().getSharedPreferences(BuildConfig.APPLICATION_ID, Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = sharedPreferences.edit();
-		editor.putString(KEY_APPID, appId);
-		editor.apply();
+		SPUtils.putString(context, KEY_APPID, appId);
 	}
 	
 }
