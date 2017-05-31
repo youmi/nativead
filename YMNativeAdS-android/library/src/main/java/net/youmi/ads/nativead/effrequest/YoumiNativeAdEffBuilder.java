@@ -170,7 +170,8 @@ public class YoumiNativeAdEffBuilder {
 	 * @param context 上下文
 	 * @param urls    效果记录
 	 */
-	private void sendEff(Context context, final ArrayList<String> urls) {
+	@Deprecated
+	public void sendEff(Context context, final ArrayList<String> urls) {
 		if (TextUtils.isEmpty(YoumiSpConfig.getAppId(context))) {
 			throw new IllegalArgumentException("can not request without appId");
 		}
