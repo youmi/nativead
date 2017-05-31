@@ -132,7 +132,7 @@ YoumiNativeAdModel adModel = adModels.get(0);
 // ... 
 ```
 
-#### 2.2.2 发送广告曝光效果记录
+#### 2.2.3 发送广告曝光效果记录
 
 ``` java
 YoumiNativeAdHelper
@@ -153,7 +153,7 @@ YoumiNativeAdHelper
 	.asyncSendShowEff();
 ```
 
-#### 2.2.3 发送广告点击效果记录
+#### 2.2.4 发送广告点击效果记录
 
 ``` java
 YoumiNativeAdHelper
@@ -174,7 +174,7 @@ YoumiNativeAdHelper
 	.asyncSendClickEff();
 ```
 
-### 2.2.4 发送下载完成效果记录
+### 2.2.5 发送下载完成效果记录
 
 **如果使用sdk自带下载管理器，sdk自带下载管理器就会自动在下载完成时发送**
 
@@ -197,7 +197,7 @@ YoumiNativeAdHelper
 	.asyncSendDownloadSuccessEff();
 ```
 
-### 2.2.5 发送安装完成效果记录
+### 2.2.6 发送安装完成效果记录
 
 **如果使用sdk自带下载管理器，sdk自带下载管理器就会自动在安装完成时发送**
 
@@ -220,14 +220,14 @@ YoumiNativeAdHelper
 	.asyncSendInstallSuccessEff();
 ```
 
-#### 2.2.6 下载或打开广告
+#### 2.2.7 下载或打开广告
 
 须知：
 
 1. 广告类型目前有 **APP类型** 和 **WAP类型** 广告，两者在点击后的流程存在不同
 2. 根据 ``YoumiNativeAdModel#getAdType()`` 方法可以获取广告当前的类型
 
-##### 2.2.6.1 APP类型广告下载打开
+##### 2.2.7.1 APP类型广告下载打开
 
 流程：
 
@@ -302,7 +302,7 @@ YoumiNativeAdHelper.addOnYoumiNativeAdDownloadListener(OnYoumiNativeAdDownloadLi
 YoumiNativeAdHelper.removeOnYoumiNativeAdDownloadListener(OnYoumiNativeAdDownloadListener listener);
 ```
 
-#### 2.2.6.2 WAP类型广告相关处理
+#### 2.2.7.2 WAP类型广告相关处理
 
 采用外部浏览器或者内部WebView打开 ``YoumiNativeAdModel#getUrl()`` 即可，更多实现可以参考demo中实现。
 
