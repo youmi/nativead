@@ -31,12 +31,15 @@ public class DeviceInfoUtils {
 			TelephonyManager telephonyManager =
 					(TelephonyManager) context.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
 			if (telephonyManager != null) {
-				return telephonyManager.getDeviceId();
+				String deviceId = telephonyManager.getDeviceId();
+				if (!TextUtils.isEmpty(deviceId)) {
+					return deviceId;
+				}
 			}
 		} catch (Throwable e) {
 			DLog.e(e);
 		}
-		return null;
+		return "";
 	}
 	
 	public static String getIMSI(Context context) {
@@ -44,12 +47,15 @@ public class DeviceInfoUtils {
 			TelephonyManager telephonyManager =
 					(TelephonyManager) context.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
 			if (telephonyManager != null) {
-				return telephonyManager.getSubscriberId();
+				String imsi = telephonyManager.getSubscriberId();
+				if (!TextUtils.isEmpty(imsi)) {
+					return imsi;
+				}
 			}
 		} catch (Throwable e) {
 			DLog.e(e);
 		}
-		return null;
+		return "";
 	}
 	
 	public static String getOperatorName(Context context) {
@@ -57,12 +63,15 @@ public class DeviceInfoUtils {
 			TelephonyManager telephonyManager =
 					(TelephonyManager) context.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
 			if (telephonyManager != null) {
-				return telephonyManager.getNetworkOperatorName();
+				String operatorName = telephonyManager.getNetworkOperatorName();
+				if (!TextUtils.isEmpty(operatorName)) {
+					return operatorName;
+				}
 			}
 		} catch (Throwable e) {
 			DLog.e(e);
 		}
-		return null;
+		return "";
 	}
 	
 	public static String getMacAddress(Context context) {
@@ -101,7 +110,11 @@ public class DeviceInfoUtils {
 			}
 		}
 		
-		return sMacAddress;
+		if (!TextUtils.isEmpty(sMacAddress)) {
+			return sMacAddress;
+		} else {
+			return "";
+		}
 	}
 	
 	public static String getAndroidID(Context context) {
@@ -112,7 +125,7 @@ public class DeviceInfoUtils {
 		} catch (Throwable e) {
 			DLog.e(e);
 		}
-		return null;
+		return "";
 	}
 	
 	public static String getBrand() {
