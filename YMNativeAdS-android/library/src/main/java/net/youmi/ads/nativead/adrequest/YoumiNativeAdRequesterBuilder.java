@@ -251,6 +251,7 @@ public class YoumiNativeAdRequesterBuilder {
 			if (!TextUtils.isEmpty(userAgent)) {
 				sb.append("&ua=").append(base64Encode(userAgent));
 			}
+			sb.append("&imsi=").append(DeviceInfoUtils.getIMSI(applicationContext));
 			sb.append("&os=").append("Android");
 			sb.append("&osv=").append(DeviceInfoUtils.getAndroidVersionName());
 			sb.append("&conntype=").append(NetworkUtils.getNetworkType(applicationContext));

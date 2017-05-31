@@ -1,5 +1,6 @@
 package net.youmi.ads.base.deviceinfos;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -20,15 +21,31 @@ import java.util.Locale;
  * @author zhitao
  * @since 2017-04-13 11:46
  */
+@SuppressLint("HardwareIds")
 public class DeviceInfoUtils {
 	
-	public static String sMacAddress;
+	private static String sMacAddress;
 	
 	public static String getDeviceId(Context context) {
 		try {
 			TelephonyManager telephonyManager =
 					(TelephonyManager) context.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
-			return telephonyManager.getDeviceId();
+			if (telephonyManager != null) {
+				return telephonyManager.getDeviceId();
+			}
+		} catch (Throwable e) {
+			DLog.e(e);
+		}
+		return null;
+	}
+	
+	public static String getIMSI(Context context) {
+		try {
+			TelephonyManager telephonyManager =
+					(TelephonyManager) context.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+			if (telephonyManager != null) {
+				return telephonyManager.getSubscriberId();
+			}
 		} catch (Throwable e) {
 			DLog.e(e);
 		}
