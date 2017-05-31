@@ -6,7 +6,7 @@
 * v1.1 - 增加针对Android的适配。
 * v1.2 - 参数列表修改；返回值参数样例修改；修改[效果监控上报](#效果监控上报)的文字说明。
 * v1.3 - [返回值参数列表](#返回值参数列表)中广告id调整为string类型；slotid调整为string类型；页面内link修改。
-
+* v1.4 - [请求参数列表（GET）](#请求参数列表（GET）)增加SIM卡参数发送； [效果监控上报](#效果监控上报)增加download和install两个参数。
 
 
 
@@ -59,6 +59,7 @@ Authorization: Bearer <Token>
 | mac         | string | 否    | 设备的mac地址，明文不加密。                          |
 | imei        | string | 是    | 设备的imei码，明文不加密; Android必须填写。             |
 | androidid   | string | 否    | 设备的android id，明文不加密。                     |
+| imsi        | string | 否    | 设备的imsi id, 明文不加密。                        |
 | ip          | string | 否    | 当前请求的IP地址，如果是从移动终端发起请求则可以不填写。            |
 | ua          | string | 否    | UserAgent。                               |
 | os          | string | 否    | 操作系统，可选（android，ios）。                    |
@@ -116,9 +117,11 @@ Authorization: Bearer <Token>
 ##### 参数Track
 
 | 字段    | 类型       | 说明                                       |
-| ----- | -------- | ---------------------------------------- |
-| show  | string[] | 该字段为一组URL的List，里面每一条URL都是一条`曝光`的Tracking链接，具体的使用方法请参见[效果监控上报](#效果监控上报)。 |
-| click | string[] | 该字段为一组URL的List，里面每一条URL都是一条`点击`的Tracking链接，具体的使用方法请参见[效果监控上报](#效果监控上报)。 |
+| -------- | -------- | ---------------------------------------- |
+| show     | string[] | 该字段为一组URL的List，里面每一条URL都是一条`曝光`的Tracking链接，具体的使用方法请参见[效果监控上报](#效果监控上报)。 |
+| click    | string[] | 该字段为一组URL的List，里面每一条URL都是一条`点击`的Tracking链接，具体的使用方法请参见[效果监控上报](#效果监控上报)。 |
+| download | string[] | 该字段为一组URL的List，里面每一条URL都是一条`下载完成`的Tracking链接，具体的使用方法请参见[效果监控上报](#效果监控上报)。 |
+| install  | string[] | 该字段为一组URL的List，里面每一条URL都是一条`安装完成`的Tracking链接，具体的使用方法请参见[效果监控上报](#效果监控上报)。 |
 
 
 
@@ -214,9 +217,9 @@ Authorization: Bearer <Token>
 
 ## 效果监控上报
 
-**注意：曝光监控和点击监控十分重要，需要贵司确保App内已经能够很好的支持曝光和点击监控的上报功能，否则可能会导致结算问题。**
+**注意：曝光监控和点击监控十分重要，需要贵司确保App内已经能够很好的支持曝光和点击监控的上报功能，否则可能会导致结算问题。下载和安装监控用于安卓平台的优化广告投放效果。**
 
-效果监控上报的数据从[返回值参数列表](#返回值参数列表)的`track`字段中提取。该字段中包含show和click两个参数，分别用于曝光监控和点击监控。track字段的结构大致如下：
+效果监控上报的数据从[返回值参数列表](#返回值参数列表)的`track`字段中提取。该字段中包含show，click，download和install 四个参数，分别用于曝光监控，点击监控，下载监控和安装监控。track字段的结构大致如下：
 
 ```json
 {
@@ -227,7 +230,14 @@ Authorization: Bearer <Token>
   "click": [ 
           "http://track3.youmi.net/click/dfhehfqeeqfef", 
           "http://track4.youmi.net/click/adfaaadkfdfdd" 
-        ]
+        ],
+  // 安卓平台才有 download 和 install 监控
+  "download": [
+          "http://track5.youmi.net/eff/pdkpfpwwsdsrrtf",
+        ],
+  "install": [
+          "http://track6.youmi.net/eff/wadasafsfryrtrt",
+  ]
 }
 ```
 
@@ -236,8 +246,8 @@ Authorization: Bearer <Token>
 1. 广告曝光时，调用show列表里的url上报曝光监控，链接需要从**客户端**发起。
 2. 用户点击时，调用click列表里的url上报点击监控，需要从**客户端**发起请求。
 3. 注意：若click列表不为空，则需要等待点击监控全部发送完成后再跳转到落地页。
-
-
+4. 安卓平台的用户下载完成时，调用download列表里的url上报下载监控，需要从**客户端**发起请求。
+5. 安卓平台的用户安装完成时，调用install列表里的url上报安装监控，需要从**客户端**发起请求。
 
 
 ## iOS点击跳转到逻辑页的逻辑
