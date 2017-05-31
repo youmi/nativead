@@ -75,10 +75,10 @@ dependencies {
 	releaseCompile project(path: ':library', configuration: 'release')
 
 	// 依赖本地aar
-	// compile(name: 'nativead-release-1.1.1', ext: 'aar')
+	// compile(name: 'nativead-release-1.2.0', ext: 'aar')
 
 	// 依赖线上release版本的aar [开发者正式版本的apk引用]
-	// compile 'net.youmi.ads:nativead:1.1.1:release@aar'
+	// compile 'net.youmi.ads:nativead:1.2.0:release@aar'
 
 	// 依赖线上debug版本的aar [开发者需要调试时可以引用]
 	//
@@ -86,9 +86,10 @@ dependencies {
 	//
 	// 1. 能输出网络、下载相关的相关log
 	// 2. 对外提供的数据模型，都重写了toString方法，使其会详细打印出各个成员变量的值
+	// 3. 部分错误将会捕捉并输出
 	//
 	// 基于上面两点，建议开发者在发现疑点时才使用这个版本的aar进行更多的log输出，正式发布时强烈建议使用release版本
-	// compile 'net.youmi.ads:nativead:1.1.1:debug@aar'
+	// compile 'net.youmi.ads:nativead:1.2.0:debug@aar'
 
 }
 

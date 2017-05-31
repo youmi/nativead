@@ -14,11 +14,7 @@ public class MainApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		
-		// [可选]初始化sdk的一些配置
-		// 默认情况下是不会开启调试log的，因为是demo，所以我们开一下
-		// 1. 开启调试Log
-		// 2. 设置调试Log的Tag为YoumiSdk
-		//
+		// [可选]初始化sdk的一些配置，如：appId
 		YoumiNativeAdHelper.initConfig(this).withAppId(BuildConfig.APPID);
 	}
 }
