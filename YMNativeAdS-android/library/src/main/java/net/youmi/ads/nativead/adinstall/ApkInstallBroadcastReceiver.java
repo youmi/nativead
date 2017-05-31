@@ -7,11 +7,16 @@ import android.text.TextUtils;
 
 import net.youmi.ads.base.hash.MD5;
 import net.youmi.ads.base.log.DLog;
+import net.youmi.ads.base.pool.GlobalCacheExecutor;
 import net.youmi.ads.base.utils.FileUtils;
 import net.youmi.ads.base.utils.JSONUtils;
 import net.youmi.ads.base.utils.SPUtils;
+import net.youmi.ads.nativead.YoumiNativeAdHelper;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * @author zhitao
@@ -20,7 +25,7 @@ import org.json.JSONObject;
 class ApkInstallBroadcastReceiver extends BroadcastReceiver {
 	
 	@Override
-	public final void onReceive(Context context, Intent intent) {
+	public final void onReceive(final Context context, Intent intent) {
 		try {
 			if (Intent.ACTION_PACKAGE_ADDED.equals(intent.getAction())) {
 				String pkgName = intent.getData().getSchemeSpecificPart();
@@ -40,6 +45,24 @@ class ApkInstallBroadcastReceiver extends BroadcastReceiver {
 				boolean isNeed2OpenApp = JSONUtils.getBoolean(jo, "c", false);
 				boolean isNeed2DeleteApkAfterInstalled = JSONUtils.getBoolean(jo, "d", true);
 				String apkFileAbsPath = JSONUtils.getString(jo, "e", null);
+				boolean isNeed2SendInstallSuccessEff = JSONUtils.getBoolean(jo, "f", false);
+				
+				// 发送安装成功效果记录
+				if (isNeed2SendInstallSuccessEff) {
+					JSONArray ja = JSONUtils.getJsonArray(jo, "g", null);
+					if (ja != null && ja.length() > 0) {
+						final ArrayList<String> urls = new ArrayList<>();
+						for (int i = 0; i < ja.length(); i++) {
+							urls.add(ja.getString(i));
+						}
+						GlobalCacheExecutor.execute(new Runnable() {
+							@Override
+							public void run() {
+								YoumiNativeAdHelper.newAdEffRequest(context).sendEff(context, urls);
+							}
+						});
+					}
+				}
 				
 				// 如果需要删除apk的话
 				if (isNeed2DeleteApkAfterInstalled && !TextUtils.isEmpty(apkFileAbsPath)) {
@@ -64,6 +87,6 @@ class ApkInstallBroadcastReceiver extends BroadcastReceiver {
 		} catch (Throwable e) {
 			DLog.e(e);
 		}
-		
 	}
+	
 }

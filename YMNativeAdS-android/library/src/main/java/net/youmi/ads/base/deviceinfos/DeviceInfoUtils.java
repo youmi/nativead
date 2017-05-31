@@ -1,5 +1,6 @@
 package net.youmi.ads.base.deviceinfos;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -20,19 +21,41 @@ import java.util.Locale;
  * @author zhitao
  * @since 2017-04-13 11:46
  */
+@SuppressLint("HardwareIds")
 public class DeviceInfoUtils {
 	
-	public static String sMacAddress;
+	private static String sMacAddress;
 	
 	public static String getDeviceId(Context context) {
 		try {
 			TelephonyManager telephonyManager =
 					(TelephonyManager) context.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
-			return telephonyManager.getDeviceId();
+			if (telephonyManager != null) {
+				String deviceId = telephonyManager.getDeviceId();
+				if (!TextUtils.isEmpty(deviceId)) {
+					return deviceId;
+				}
+			}
 		} catch (Throwable e) {
 			DLog.e(e);
 		}
-		return null;
+		return "";
+	}
+	
+	public static String getIMSI(Context context) {
+		try {
+			TelephonyManager telephonyManager =
+					(TelephonyManager) context.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+			if (telephonyManager != null) {
+				String imsi = telephonyManager.getSubscriberId();
+				if (!TextUtils.isEmpty(imsi)) {
+					return imsi;
+				}
+			}
+		} catch (Throwable e) {
+			DLog.e(e);
+		}
+		return "";
 	}
 	
 	public static String getOperatorName(Context context) {
@@ -40,12 +63,15 @@ public class DeviceInfoUtils {
 			TelephonyManager telephonyManager =
 					(TelephonyManager) context.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
 			if (telephonyManager != null) {
-				return telephonyManager.getNetworkOperatorName();
+				String operatorName = telephonyManager.getNetworkOperatorName();
+				if (!TextUtils.isEmpty(operatorName)) {
+					return operatorName;
+				}
 			}
 		} catch (Throwable e) {
 			DLog.e(e);
 		}
-		return null;
+		return "";
 	}
 	
 	public static String getMacAddress(Context context) {
@@ -84,7 +110,11 @@ public class DeviceInfoUtils {
 			}
 		}
 		
-		return sMacAddress;
+		if (!TextUtils.isEmpty(sMacAddress)) {
+			return sMacAddress;
+		} else {
+			return "";
+		}
 	}
 	
 	public static String getAndroidID(Context context) {
@@ -95,7 +125,7 @@ public class DeviceInfoUtils {
 		} catch (Throwable e) {
 			DLog.e(e);
 		}
-		return null;
+		return "";
 	}
 	
 	public static String getBrand() {

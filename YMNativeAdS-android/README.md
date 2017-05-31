@@ -23,12 +23,35 @@
 ### 2.1 下载并导入sdk
 
 ``` gradle
-compile 'net.youmi.ads:nativead:1.1.1:release@aar'
+// 依赖release版本的aar [开发者正式版本的apk引用]
+compile 'net.youmi.ads:nativead:1.2.0:release@aar'
+
+// 依赖debug版本的aar [开发者需要调试时可以引用]
+//
+// debug版本aar相比release的aar:
+//
+// 1. 能输出网络、下载相关的相关log
+// 2. 对外提供的数据模型，都重写了toString方法，使其会详细打印出各个成员变量的值
+// 3. 部分错误将会捕捉并输出
+// 4. Logcat中过滤Tag为 Sdk ，即为本Sdk输出的Log
+//
+// 基于上面两点，建议开发者在发现疑点时才使用这个版本的aar进行更多的log输出，正式发布时强烈建议使用release版本
+// compile 'net.youmi.ads:nativead:1.2.0:debug@aar'
 ```
 
-### 2.2 快速使用
+### 2.2 初始化SDK
 
-#### 2.2.1 发起一个广告位请求
+```java
+YoumiNativeAdHelper
+
+	// 初始化配置原则上应用生命周期中调用一次则可
+	.initConfig(Context context)
+	
+	// 初始化appId
+	.withAppId(String appId);
+```
+
+### 2.3 发起一个广告位请求
 
 ``` java
 YoumiNativeAdHelper
@@ -76,7 +99,6 @@ YoumiNativeAdHelper
 // 发起一个同步请求 
 YoumiNativeAdResposeModel model = YoumiNativeAdHelper
 				.newAdRequest(context)
-				.withAppId(BuildConfig.APPID)
 				.withSlotId(slotId)
 				.request();
 
@@ -109,16 +131,15 @@ YoumiNativeAdModel adModel = adModels.get(0);
 // ... 
 ```
 
-#### 2.2.2 发送广告曝光效果记录
+### 2.4 发送效果记录
+
+#### 2.4.1 发送广告曝光效果记录
 
 ``` java
 YoumiNativeAdHelper
 
 	// 创建一个广告效果记录请求
 	.newAdEffRequest(Context context)
-	
-	// （必须）设置应用APPID
-	.withAppId(String appId)
 	
 	// （必须）设置要发送的广告
 	.withYoumiNativeAdModel(YoumiNativeAdModel adModel)
@@ -133,16 +154,13 @@ YoumiNativeAdHelper
 	.asyncSendShowEff();
 ```
 
-#### 2.2.3 发送广告点击效果记录
+#### 2.4.2 发送广告点击效果记录
 
 ``` java
 YoumiNativeAdHelper
 
 	// 创建一个广告效果记录请求
 	.newAdEffRequest(Context context)
-	
-	// （必须）设置应用APPID
-	.withAppId(String appId)
 	
 	// （必须）设置要发送的广告
 	.withYoumiNativeAdModel(YoumiNativeAdModel adModel)
@@ -157,14 +175,60 @@ YoumiNativeAdHelper
 	.asyncSendClickEff();
 ```
 
-#### 2.2.4 下载或打开广告
+#### 2.4.3 发送下载完成效果记录
+
+**如果使用sdk自带下载管理器，sdk自带下载管理器就会自动在下载完成时发送**
+
+``` java
+YoumiNativeAdHelper
+
+	// 创建一个广告效果记录请求
+	.newAdEffRequest(Context context)
+	
+	// （必须）设置要发送的广告
+	.withYoumiNativeAdModel(YoumiNativeAdModel adModel)
+	
+	// （可选）设置效果记录发送失败时的重试次数，默认为5次
+	.withMaxRetryCount(5)
+	
+	// 同步发送下载完成效果记录
+	//.syncSendDownloadSuccessEff();
+	
+	// 异步发送下载完成效果记录
+	.asyncSendDownloadSuccessEff();
+```
+
+#### 2.4.4 发送安装完成效果记录
+
+**如果使用sdk自带下载管理器，sdk自带下载管理器就会自动在安装完成时发送**
+
+``` java
+YoumiNativeAdHelper
+
+	// 创建一个广告效果记录请求
+	.newAdEffRequest(Context context)
+	
+	// （必须）设置要发送的广告
+	.withYoumiNativeAdModel(YoumiNativeAdModel adModel)
+	
+	// （可选）设置效果记录发送失败时的重试次数，默认为5次
+	.withMaxRetryCount(5)
+	
+	// 同步发送安装完成效果记录
+	//.syncSendInstallSuccessEff();
+	
+	// 异步发送安装完成效果记录
+	.asyncSendInstallSuccessEff();
+```
+
+### 2.5 下载或打开广告 
 
 须知：
 
 1. 广告类型目前有 **APP类型** 和 **WAP类型** 广告，两者在点击后的流程存在不同
 2. 根据 ``YoumiNativeAdModel#getAdType()`` 方法可以获取广告当前的类型
 
-##### 2.2.4.1 APP类型广告下载打开
+#### 2.5.1 APP类型广告下载打开
 
 流程：
 
@@ -177,7 +241,7 @@ YoumiNativeAdHelper
 
 <a name="app-download" id="app-download"></a>
 
-###### 1. 下载或者打开广告
+##### 1. 下载或者打开广告
 
 **注意：**
 
@@ -205,6 +269,13 @@ if (!PackageUtils.isPakcageInstall(this, mYoumiNativeAdModel.getAppModel().getPa
 		// 此方法需要设置安装成功后打开广告应用的方法才生效，即调用了 startAppAfterInstalled(true) 才生效
 		.deleteApkAfterInstalled(true)
 		
+		// （可选）广告下载成功之后是否自动发送下载成功效果记录（默认为true：发送）
+		.sendDownloadSuccessEff(true)
+		
+		// （可选）广告安装成功之后是否自动发送安装成功效果记录（默认为true：发送）
+		// 此方法需要设置下载成功之后打开应用安装界面之后才可能生效，即调用了 installApkAfterDownloadSuccess（true)
+		.sendInstallSuccessEff(true)
+		
 		// 开始下载
 		.download();
 } else {
@@ -214,25 +285,25 @@ if (!PackageUtils.isPakcageInstall(this, mYoumiNativeAdModel.getAppModel().getPa
 }
 ```
 
-###### 2. 停止下载
+##### 2. 停止下载
 
 ``` java
 YoumiNativeAdHelper.stopDownload(YoumiNativeAdModel adModel);
 ```
 
-###### 3. 添加下载监听器
+##### 3. 添加下载监听器
 
 ``` java
 YoumiNativeAdHelper.addOnYoumiNativeAdDownloadListener(OnYoumiNativeAdDownloadListener listener);
 ```
 
-###### 4. 移除下载监听器
+##### 4. 移除下载监听器
 
 ``` java
 YoumiNativeAdHelper.removeOnYoumiNativeAdDownloadListener(OnYoumiNativeAdDownloadListener listener);
 ```
 
-#### 2.2.4.2 WAP类型广告相关处理
+#### 2.5.2 WAP类型广告相关处理
 
 采用外部浏览器或者内部WebView打开 ``YoumiNativeAdModel#getUrl()`` 即可，更多实现可以参考demo中实现。
 
@@ -255,6 +326,6 @@ Utils.startActivity2OpenUrl(this, adModel.getUrl);
 ```
 
 
-### 2.3 更多使用
+### 2.6 更多使用
 
 更多使用请参考demo示例

@@ -12,6 +12,7 @@ import net.youmi.ads.base.pool.GlobalCacheExecutor;
 import net.youmi.ads.base.utils.JSONUtils;
 import net.youmi.ads.base.utils.NetworkUtils;
 import net.youmi.ads.base.utils.UIHandler;
+import net.youmi.ads.nativead.adconfig.YoumiSpConfig;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,11 +30,6 @@ public class YoumiNativeAdRequesterBuilder {
 	private final static String REQ_URL = "https://native.umapi.cn/aos/v1/oreq";
 	
 	private Context applicationContext;
-	
-	/**
-	 * appId
-	 */
-	private String appId;
 	
 	/**
 	 * （必须）请求广告位Id
@@ -77,18 +73,6 @@ public class YoumiNativeAdRequesterBuilder {
 	
 	public YoumiNativeAdRequesterBuilder(Context context) {
 		applicationContext = context.getApplicationContext();
-	}
-	
-	/**
-	 * （必须）设置应用APPID
-	 *
-	 * @param appId （必须）应用APPID
-	 *
-	 * @return this
-	 */
-	public YoumiNativeAdRequesterBuilder withAppId(String appId) {
-		this.appId = appId;
-		return this;
 	}
 	
 	/**
@@ -215,7 +199,7 @@ public class YoumiNativeAdRequesterBuilder {
 	 * @return YoumiNativeAdResposeModel 对象
 	 */
 	public YoumiNativeAdResposeModel request() {
-		if (TextUtils.isEmpty(appId)) {
+		if (TextUtils.isEmpty(YoumiSpConfig.getAppId(applicationContext))) {
 			throw new IllegalArgumentException("can not request without appId");
 		}
 		if (TextUtils.isEmpty(slotId)) {
@@ -251,6 +235,7 @@ public class YoumiNativeAdRequesterBuilder {
 			if (!TextUtils.isEmpty(userAgent)) {
 				sb.append("&ua=").append(base64Encode(userAgent));
 			}
+			sb.append("&imsi=").append(DeviceInfoUtils.getIMSI(applicationContext));
 			sb.append("&os=").append("Android");
 			sb.append("&osv=").append(DeviceInfoUtils.getAndroidVersionName());
 			sb.append("&conntype=").append(NetworkUtils.getNetworkType(applicationContext));
@@ -261,7 +246,10 @@ public class YoumiNativeAdRequesterBuilder {
 			
 			// 添加指定的header
 			ArrayList<BaseHttpRequesterModel.Header> headers = new ArrayList<>();
-			headers.add(new BaseHttpRequesterModel.Header("Authorization", "Bearer " + appId));
+			headers.add(new BaseHttpRequesterModel.Header(
+					"Authorization",
+					"Bearer " + YoumiSpConfig.getAppId(applicationContext)
+			));
 			
 			// 发起请求
 			String respJsonStr = YoumiHttpRequester.httpGetForString(applicationContext, sb.toString(), headers);
@@ -334,6 +322,8 @@ public class YoumiNativeAdRequesterBuilder {
 				JSONObject trackJson = JSONUtils.getJsonObject(adJson, "track", null);
 				ArrayList<String> showUrls = null;
 				ArrayList<String> clickUrls = null;
+				ArrayList<String> downloadUrls = null;
+				ArrayList<String> installUrls = null;
 				if (trackJson != null) {
 					
 					JSONArray showUrlsJsonArray = JSONUtils.getJsonArray(trackJson, "show", null);
@@ -361,6 +351,34 @@ public class YoumiNativeAdRequesterBuilder {
 								clickUrls = new ArrayList<>();
 							}
 							clickUrls.add(clickUrl);
+						}
+					}
+					
+					JSONArray downloadUrlsJsonArray = JSONUtils.getJsonArray(trackJson, "download", null);
+					if (downloadUrlsJsonArray != null && downloadUrlsJsonArray.length() > 0) {
+						for (int j = 0; j < downloadUrlsJsonArray.length(); j++) {
+							String downloadUrl = JSONUtils.getString(downloadUrlsJsonArray, j, null);
+							if (TextUtils.isEmpty(downloadUrl)) {
+								continue;
+							}
+							if (downloadUrls == null) {
+								downloadUrls = new ArrayList<>();
+							}
+							downloadUrls.add(downloadUrl);
+						}
+					}
+					
+					JSONArray installUrlsJsonArray = JSONUtils.getJsonArray(trackJson, "install", null);
+					if (installUrlsJsonArray != null && installUrlsJsonArray.length() > 0) {
+						for (int j = 0; j < installUrlsJsonArray.length(); j++) {
+							String installUrl = JSONUtils.getString(installUrlsJsonArray, j, null);
+							if (TextUtils.isEmpty(installUrl)) {
+								continue;
+							}
+							if (installUrls == null) {
+								installUrls = new ArrayList<>();
+							}
+							installUrls.add(installUrl);
 						}
 					}
 				}
@@ -431,6 +449,8 @@ public class YoumiNativeAdRequesterBuilder {
 				adModel.setAdType(pt);
 				adModel.setShowUrls(showUrls);
 				adModel.setClickUrls(clickUrls);
+				adModel.setDownloadUrls(downloadUrls);
+				adModel.setInstallUrls(installUrls);
 				adModel.setAppModel(appModel);
 				adModel.setExtModel(extModel);
 				

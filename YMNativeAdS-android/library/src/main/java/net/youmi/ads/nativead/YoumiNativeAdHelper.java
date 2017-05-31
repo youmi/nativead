@@ -20,10 +20,12 @@ public class YoumiNativeAdHelper {
 	/**
 	 * 设置sdk的一些配置
 	 *
+	 * @param context 上下文，会自动取ApplicationContext
+	 *
 	 * @return sdk配置对象
 	 */
-	public static YoumiNativeAdConfigBuilder initConfig() {
-		return new YoumiNativeAdConfigBuilder();
+	public static YoumiNativeAdConfigBuilder initConfig(Context context) {
+		return new YoumiNativeAdConfigBuilder(context.getApplicationContext());
 	}
 	
 	/**

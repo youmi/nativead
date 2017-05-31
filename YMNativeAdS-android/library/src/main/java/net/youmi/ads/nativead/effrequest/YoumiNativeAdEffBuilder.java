@@ -8,6 +8,7 @@ import net.youmi.ads.base.network.BaseHttpRequesterModel;
 import net.youmi.ads.base.network.BaseHttpResponseModel;
 import net.youmi.ads.base.network.YoumiHttpRequester;
 import net.youmi.ads.base.pool.GlobalCacheExecutor;
+import net.youmi.ads.nativead.adconfig.YoumiSpConfig;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdModel;
 
 import java.util.ArrayList;
@@ -35,24 +36,10 @@ public class YoumiNativeAdEffBuilder {
 	
 	private YoumiNativeAdModel adModel;
 	
-	private String appId;
-	
 	private int maxRetryTimes = MAX_RETRY_TIMES;
 	
 	public YoumiNativeAdEffBuilder(Context context) {
 		applicationContext = context.getApplicationContext();
-	}
-	
-	/**
-	 * 设置AppId
-	 *
-	 * @param appId appId
-	 *
-	 * @return this
-	 */
-	public YoumiNativeAdEffBuilder withAppId(String appId) {
-		this.appId = appId;
-		return this;
 	}
 	
 	/**
@@ -96,6 +83,16 @@ public class YoumiNativeAdEffBuilder {
 	}
 	
 	/**
+	 * [同步]发送曝光效果记录
+	 */
+	public void syncSendShowEff() {
+		if (applicationContext == null || adModel == null || adModel.getShowUrls() == null) {
+			return;
+		}
+		sendEff(applicationContext, adModel.getShowUrls());
+	}
+	
+	/**
 	 * [异步]发送点击记录效果
 	 */
 	public void asyncSendClickEff() {
@@ -108,16 +105,6 @@ public class YoumiNativeAdEffBuilder {
 	}
 	
 	/**
-	 * [同步]发送曝光效果记录
-	 */
-	public void syncSendShowEff() {
-		if (applicationContext == null || adModel == null || adModel.getShowUrls() == null) {
-			return;
-		}
-		sendEff(applicationContext, adModel.getShowUrls());
-	}
-	
-	/**
 	 * [同步]发送点击记录效果
 	 */
 	public void syncSendClickEff() {
@@ -125,6 +112,50 @@ public class YoumiNativeAdEffBuilder {
 			return;
 		}
 		sendEff(applicationContext, adModel.getClickUrls());
+	}
+	
+	/**
+	 * [异步]发送下载完成记录效果
+	 */
+	public void asyncSendDownloadSuccessEff() {
+		GlobalCacheExecutor.execute(new Runnable() {
+			@Override
+			public void run() {
+				syncSendDownloadSuccessEff();
+			}
+		});
+	}
+	
+	/**
+	 * [同步]发送下载完成效果记录
+	 */
+	public void syncSendDownloadSuccessEff() {
+		if (applicationContext == null || adModel == null || adModel.getDownloadUrls() == null) {
+			return;
+		}
+		sendEff(applicationContext, adModel.getDownloadUrls());
+	}
+	
+	/**
+	 * [异步]发送安装完成记录效果
+	 */
+	public void asyncSendInstallSuccessEff() {
+		GlobalCacheExecutor.execute(new Runnable() {
+			@Override
+			public void run() {
+				syncSendInstallSuccessEff();
+			}
+		});
+	}
+	
+	/**
+	 * [同步]发送安装完成效果记录
+	 */
+	public void syncSendInstallSuccessEff() {
+		if (applicationContext == null || adModel == null || adModel.getInstallUrls() == null) {
+			return;
+		}
+		sendEff(applicationContext, adModel.getInstallUrls());
 	}
 	
 	/**
@@ -139,8 +170,9 @@ public class YoumiNativeAdEffBuilder {
 	 * @param context 上下文
 	 * @param urls    效果记录
 	 */
-	private void sendEff(Context context, final ArrayList<String> urls) {
-		if (TextUtils.isEmpty(appId)) {
+	@Deprecated
+	public void sendEff(Context context, final ArrayList<String> urls) {
+		if (TextUtils.isEmpty(YoumiSpConfig.getAppId(context))) {
 			throw new IllegalArgumentException("can not request without appId");
 		}
 		
@@ -150,7 +182,7 @@ public class YoumiNativeAdEffBuilder {
 				while (count < maxRetryTimes) {
 					
 					ArrayList<BaseHttpRequesterModel.Header> headers = new ArrayList<>();
-					headers.add(new BaseHttpRequesterModel.Header("Authorization", "Bearer " + appId));
+					headers.add(new BaseHttpRequesterModel.Header("Authorization", "Bearer " + YoumiSpConfig.getAppId(context)));
 					
 					BaseHttpResponseModel resp = YoumiHttpRequester.httpGet(context.getApplicationContext(), url, headers);
 					if (resp == null) {

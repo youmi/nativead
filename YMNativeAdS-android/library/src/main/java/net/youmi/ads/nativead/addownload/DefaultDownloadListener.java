@@ -18,9 +18,11 @@ import net.youmi.ads.base.utils.JSONUtils;
 import net.youmi.ads.base.utils.NetworkUtils;
 import net.youmi.ads.base.utils.SPUtils;
 import net.youmi.ads.base.utils.SdCardUtils;
+import net.youmi.ads.nativead.YoumiNativeAdHelper;
 import net.youmi.ads.nativead.adinstall.AdInstallUtils;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdModel;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.lang.reflect.Method;
@@ -165,6 +167,21 @@ class DefaultDownloadListener implements OnDownloadListener {
 		
 		DownloadTaskConfig downloadTaskConfig = getDownloadTaskConfig(fileDownloadTask);
 		
+		YoumiNativeAdModel adModel = null;
+		
+		// 发送下载成功的效果记录
+		if (downloadTaskConfig.isNeed2SendDownloadSuccessEff()) {
+			if (fileDownloadTask.getIFileDownloadTaskSparseArray() != null) {
+				adModel = (YoumiNativeAdModel) fileDownloadTask.getIFileDownloadTaskSparseArray()
+				                                               .get(YoumiNativeAdModel.class.hashCode());
+				if (adModel != null) {
+					YoumiNativeAdHelper.newAdEffRequest(mApplicationContext)
+					                   .withYoumiNativeAdModel(adModel)
+					                   .asyncSendDownloadSuccessEff();
+				}
+			}
+		}
+		
 		// 发送下载进度到通知栏
 		if (downloadTaskConfig.isShowDefaultNotification()) {
 			DownloadNotification notification = getNotification(fileDownloadTask);
@@ -178,10 +195,11 @@ class DefaultDownloadListener implements OnDownloadListener {
 		if (downloadTaskConfig.isNeed2StartInstallAfterDownloadSuccess()) {
 			if (fileDownloadTask.getStoreFile() != null && fileDownloadTask.getStoreFile().exists()) {
 				
-				YoumiNativeAdModel adModel = null;
-				if (fileDownloadTask.getIFileDownloadTaskSparseArray() != null) {
-					adModel = (YoumiNativeAdModel) fileDownloadTask.getIFileDownloadTaskSparseArray()
-					                                               .get(YoumiNativeAdModel.class.hashCode());
+				if (adModel == null) {
+					if (fileDownloadTask.getIFileDownloadTaskSparseArray() != null) {
+						adModel = (YoumiNativeAdModel) fileDownloadTask.getIFileDownloadTaskSparseArray()
+						                                               .get(YoumiNativeAdModel.class.hashCode());
+					}
 				}
 				if (adModel != null) {
 					Intent intent = IntentUtils.getIntentForInstallApk(mApplicationContext, fileDownloadTask.getStoreFile());
@@ -194,6 +212,17 @@ class DefaultDownloadListener implements OnDownloadListener {
 						JSONUtils.putObject(jo, "c", downloadTaskConfig.isNeed2OpenAppAfterInstalled());
 						JSONUtils.putObject(jo, "d", downloadTaskConfig.isNeed2DeleteApkAfterInstalled());
 						JSONUtils.putObject(jo, "e", fileDownloadTask.getStoreFile().getAbsolutePath());
+						
+						if (downloadTaskConfig.isNeed2SendInstallSuccessEff()) {
+							if (adModel.getInstallUrls() != null && !adModel.getInstallUrls().isEmpty()) {
+								JSONArray ja = new JSONArray();
+								for (String url : adModel.getInstallUrls()) {
+									ja.put(url);
+								}
+								JSONUtils.putObject(jo, "f", true);
+								JSONUtils.putObject(jo, "g", ja.toString());
+							}
+						}
 						if (SPUtils.putString(mApplicationContext,
 								MD5.md5(adModel.getAppModel().getPackageName()),
 								jo.toString()

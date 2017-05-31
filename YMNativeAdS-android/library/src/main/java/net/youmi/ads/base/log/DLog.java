@@ -27,7 +27,7 @@ public class DLog {
 	
 	private static String sTag = "Sdk";
 	
-	private static boolean sIsDebug = false;
+	private static boolean sIsDebug = BuildConfig.DEBUG;
 	
 	private static boolean sIsShowClassNameInTag = false;
 	
