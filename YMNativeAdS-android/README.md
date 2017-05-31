@@ -39,9 +39,7 @@ compile 'net.youmi.ads:nativead:1.2.0:release@aar'
 // compile 'net.youmi.ads:nativead:1.2.0:debug@aar'
 ```
 
-### 2.2 快速使用
-
-#### 2.2.1 初始化
+### 2.2 初始化SDK
 
 ```java
 YoumiNativeAdHelper
@@ -53,7 +51,7 @@ YoumiNativeAdHelper
 	.withAppId(String appId);
 ```
 
-#### 2.2.2 发起一个广告位请求
+### 2.3 发起一个广告位请求
 
 ``` java
 YoumiNativeAdHelper
@@ -133,7 +131,9 @@ YoumiNativeAdModel adModel = adModels.get(0);
 // ... 
 ```
 
-#### 2.2.3 发送广告曝光效果记录
+### 2.4 发送效果记录
+
+#### 2.4.1 发送广告曝光效果记录
 
 ``` java
 YoumiNativeAdHelper
@@ -154,7 +154,7 @@ YoumiNativeAdHelper
 	.asyncSendShowEff();
 ```
 
-#### 2.2.4 发送广告点击效果记录
+#### 2.4.2 发送广告点击效果记录
 
 ``` java
 YoumiNativeAdHelper
@@ -175,7 +175,7 @@ YoumiNativeAdHelper
 	.asyncSendClickEff();
 ```
 
-### 2.2.5 发送下载完成效果记录
+#### 2.4.3 发送下载完成效果记录
 
 **如果使用sdk自带下载管理器，sdk自带下载管理器就会自动在下载完成时发送**
 
@@ -198,7 +198,7 @@ YoumiNativeAdHelper
 	.asyncSendDownloadSuccessEff();
 ```
 
-### 2.2.6 发送安装完成效果记录
+#### 2.4.4 发送安装完成效果记录
 
 **如果使用sdk自带下载管理器，sdk自带下载管理器就会自动在安装完成时发送**
 
@@ -221,14 +221,14 @@ YoumiNativeAdHelper
 	.asyncSendInstallSuccessEff();
 ```
 
-#### 2.2.7 下载或打开广告
+### 2.5 下载或打开广告 
 
 须知：
 
 1. 广告类型目前有 **APP类型** 和 **WAP类型** 广告，两者在点击后的流程存在不同
 2. 根据 ``YoumiNativeAdModel#getAdType()`` 方法可以获取广告当前的类型
 
-##### 2.2.7.1 APP类型广告下载打开
+#### 2.5.1 APP类型广告下载打开
 
 流程：
 
@@ -241,7 +241,7 @@ YoumiNativeAdHelper
 
 <a name="app-download" id="app-download"></a>
 
-###### 1. 下载或者打开广告
+##### 1. 下载或者打开广告
 
 **注意：**
 
@@ -285,25 +285,25 @@ if (!PackageUtils.isPakcageInstall(this, mYoumiNativeAdModel.getAppModel().getPa
 }
 ```
 
-###### 2. 停止下载
+##### 2. 停止下载
 
 ``` java
 YoumiNativeAdHelper.stopDownload(YoumiNativeAdModel adModel);
 ```
 
-###### 3. 添加下载监听器
+##### 3. 添加下载监听器
 
 ``` java
 YoumiNativeAdHelper.addOnYoumiNativeAdDownloadListener(OnYoumiNativeAdDownloadListener listener);
 ```
 
-###### 4. 移除下载监听器
+##### 4. 移除下载监听器
 
 ``` java
 YoumiNativeAdHelper.removeOnYoumiNativeAdDownloadListener(OnYoumiNativeAdDownloadListener listener);
 ```
 
-#### 2.2.7.2 WAP类型广告相关处理
+#### 2.5.2 WAP类型广告相关处理
 
 采用外部浏览器或者内部WebView打开 ``YoumiNativeAdModel#getUrl()`` 即可，更多实现可以参考demo中实现。
 
@@ -326,6 +326,6 @@ Utils.startActivity2OpenUrl(this, adModel.getUrl);
 ```
 
 
-### 2.3 更多使用
+### 2.6 更多使用
 
 更多使用请参考demo示例
