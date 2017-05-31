@@ -220,14 +220,14 @@ YoumiNativeAdHelper
 	.asyncSendInstallSuccessEff();
 ```
 
-#### 2.2.4 下载或打开广告
+#### 2.2.6 下载或打开广告
 
 须知：
 
 1. 广告类型目前有 **APP类型** 和 **WAP类型** 广告，两者在点击后的流程存在不同
 2. 根据 ``YoumiNativeAdModel#getAdType()`` 方法可以获取广告当前的类型
 
-##### 2.2.4.1 APP类型广告下载打开
+##### 2.2.6.1 APP类型广告下载打开
 
 流程：
 
@@ -302,7 +302,7 @@ YoumiNativeAdHelper.addOnYoumiNativeAdDownloadListener(OnYoumiNativeAdDownloadLi
 YoumiNativeAdHelper.removeOnYoumiNativeAdDownloadListener(OnYoumiNativeAdDownloadListener listener);
 ```
 
-#### 2.2.4.2 WAP类型广告相关处理
+#### 2.2.6.2 WAP类型广告相关处理
 
 采用外部浏览器或者内部WebView打开 ``YoumiNativeAdModel#getUrl()`` 即可，更多实现可以参考demo中实现。
 
