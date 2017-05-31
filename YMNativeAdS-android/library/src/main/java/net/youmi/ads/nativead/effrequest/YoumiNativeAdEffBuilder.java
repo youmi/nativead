@@ -96,6 +96,16 @@ public class YoumiNativeAdEffBuilder {
 	}
 	
 	/**
+	 * [同步]发送曝光效果记录
+	 */
+	public void syncSendShowEff() {
+		if (applicationContext == null || adModel == null || adModel.getShowUrls() == null) {
+			return;
+		}
+		sendEff(applicationContext, adModel.getShowUrls());
+	}
+	
+	/**
 	 * [异步]发送点击记录效果
 	 */
 	public void asyncSendClickEff() {
@@ -108,16 +118,6 @@ public class YoumiNativeAdEffBuilder {
 	}
 	
 	/**
-	 * [同步]发送曝光效果记录
-	 */
-	public void syncSendShowEff() {
-		if (applicationContext == null || adModel == null || adModel.getShowUrls() == null) {
-			return;
-		}
-		sendEff(applicationContext, adModel.getShowUrls());
-	}
-	
-	/**
 	 * [同步]发送点击记录效果
 	 */
 	public void syncSendClickEff() {
@@ -125,6 +125,50 @@ public class YoumiNativeAdEffBuilder {
 			return;
 		}
 		sendEff(applicationContext, adModel.getClickUrls());
+	}
+	
+	/**
+	 * [异步]发送下载完成记录效果
+	 */
+	public void asyncSendDownloadSuccessEff() {
+		GlobalCacheExecutor.execute(new Runnable() {
+			@Override
+			public void run() {
+				syncSendDownloadSuccessEff();
+			}
+		});
+	}
+	
+	/**
+	 * [同步]发送下载完成效果记录
+	 */
+	public void syncSendDownloadSuccessEff() {
+		if (applicationContext == null || adModel == null || adModel.getDownloadUrls() == null) {
+			return;
+		}
+		sendEff(applicationContext, adModel.getDownloadUrls());
+	}
+	
+	/**
+	 * [异步]发送安装完成记录效果
+	 */
+	public void asyncSendInstallSuccessEff() {
+		GlobalCacheExecutor.execute(new Runnable() {
+			@Override
+			public void run() {
+				syncSendInstallSuccessEff();
+			}
+		});
+	}
+	
+	/**
+	 * [同步]发送安装完成效果记录
+	 */
+	public void syncSendInstallSuccessEff() {
+		if (applicationContext == null || adModel == null || adModel.getInstallUrls() == null) {
+			return;
+		}
+		sendEff(applicationContext, adModel.getInstallUrls());
 	}
 	
 	/**

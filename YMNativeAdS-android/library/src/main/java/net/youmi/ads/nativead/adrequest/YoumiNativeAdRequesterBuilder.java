@@ -335,6 +335,8 @@ public class YoumiNativeAdRequesterBuilder {
 				JSONObject trackJson = JSONUtils.getJsonObject(adJson, "track", null);
 				ArrayList<String> showUrls = null;
 				ArrayList<String> clickUrls = null;
+				ArrayList<String> downloadUrls = null;
+				ArrayList<String> installUrls = null;
 				if (trackJson != null) {
 					
 					JSONArray showUrlsJsonArray = JSONUtils.getJsonArray(trackJson, "show", null);
@@ -362,6 +364,34 @@ public class YoumiNativeAdRequesterBuilder {
 								clickUrls = new ArrayList<>();
 							}
 							clickUrls.add(clickUrl);
+						}
+					}
+					
+					JSONArray downloadUrlsJsonArray = JSONUtils.getJsonArray(trackJson, "download", null);
+					if (downloadUrlsJsonArray != null && downloadUrlsJsonArray.length() > 0) {
+						for (int j = 0; j < downloadUrlsJsonArray.length(); j++) {
+							String downloadUrl = JSONUtils.getString(downloadUrlsJsonArray, j, null);
+							if (TextUtils.isEmpty(downloadUrl)) {
+								continue;
+							}
+							if (downloadUrls == null) {
+								downloadUrls = new ArrayList<>();
+							}
+							downloadUrls.add(downloadUrl);
+						}
+					}
+					
+					JSONArray installUrlsJsonArray = JSONUtils.getJsonArray(trackJson, "install", null);
+					if (installUrlsJsonArray != null && installUrlsJsonArray.length() > 0) {
+						for (int j = 0; j < installUrlsJsonArray.length(); j++) {
+							String installUrl = JSONUtils.getString(installUrlsJsonArray, j, null);
+							if (TextUtils.isEmpty(installUrl)) {
+								continue;
+							}
+							if (installUrls == null) {
+								installUrls = new ArrayList<>();
+							}
+							installUrls.add(installUrl);
 						}
 					}
 				}
@@ -432,6 +462,8 @@ public class YoumiNativeAdRequesterBuilder {
 				adModel.setAdType(pt);
 				adModel.setShowUrls(showUrls);
 				adModel.setClickUrls(clickUrls);
+				adModel.setDownloadUrls(downloadUrls);
+				adModel.setInstallUrls(installUrls);
 				adModel.setAppModel(appModel);
 				adModel.setExtModel(extModel);
 				
