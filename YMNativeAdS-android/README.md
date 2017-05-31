@@ -33,6 +33,7 @@ compile 'net.youmi.ads:nativead:1.2.0:release@aar'
 // 1. 能输出网络、下载相关的相关log
 // 2. 对外提供的数据模型，都重写了toString方法，使其会详细打印出各个成员变量的值
 // 3. 部分错误将会捕捉并输出
+// 4. Logcat中过滤Tag为 Sdk ，即为本Sdk输出的Log
 //
 // 基于上面两点，建议开发者在发现疑点时才使用这个版本的aar进行更多的log输出，正式发布时强烈建议使用release版本
 // compile 'net.youmi.ads:nativead:1.2.0:debug@aar'
