@@ -41,6 +41,10 @@ public class YoumiNativeAdModel implements IFileDownloadTask {
 	
 	private ArrayList<String> clickUrls;
 	
+	private ArrayList<String> downloadUrls;
+	
+	private ArrayList<String> installUrls;
+	
 	private YoumiNativeAdAppModel appModel;
 	
 	private YoumiNativeAdExtModel extModel;
@@ -207,6 +211,28 @@ public class YoumiNativeAdModel implements IFileDownloadTask {
 	}
 	
 	/**
+	 * @return <strong>重要：</strong> 广告下载检测URL列表，开发者需要将此列表的所有URL都发送才算是完成广告下载统计
+	 */
+	public ArrayList<String> getDownloadUrls() {
+		return downloadUrls;
+	}
+	
+	public void setDownloadUrls(ArrayList<String> downloadUrls) {
+		this.downloadUrls = downloadUrls;
+	}
+	
+	/**
+	 * @return <strong>重要：</strong> 广告安装检测URL列表，开发者需要将此列表的所有URL都发送才算是完成广告安装统计
+	 */
+	public ArrayList<String> getInstallUrls() {
+		return installUrls;
+	}
+	
+	public void setInstallUrls(ArrayList<String> installUrls) {
+		this.installUrls = installUrls;
+	}
+	
+	/**
 	 * 需要根据 {@link #getAdType()} 来判断广告类型，只有广告类型为APP广告，此参数才可能存在实例，否则为null
 	 *
 	 * @return APP广告的信息
@@ -253,6 +279,8 @@ public class YoumiNativeAdModel implements IFileDownloadTask {
 			sb.append("\n  pt=").append(pt);
 			sb.append("\n  showUrls=").append(showUrls);
 			sb.append("\n  clickUrls=").append(clickUrls);
+			sb.append("\n  downloadUrls=").append(downloadUrls);
+			sb.append("\n  installUrls=").append(installUrls);
 			sb.append("\n  appModel=").append(appModel);
 			sb.append("\n  extModel=").append(extModel);
 			sb.append("\n}");

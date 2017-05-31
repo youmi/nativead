@@ -16,6 +16,10 @@ class DownloadTaskConfig implements IFileDownloadTask {
 	
 	private boolean isNeed2DeleteApkAfterInstalled = true;
 	
+	private boolean isNeed2SendDownloadSuccessEff = true;
+	
+	private boolean isNeed2SendInstallSuccessEff = true;
+	
 	DownloadTaskConfig() {
 	}
 	
@@ -49,5 +53,21 @@ class DownloadTaskConfig implements IFileDownloadTask {
 	
 	void setNeed2DeleteApkAfterInstalled(boolean need2DeleteApkAfterInstalled) {
 		isNeed2DeleteApkAfterInstalled = need2DeleteApkAfterInstalled;
+	}
+	
+	boolean isNeed2SendDownloadSuccessEff() {
+		return isNeed2SendDownloadSuccessEff;
+	}
+	
+	void setNeed2SendDownloadSuccessEff(boolean need2SendDownloadSuccessEff) {
+		isNeed2SendDownloadSuccessEff = need2SendDownloadSuccessEff;
+	}
+	
+	boolean isNeed2SendInstallSuccessEff() {
+		return isNeed2SendInstallSuccessEff;
+	}
+	
+	void setNeed2SendInstallSuccessEff(boolean need2SendInstallSuccessEff) {
+		isNeed2SendInstallSuccessEff = need2SendInstallSuccessEff;
 	}
 }

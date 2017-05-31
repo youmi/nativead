@@ -26,7 +26,6 @@ import net.youmi.ads.nativead.YoumiNativeAdHelper;
 import net.youmi.ads.nativead.adrequest.OnYoumiNativeAdRequestListener;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdModel;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdResposeModel;
-import net.youmi.ads.nativead.demo.BuildConfig;
 import net.youmi.ads.nativead.demo.MainActivity;
 import net.youmi.ads.nativead.demo.R;
 import net.youmi.ads.nativead.demo.ad.SlotIdConfig;
@@ -120,9 +119,6 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 				// 创建一个原生广告请求
 				.newAdRequest(this)
 				
-				// （必须）指定appId
-				.withAppId(BuildConfig.APPID)
-				
 				// （必须）指定请求广告位
 				.withSlotId(SlotIdConfig.SPLASH_SLOIID)
 				
@@ -177,10 +173,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 				break;
 			}
 			// 点击了图片之后需要发送点击记录
-			YoumiNativeAdHelper.newAdEffRequest(this)
-			                   .withAppId(BuildConfig.APPID)
-			                   .withYoumiNativeAdModel(mYoumiNativeAdModel)
-			                   .asyncSendClickEff();
+			YoumiNativeAdHelper.newAdEffRequest(this).withYoumiNativeAdModel(mYoumiNativeAdModel).asyncSendClickEff();
 			
 			Toast.makeText(
 					this,
@@ -212,6 +205,13 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 					                   // （可选）安装成功后是否删除对应的APK文件（默认为true：立即删除）
 					                   // 此方法需要设置安装成功后打开广告应用的方法才生效，即调用了 startAppAfterInstalled(true) 才生效
 					                   .deleteApkAfterInstalled(true)
+					
+					                   // （可选）广告下载成功之后是否自动发送下载成功效果记录（默认为true：发送）
+					                   .sendDownloadSuccessEff(true)
+					
+					                   // （可选）广告安装成功之后是否自动发送安装成功效果记录（默认为true：发送）
+					                   // 此方法需要设置下载成功之后打开应用安装界面之后才可能生效，即调用了 installApkAfterDownloadSuccess（true)
+					                   .sendInstallSuccessEff(true)
 					
 					                   // 开始下载
 					                   .download();
@@ -302,10 +302,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 							boolean isFromMemoryCache, boolean isFirstResource) {
 						activity.mYoumiNativeAdModel = adModel;
 						// 发送曝光记录
-						YoumiNativeAdHelper.newAdEffRequest(activity)
-						                   .withAppId(BuildConfig.APPID)
-						                   .withYoumiNativeAdModel(adModel)
-						                   .asyncSendShowEff();
+						YoumiNativeAdHelper.newAdEffRequest(activity).withYoumiNativeAdModel(adModel).asyncSendShowEff();
 						Toast.makeText(
 								activity,
 								String.format(Locale.getDefault(), "发送广告位 %s 的曝光记录", adModel.getSlotId()),

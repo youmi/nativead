@@ -99,6 +99,36 @@ public class YoumiNativeAdDownloadBuilder {
 	}
 	
 	/**
+	 * 广告下载成功之后是否自动发送下载成功效果记录
+	 *
+	 * @param isNeed2SendDownloadSuccessEff <ul>
+	 *                                      <li>true（默认）：是</li>
+	 *                                      <li>false：否</li>
+	 *                                      </ul>
+	 *
+	 * @return this
+	 */
+	public YoumiNativeAdDownloadBuilder sendDownloadSuccessEff(boolean isNeed2SendDownloadSuccessEff) {
+		downloadTaskConfig.setNeed2SendDownloadSuccessEff(isNeed2SendDownloadSuccessEff);
+		return this;
+	}
+	
+	/**
+	 * 广告安装成功之后是否自动发送安装成功效果记录
+	 *
+	 * @param isNeed2SendInstallSuccessEff <ul>
+	 *                                     <li>true（默认）：是</li>
+	 *                                     <li>false：否</li>
+	 *                                     </ul>
+	 *
+	 * @return this
+	 */
+	public YoumiNativeAdDownloadBuilder sendInstallSuccessEff(boolean isNeed2SendInstallSuccessEff) {
+		downloadTaskConfig.setNeed2SendInstallSuccessEff(isNeed2SendInstallSuccessEff);
+		return this;
+	}
+	
+	/**
 	 * 下载广告
 	 */
 	public void download() {

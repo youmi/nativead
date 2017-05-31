@@ -18,7 +18,6 @@ import net.youmi.ads.nativead.YoumiNativeAdHelper;
 import net.youmi.ads.nativead.adrequest.OnYoumiNativeAdRequestListener;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdModel;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdResposeModel;
-import net.youmi.ads.nativead.demo.BuildConfig;
 import net.youmi.ads.nativead.demo.R;
 import net.youmi.ads.nativead.demo.ad.BaseFragment;
 import net.youmi.ads.nativead.demo.ad.SlotIdConfig;
@@ -58,9 +57,6 @@ public class AdBannerFragment extends BaseFragment implements View.OnClickListen
 				// 创建一个原生广告请求
 				.newAdRequest(getActivity())
 				
-				// （必须）指定appId
-				.withAppId(BuildConfig.APPID)
-				
 				// （必须）指定请求广告位
 				.withSlotId(SlotIdConfig.BANNER_SLOIID)
 				
@@ -76,10 +72,7 @@ public class AdBannerFragment extends BaseFragment implements View.OnClickListen
 		}
 		
 		// 点击了图片之后需要发送点击记录
-		YoumiNativeAdHelper.newAdEffRequest(getActivity())
-		                   .withAppId(BuildConfig.APPID)
-		                   .withYoumiNativeAdModel(mYoumiNativeAdModel)
-		                   .asyncSendClickEff();
+		YoumiNativeAdHelper.newAdEffRequest(getActivity()).withYoumiNativeAdModel(mYoumiNativeAdModel).asyncSendClickEff();
 		
 		Toast.makeText(
 				getActivity(),
@@ -111,6 +104,13 @@ public class AdBannerFragment extends BaseFragment implements View.OnClickListen
 				                   // （可选）安装成功后是否删除对应的APK文件（默认为true：立即删除）
 				                   // 此方法需要设置安装成功后打开广告应用的方法才生效，即调用了 startAppAfterInstalled(true) 才生效
 				                   .deleteApkAfterInstalled(true)
+				
+				                   // （可选）广告下载成功之后是否自动发送下载成功效果记录（默认为true：发送）
+				                   .sendDownloadSuccessEff(true)
+				
+				                   // （可选）广告安装成功之后是否自动发送安装成功效果记录（默认为true：发送）
+				                   // 此方法需要设置下载成功之后打开应用安装界面之后才可能生效，即调用了 installApkAfterDownloadSuccess（true)
+				                   .sendInstallSuccessEff(true)
 				
 				                   // 开始下载
 				                   .download();
@@ -205,7 +205,6 @@ public class AdBannerFragment extends BaseFragment implements View.OnClickListen
 						     adBannerFragment.mYoumiNativeAdModel = adModel;
 						     // 发送曝光记录
 						     YoumiNativeAdHelper.newAdEffRequest(adBannerFragment.getActivity())
-						                        .withAppId(BuildConfig.APPID)
 						                        .withYoumiNativeAdModel(adModel)
 						                        .asyncSendShowEff();
 						     Toast.makeText(
