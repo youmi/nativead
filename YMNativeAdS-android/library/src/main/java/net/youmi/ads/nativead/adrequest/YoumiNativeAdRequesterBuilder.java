@@ -238,6 +238,16 @@ public class YoumiNativeAdRequesterBuilder {
 			sb.append("&imsi=").append(DeviceInfoUtils.getIMSI(applicationContext));
 			sb.append("&os=").append("Android");
 			sb.append("&osv=").append(DeviceInfoUtils.getAndroidVersionName());
+			
+			try {
+				int appVersionCode =
+						applicationContext.getPackageManager().getPackageInfo(applicationContext.getPackageName(), 0)
+								.versionCode;
+				sb.append("&appversion=").append(appVersionCode);
+			} catch (Throwable e) {
+				DLog.w(e);
+			}
+			
 			sb.append("&conntype=").append(NetworkUtils.getNetworkType(applicationContext));
 			sb.append("&carrier=").append(base64Encode(DeviceInfoUtils.getOperatorName(applicationContext)));
 			sb.append("&pk=").append(applicationContext.getPackageName());
@@ -477,7 +487,7 @@ public class YoumiNativeAdRequesterBuilder {
 	 */
 	private String base64Encode(String value) {
 		if (TextUtils.isEmpty(value)) {
-			return null;
+			return "";
 		}
 		try {
 			String result = Base64.encodeToString(value.getBytes("UTF-8"), Base64.NO_WRAP);
@@ -487,6 +497,6 @@ public class YoumiNativeAdRequesterBuilder {
 		} catch (Throwable e) {
 			DLog.e(e);
 		}
-		return null;
+		return "";
 	}
 }
