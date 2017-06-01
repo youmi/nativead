@@ -7,7 +7,8 @@
 * v1.2 - 参数列表修改；返回值参数样例修改；修改[效果监控上报](#效果监控上报)的文字说明。
 * v1.3 - [返回值参数列表](#返回值参数列表)中广告id调整为string类型；slotid调整为string类型；页面内link修改。
 * v1.4 - [请求参数列表（GET）](#请求参数列表（GET）)增加SIM卡参数发送； [效果监控上报](#效果监控上报)增加download和install两个参数。
-* v1.41 - 修改[请求广告](#请求广告)和[效果监控上报](#效果监控上报)的文字说明。
+* v1.4.1 - 修改[请求广告](#请求广告)和[效果监控上报](#效果监控上报)的文字说明。
+* v1.4.2 - 参数列表修改；添加AppVersion参数。
 
 
 
@@ -55,27 +56,28 @@ Authorization: Bearer <Token>
 | reqtime     | string | 是    | 发起请求的Unix时间戳，精确到秒。                       |
 | slotid      | string | 是    | 所需的广告位ID。                                |
 | adcount     | string | 是    | 所需要的广告数，不填默认为1，实际返回的广告数小于等于adcount。      |
+| reqid       | string | 是    | 这次请求的唯一id。                          |
+| idfa        | string | 是    | iOS设备的IDFA，明文不加密；iOS必须填写。                |
+| brand       | string | 是    | 制造厂商,如“apple”“Samsung”“Huawei“。  |
+| model       | string | 是    | 型号, 如”iphoneA1530”。              |
+| mac         | string | 是    | 设备的mac地址，明文不加密。                          |
+| imei        | string | 是    | 设备的imei码，明文不加密; Android必须填写。             |
+| androidid   | string | 是    | 设备的android id，明文不加密; Android必须填写。                     |
+| imsi        | string | 是    | 设备的imsi id, 明文不加密; Android必须填写。                       |
+| ip          | string | 是    | 当前请求的IP地址，必须为手机客户端发起的IP地址           |
+| ua          | string | 是    | UserAgent。                               |
+| os          | string | 是    | 操作系统（android，ios）。                    |
+| osv         | string | 是    | 操作系统描述的系统版本号。                            |
+| appversion  | string | 是    | 应用版本号。会根据版本号投放对应的广告。 |
+| conntype    | string | 是    | 网络类型，空=无，0=未知/其他，1=wifi，2=2g，3=3g，4=4g，5=5g。 |
+| carrier     | string | 是    | 网络运营商，空=无，0=未知/其他，1=wifi，2=移动，3=联通，4=电信。 |
+| pk          | string | 是    | 安卓为App的包名，iOS为App的BundleIdentifier。      |
+| countrycode | string | 是    | 用户设置的国家编码，如CN。                           |
+| language    | string | 否    | 用户设置的语言，如zh。                             |
 | gender      | string | 否    | 性别，M=男性，F=女性。                            |
 | age         | string | 否    | 年龄，如24。                                  |
 | cont_title  | string | 否    | 内容的标题。                                   |
 | cont_kw     | string | 否    | 内容的关键词，多个关键词用逗号分隔。                       |
-| reqid       | string | 否    | 这次请求的唯一id，可不填写。                          |
-| idfa        | string | 是    | iOS设备的IDFA，明文不加密；iOS必须填写。                |
-| brand       | string | 否    | 制造厂商,如“apple”“Samsung”“Huawei“，默认为空字符串。  |
-| model       | string | 否    | 型号, 如”iphoneA1530”，默认为空字符串。              |
-| mac         | string | 否    | 设备的mac地址，明文不加密。                          |
-| imei        | string | 是    | 设备的imei码，明文不加密; Android必须填写。             |
-| androidid   | string | 否    | 设备的android id，明文不加密。                     |
-| imsi        | string | 否    | 设备的imsi id, 明文不加密。                       |
-| ip          | string | 否    | 当前请求的IP地址，如果是从移动终端发起请求则可以不填写。            |
-| ua          | string | 否    | UserAgent。                               |
-| os          | string | 否    | 操作系统，可选（android，ios）。                    |
-| osv         | string | 否    | 操作系统描述的系统版本号。                            |
-| conntype    | string | 否    | 网络类型，空=无，0=未知/其他，1=wifi，2=2g，3=3g，4=4g，5=5g。 |
-| carrier     | string | 否    | 网络运营商，空=无，0=未知/其他，1=wifi，2=移动，3=联通，4=电信。 |
-| pk          | string | 否    | 安卓为App的包名，iOS为App的BundleIdentifier。      |
-| language    | string | 否    | 用户设置的语言，如zh。                             |
-| countrycode | string | 否    | 用户设置的国家编码，如CN。                           |
 
 *注：建议使用标准URL函数来进行参数封装（会保障所有参数都经过URLEncode），以免出现参数混乱的问题。*
 
