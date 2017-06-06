@@ -184,6 +184,7 @@ NSString *getUrlArg(){
     NSString *ua = @"";//useragent
     NSString *os = @"iOS";
     NSString *osv = [NSString stringWithFormat:@"%@",systemMainVersion()];
+    NSString *appversion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
     NSString *conntype = YM_ASSIGN_STRING_SAFELY([UMNMachineUtil sharedInstance].accessPointName);//网络类型，空=无，0=未知/其他，1=wifi，2=2g，3=3g，4=4g，5=5g
     NSString *carrier = YM_ASSIGN_STRING_SAFELY([UMNMachineUtil sharedInstance].mobileNetworkCode);//网络运营商，空=无，0=未知/其他，1=wifi，2=移动，3=联通，4=电信
     NSString *pk = [[NSBundle mainBundle] bundleIdentifier];//iOS为App的BundleIdentifier
@@ -195,7 +196,7 @@ NSString *getUrlArg(){
     NSString *str = [NSString stringWithFormat:@"%f",reqtime];
     int time = [str intValue];
     
-    NSString *urlArg = [NSString stringWithFormat:@"reqtime=%d&slotid=%@&ad_count=%d&gender=%@&age=%@&cont_title=%@&cont_kw=%@&reqid=%@&idfa=%@&brand=%@&model=%@&mac=%@&imei=%@&ip=%@&ua=%@&os=%@&osv=%@&conntype=%@&carrier=%@&pk=%@&language=%@&countrycode=%@",time,slotid,ad_count,gender,age,cont_title,cont_kw,reqid,idfa,brand,model,mac,imei,ip,ua,os,osv,conntype,carrier,pk,language,countrycode];
+    NSString *urlArg = [NSString stringWithFormat:@"reqtime=%d&slotid=%@&ad_count=%d&gender=%@&age=%@&cont_title=%@&cont_kw=%@&reqid=%@&idfa=%@&brand=%@&model=%@&mac=%@&imei=%@&ip=%@&ua=%@&os=%@&osv=%@&appversion=%@&conntype=%@&carrier=%@&pk=%@&language=%@&countrycode=%@",time,slotid,ad_count,gender,age,cont_title,cont_kw,reqid,idfa,brand,model,mac,imei,ip,ua,os,osv,appversion,conntype,carrier,pk,language,countrycode];
     
     return urlArg;
 }
