@@ -243,10 +243,6 @@ YoumiNativeAdHelper
 
 ##### 1. 下载或者打开广告
 
-**注意：**
-
-1. 如果需要在Android 7.0系统以上能打开下载这个安装通知，需要配置FileProvider，可以参考demo配置
-
 ``` java
 if (!PackageUtils.isPakcageInstall(this, mYoumiNativeAdModel.getAppModel().getPackageName())) {
 			
@@ -284,6 +280,8 @@ if (!PackageUtils.isPakcageInstall(this, mYoumiNativeAdModel.getAppModel().getPa
 	YoumiNativeAdHelper.openApp(this, mYoumiNativeAdModel);
 }
 ```
+
+> **注意：** 如果需要在Android 7.0系统以上能打开下载这个安装通知，需要配置FileProvider，可以参考demo配置
 
 ##### 2. 停止下载
 
