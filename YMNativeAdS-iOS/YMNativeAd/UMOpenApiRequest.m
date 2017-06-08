@@ -152,7 +152,7 @@ NSString *spotRequestURL(NSString *type){
     
     NSString *urlArg = getUrlArg();
     
-    NSString *requestHead = @"http://native.umapi.cn/ios/v1/oreq";//请求广告的url
+    NSString *requestHead = @"https://native.umapi.cn/ios/v1/oreq";//请求广告的url
     
     NSString *requestURL = [NSString stringWithFormat:@"%@?%@",requestHead,urlArg];
     requestURL = [requestURL  stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
@@ -184,7 +184,7 @@ NSString *getUrlArg(){
     NSString *ua = @"";//useragent
     NSString *os = @"iOS";
     NSString *osv = [NSString stringWithFormat:@"%@",systemMainVersion()];
-    NSString *appversion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    NSString *appversion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     NSString *conntype = YM_ASSIGN_STRING_SAFELY([UMNMachineUtil sharedInstance].accessPointName);//网络类型，空=无，0=未知/其他，1=wifi，2=2g，3=3g，4=4g，5=5g
     NSString *carrier = YM_ASSIGN_STRING_SAFELY([UMNMachineUtil sharedInstance].mobileNetworkCode);//网络运营商，空=无，0=未知/其他，1=wifi，2=移动，3=联通，4=电信
     NSString *pk = [[NSBundle mainBundle] bundleIdentifier];//iOS为App的BundleIdentifier
