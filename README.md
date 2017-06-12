@@ -5,10 +5,12 @@
 
 # 快速入门
 
-我们已经为各位同学提供iOS和Android平台对上述协议进行封装好的代码库，欢迎大家使用：
+我们已经为各位同学提供了iOS和Android平台上封装好的代码库，欢迎大家使用：
 
 * [有米iOS原生广告开源API接口使用说明](YMNativeAdS-iOS)
 * [有米Android原生广告开源API接口使用说明](YMNativeAdS-android)
+
+注意：代码库为开源代码。
 
 # 有米官方网站
 
