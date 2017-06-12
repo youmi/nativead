@@ -9,6 +9,7 @@
 * v1.4 - [请求参数列表（GET）](#请求参数列表（GET）)增加SIM卡参数发送； [效果监控上报](#效果监控上报)增加download和install两个参数。
 * v1.4.1 - 修改[请求广告](#请求广告)和[效果监控上报](#效果监控上报)的文字说明。
 * v1.4.2 - 参数列表修改；添加AppVersion参数。
+* v1.4.3 - 修改deeplink跳转的说明。
 
 
 
@@ -56,19 +57,19 @@ Authorization: Bearer <Token>
 | reqtime     | string | 是    | 发起请求的Unix时间戳，精确到秒。                       |
 | slotid      | string | 是    | 所需的广告位ID。                                |
 | adcount     | string | 是    | 所需要的广告数，不填默认为1，实际返回的广告数小于等于adcount。      |
-| reqid       | string | 是    | 这次请求的唯一id。                          |
+| reqid       | string | 是    | 这次请求的唯一id。                               |
 | idfa        | string | 是    | iOS设备的IDFA，明文不加密；iOS必须填写。                |
-| brand       | string | 是    | 制造厂商,如“apple”“Samsung”“Huawei“。  |
-| model       | string | 是    | 型号, 如”iphoneA1530”。              |
+| brand       | string | 是    | 制造厂商,如“apple”“Samsung”“Huawei“。          |
+| model       | string | 是    | 型号, 如”iphoneA1530”。                      |
 | mac         | string | 是    | 设备的mac地址，明文不加密。                          |
 | imei        | string | 是    | 设备的imei码，明文不加密; Android必须填写。             |
-| androidid   | string | 是    | 设备的android id，明文不加密; Android必须填写。                     |
-| imsi        | string | 是    | 设备的imsi id, 明文不加密; Android必须填写。                       |
-| ip          | string | 是    | 当前请求的IP地址，必须为手机客户端发起的IP地址           |
+| androidid   | string | 是    | 设备的android id，明文不加密; Android必须填写。        |
+| imsi        | string | 是    | 设备的imsi id, 明文不加密; Android必须填写。          |
+| ip          | string | 是    | 当前请求的IP地址，必须为手机客户端发起的IP地址                |
 | ua          | string | 是    | UserAgent。                               |
-| os          | string | 是    | 操作系统（android，ios）。                    |
+| os          | string | 是    | 操作系统（android，ios）。                       |
 | osv         | string | 是    | 操作系统描述的系统版本号。                            |
-| appversion  | string | 是    | 应用版本号。会根据版本号投放对应的广告。 |
+| appversion  | string | 是    | 应用版本号。会根据版本号投放对应的广告。                     |
 | conntype    | string | 是    | 网络类型，空=无，0=未知/其他，1=wifi，2=2g，3=3g，4=4g，5=5g。 |
 | carrier     | string | 是    | 网络运营商，空=无，0=未知/其他，1=wifi，2=移动，3=联通，4=电信。 |
 | pk          | string | 是    | 安卓为App的包名，iOS为App的BundleIdentifier。      |
@@ -105,7 +106,7 @@ Authorization: Bearer <Token>
 | slogan    | string  | 广告标题，一般字数较少。部分广告位没有广告标题只有广告语。            |
 | subslogan | string  | 广告语，一般字数较多。                              |
 | url       | string  | iOS平台：点击跳转到的落地页；Android平台：APP广告的下载地址或者WAP广告的页面地址。 |
-| uri       | string  | iOS平台：点击跳转的deeplink，没有则为空；Android平台: APP广告某一指定页面的uri（如淘宝某一商家）。 |
+| uri       | string  | iOS为应用的URLScheme，Android为应用的URI。用于直接打开外部App的某一指定落地页（如电商App直接打开商品详情页）。 |
 | pt        | int     | 广告的类型（ 0：APP广告；1：WAP广告）。                 |
 | track     | Track[] | 广告监测列表，参见[参数Track](#参数track)。            |
 | app       | App{}   | App广告的应用信息，参见[参数App](#参数app)。***注意：即便是App类型的广告，该字段也有可能为空值。*** |
@@ -259,11 +260,11 @@ track字段的结构大致如下：
         ],
   // 安卓平台才有 download 和 install 监控
   "download": [
-          "http://track5.youmi.net/eff/pdkpfpwwsdsrrtf",
+          "http://track5.youmi.net/eff/pdkpfpwwsdsrrtf"
         ],
   "install": [
-          "http://track6.youmi.net/eff/wadasafsfryrtrt",
-  ]
+          "http://track6.youmi.net/eff/wadasafsfryrtrt"
+  		]
 }
 ```
 
@@ -276,13 +277,15 @@ track字段的结构大致如下：
 5. 安卓平台的用户安装完成时，调用install列表里的url上报安装监控，需要从**客户端**发起请求。
 
 
-## iOS点击跳转到逻辑页的逻辑
+
+
+## iOS点击跳转到落地页的逻辑
 
 **注意：为了防止跳出App后点击记录无法发送而出现结算问题，需要在效果监控上报完成后，再发起点击跳转。点击逻辑较为复杂，建议贵司直接使用有米封装好的开源逻辑类库简化开发工作。**
 
 1. 点击链接有url和uri两个。
-2. url可以用于打开一个WAP页面，或者跳转到AppStore上。
-3. uri用于直接打开指定应用内的落地页，可以用于deeplink推广。
+2. url为普通的http(s)链接，用于打开wap页或是跳转到AppStore。
+3. uri为应用的urlscheme，用于打开外部App的指定内部落地页。
 4. 如果是iOS应用推广，一般情况app下的storeid字段会记录对应的itunesid，当这个字段有值时，也可以通过这个字段在应用内打开AppStore。
 
 
@@ -292,17 +295,16 @@ track字段的结构大致如下：
 在应用内直接打开AppStore的详情页，可以有效提高用户体验与转化率，从而提高应用收入。建议在应用中支持打开AppStore的逻辑。
 
 1. 当返回的广告为一个App广告时，app下的storeid字段记录对应的itunesid，注意storeid字段不一定都有值，有值的情况下才能处理。
-2. InApp内打开Store的流程需要特殊处理，并且不能使用正常的url来打开，因此这种情况下url字段可能为空，点击记录由[返回值参数列表](#返回值参数列表)负责处理。
+2. InApp内打开Store的流程需要特殊处理，并且不能使用正常的url来打开，因此这种情况下url字段可能为空，点击记录由[效果监控上报](#效果监控上报)负责处理。
 3. deeplink的逻辑不受影响。
 
 
+#### URI唤醒
 
-#### deeplink推广
+URI唤醒可以通过URLScheme直接打开目标应用的某个特定页面，这种推广模式对于电商等品类的广告有显著效果，支持URI唤醒可以显著提高应用收入，贵司可以在应用中提供对URI唤醒的支持。
 
-deeplink链接可以直接打开目标应用的某个特定页面，这种推广模式对于电商等品类的广告有显著效果，支持deeplink推广可以显著提高应用收入，贵司可以在应用中提供对deeplink推广的支持。
-
-1. deeplink推广不能使用正常url来打开，因此点击监控由[返回值参数列表](#返回值参数列表)负责处理。
-2. 当返回值中uri字段不为空时，表明该广告可以进行deeplink推广。
+1. URI唤醒不能使用正常url来打开，因此点击监控由[效果监控上报](#效果监控上报)负责处理。
+2. 当返回值中uri字段不为空时，表明该广告可以进行URI唤醒。
 3. 首先通过uri尝试唤醒目标应用，唤醒成功直接跳转到目标App上，不需要再调用url字段。
 4. 若唤醒失败，则调用url字段打开AppStore，引导用户下载应用。
 5. 若唤醒失败，且app下的storeid字段有值，则可以尝试不调用url字段，直接在应用内打开AppStore引导用户下载。
