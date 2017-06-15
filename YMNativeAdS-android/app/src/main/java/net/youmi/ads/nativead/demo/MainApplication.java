@@ -14,7 +14,7 @@ public class MainApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		
-		// [可选]初始化sdk的一些配置，如：appId
+		// 初始化sdk的一些配置，如：appId
 		YoumiNativeAdHelper.initConfig(this).withAppId(BuildConfig.APPID);
 	}
 }
