@@ -220,7 +220,7 @@ class DefaultDownloadListener implements OnDownloadListener {
 									ja.put(url);
 								}
 								JSONUtils.putObject(jo, "f", true);
-								JSONUtils.putObject(jo, "g", ja.toString());
+								JSONUtils.putObject(jo, "g", ja);
 							}
 						}
 						if (SPUtils.putString(mApplicationContext,

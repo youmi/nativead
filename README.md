@@ -1,4 +1,4 @@
-[![](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![](https://img.shields.io/badge/android-1.2.1-blue.svg)](https://github.com/youmi/nativead/releases/tag/android-1.2.1) [![](https://img.shields.io/badge/ios-1.0.6-blue.svg)](https://github.com/youmi/nativead/releases/tag/1.0.6)
+[![](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![](https://img.shields.io/badge/android-1.2.2-blue.svg)](https://github.com/youmi/nativead/releases/tag/android-1.2.2) [![](https://img.shields.io/badge/ios-1.0.6-blue.svg)](https://github.com/youmi/nativead/releases/tag/1.0.6)
 
 有米原生广告文档
 ===========
