@@ -11,6 +11,7 @@ import net.youmi.ads.base.pool.GlobalCacheExecutor;
 import net.youmi.ads.base.utils.FileUtils;
 import net.youmi.ads.base.utils.JSONUtils;
 import net.youmi.ads.base.utils.SPUtils;
+import net.youmi.ads.nativead.BuildConfig;
 import net.youmi.ads.nativead.YoumiNativeAdHelper;
 
 import org.json.JSONArray;
@@ -37,6 +38,10 @@ class ApkInstallBroadcastReceiver extends BroadcastReceiver {
 				JSONObject jo = JSONUtils.toJsonObject(data);
 				if (jo == null) {
 					return;
+				}
+				
+				if (BuildConfig.DEBUG) {
+					DLog.i("应用[%s]安装成功", pkgName);
 				}
 				
 				// 还原数据
