@@ -80,25 +80,60 @@
 
 -(void)clickAdOpenAppStoreVC:(UMNDataModel*)adData{
     //跳转模式有两种， 第一种使用url跳转，第二种使用appid打开内部appstore
-    if ([adData.url length]>0) {
-        if ([[[UIDevice currentDevice] systemVersion] doubleValue]<10.0) {
-            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:adData.url]];
-        }else{
-            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:adData.url] options:@{UIApplicationOpenURLOptionsSourceApplicationKey : @YES} completionHandler:^(BOOL success) {
-                
-            }];
-        }
+    if ([adData.uri length]>0) {
+        //deeplink
+        //        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"fruitday://"]];
+        //        [self openScheme:adData.uri];
         
-//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:adData.url] options:nil completionHandler:^(BOOL success) {
-//            if (success) {
-//                
-//            }else{
-//                [[UMStoreKitUtil defaultStoreKitHelper]showAppInAppStore:[NSNumber numberWithInteger:adData.asid]];
-//            }
-//        }];
+        UIApplication *application = [UIApplication sharedApplication];
+        NSURL *URL = [NSURL URLWithString:adData.uri];
+        
+        if ([application respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+            [application openURL:URL options:@{}
+               completionHandler:^(BOOL success) {
+                   NSLog(@"Open %@: %d",adData.uri,success);
+                   if (success) {
+                       
+                   }else{
+                       if (adData.asid) {
+                           [[UMStoreKitUtil defaultStoreKitHelper]showAppInAppStore:[NSNumber numberWithInteger:adData.asid]];
+                       }else{
+                           [self openAppStoreUrl:adData.url];
+                       }
+                       
+                   }
+               }];
+        } else {
+            BOOL success = [application openURL:URL];
+            NSLog(@"Open %@: %d",adData.uri,success);
+            if (success) {
+                
+            }else{
+                if (adData.asid) {
+                    [[UMStoreKitUtil defaultStoreKitHelper]showAppInAppStore:[NSNumber numberWithInteger:adData.asid]];
+                }else{
+                    [self openAppStoreUrl:adData.url];
+                }
+            }
+        }
+    }
+    else if ([adData.url length]>0) {
+        
+        [self openAppStoreUrl:adData.url];
+
     }else{
         [[UMStoreKitUtil defaultStoreKitHelper]showAppInAppStore:[NSNumber numberWithInteger:adData.asid]];
     }
+}
+
+-(void)openAppStoreUrl:(NSString *)url{
     
+    if ([[[UIDevice currentDevice] systemVersion] doubleValue]<10.0) {
+        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:url]];
+    }else{
+        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:url] options:@{UIApplicationOpenURLOptionsSourceApplicationKey : @YES} completionHandler:^(BOOL success) {
+            
+        }];
+    }
 }
 @end

@@ -21,9 +21,8 @@
             self.rsd = [preDic objectForKey:@"rsd"];
             self.spotid = [dic objectForKey:@"id"];
             self.slotid = [dic objectForKey:@"slotid"];
-            self.e = [dic objectForKey:@"e"];
-            self.asid = [[dic objectForKey:@"asid"] intValue];
-            self.bid = [dic objectForKey:@"bid"];
+            
+            
             self.name =[dic objectForKey:@"name"];
             self.icon = [dic objectForKey:@"icon"];
             self.picArr = [dic objectForKey:@"pic"];
@@ -37,6 +36,9 @@
             
             NSDictionary *appDic = [dic objectForKey:@"app"];
             if (appDic && [appDic isKindOfClass:[NSDictionary class]]) {
+                NSLog(@"%@",appDic);
+                self.bid = [appDic objectForKey:@"bid"];
+                self.asid = [[appDic objectForKey:@"storeid"] intValue];
                 self.appSize = [appDic objectForKey:@"size"];
                 self.appScore = [appDic objectForKey:@"score"];
                 self.appCategory = [appDic objectForKey:@"category"];
@@ -136,7 +138,6 @@
     dataStructure.pl = self.pl;
     dataStructure.spotid = self.spotid;
     dataStructure.slotid = self.slotid;
-    dataStructure.e = self.e;
     dataStructure.asid = self.asid;
     dataStructure.bid = self.bid;
     dataStructure.name = self.name;
@@ -167,7 +168,6 @@
     self.pl = 0;
     self.spotid = 0;
     self.slotid = nil;
-    self.e = nil;
     self.asid = 0;
     self.bid = nil;
     self.name = nil;
