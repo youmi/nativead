@@ -24,6 +24,7 @@
 -(void)loadAd{
     
     if (!_nativeAd) {
+//        _nativeAd = [[YMNativeAd alloc]initWithAppId:@"1d5f537002646414" slotId:@"8009"];
         _nativeAd = [[YMNativeAd alloc]initWithAppId:@"320a6cd3b8d2c4e0" slotId:@"7750"];
         [_nativeAd setContTitle:@"新闻页面" contKw:@"国内新闻，头条"];
         _nativeAd.delegate = self;
