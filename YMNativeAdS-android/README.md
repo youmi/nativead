@@ -22,7 +22,7 @@
 
 ``` gradle
 // 依赖release版本的aar [开发者正式版本的apk引用]
-compile 'net.youmi.ads:nativead:1.3.0:release@aar'
+compile 'net.youmi.ads:nativead:1.3.1:release@aar'
 
 // 依赖debug版本的aar [开发者需要调试时可以引用]
 //
@@ -34,7 +34,7 @@ compile 'net.youmi.ads:nativead:1.3.0:release@aar'
 // 4. Logcat中过滤Tag为 Sdk ，即为本Sdk输出的Log
 //
 // 基于上面两点，建议开发者在发现疑点时才使用这个版本的aar进行更多的log输出，正式发布时强烈建议使用release版本
-// compile 'net.youmi.ads:nativead:1.3.0:debug@aar'
+// compile 'net.youmi.ads:nativead:1.3.1:debug@aar'
 ```
 
 ### 2.2 初始化SDK
