@@ -1,8 +1,8 @@
 package net.youmi.ads.nativead.adrequest;
 
 import android.content.Context;
+import android.os.Build;
 import android.text.TextUtils;
-import android.util.Base64;
 
 import net.youmi.ads.base.deviceinfos.DeviceInfoUtils;
 import net.youmi.ads.base.log.DLog;
@@ -17,7 +17,9 @@ import net.youmi.ads.nativead.adconfig.YoumiSpConfig;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * 有米原生广告请求
@@ -212,33 +214,22 @@ public class YoumiNativeAdRequesterBuilder {
 			sb.append("?reqtime=").append(System.currentTimeMillis() / 1000);
 			sb.append("&slotid=").append(slotId);
 			sb.append("&adcount=").append(adCount);
-			if (!TextUtils.isEmpty(gender)) {
-				sb.append("&gender=").append(base64Encode(gender));
-			}
-			if (!TextUtils.isEmpty(age)) {
-				sb.append("&age=").append(age);
-			}
-			if (!TextUtils.isEmpty(contTitle)) {
-				sb.append("&cont_title=").append(base64Encode(contTitle));
-			}
-			if (!TextUtils.isEmpty(contKeyword)) {
-				sb.append("&cont_kw=").append(base64Encode(contKeyword));
-			}
 			if (!TextUtils.isEmpty(reqId)) {
-				sb.append("&reqid=").append(base64Encode(reqId));
+				sb.append("&reqid=").append(urlEncode(reqId));
 			}
-			sb.append("&brand=").append(base64Encode(DeviceInfoUtils.getBrand()));
-			sb.append("&model=").append(base64Encode(DeviceInfoUtils.getModel()));
-			sb.append("&mac=").append(DeviceInfoUtils.getMacAddress(applicationContext));
-			sb.append("&imei=").append(DeviceInfoUtils.getDeviceId(applicationContext));
-			sb.append("&androidid=").append(DeviceInfoUtils.getAndroidID(applicationContext));
+			sb.append("&brand=").append(urlEncode(DeviceInfoUtils.getBrand()));
+			sb.append("&model=").append(urlEncode(DeviceInfoUtils.getModel()));
+			sb.append("&mac=").append(urlEncode(DeviceInfoUtils.getMacAddress(applicationContext)));
+			sb.append("&imei=").append(urlEncode(DeviceInfoUtils.getDeviceId(applicationContext)));
+			sb.append("&androidid=").append(urlEncode(DeviceInfoUtils.getAndroidID(applicationContext)));
+			sb.append("&imsi=").append(urlEncode(DeviceInfoUtils.getIMSI(applicationContext)));
 			if (!TextUtils.isEmpty(userAgent)) {
-				sb.append("&ua=").append(base64Encode(userAgent));
+				sb.append("&ua=").append(urlEncode(userAgent));
+			} else {
+				sb.append("&ua=").append(urlEncode(getDefaultUsageAgent()));
 			}
-			sb.append("&imsi=").append(DeviceInfoUtils.getIMSI(applicationContext));
 			sb.append("&os=").append("Android");
-			sb.append("&osv=").append(DeviceInfoUtils.getAndroidVersionName());
-			
+			sb.append("&osv=").append(urlEncode(DeviceInfoUtils.getAndroidVersionName()));
 			try {
 				int appVersionCode =
 						applicationContext.getPackageManager().getPackageInfo(applicationContext.getPackageName(), 0)
@@ -247,17 +238,27 @@ public class YoumiNativeAdRequesterBuilder {
 			} catch (Throwable e) {
 				DLog.w(e);
 			}
-			
 			sb.append("&conntype=").append(NetworkUtils.getNetworkType(applicationContext));
-			sb.append("&carrier=").append(base64Encode(DeviceInfoUtils.getOperatorName(applicationContext)));
-			sb.append("&pk=").append(applicationContext.getPackageName());
-			sb.append("&language=").append(base64Encode(DeviceInfoUtils.getLanguage()));
-			sb.append("&countrycode=").append(base64Encode(DeviceInfoUtils.getCountry()));
+			sb.append("&carrier=").append(urlEncode(DeviceInfoUtils.getOperatorName(applicationContext)));
+			sb.append("&pk=").append(urlEncode(applicationContext.getPackageName()));
+			sb.append("&countrycode=").append(urlEncode(DeviceInfoUtils.getCountry()));
+			sb.append("&language=").append(urlEncode(DeviceInfoUtils.getLanguage()));
+			if (!TextUtils.isEmpty(gender)) {
+				sb.append("&gender=").append(urlEncode(gender));
+			}
+			if (!TextUtils.isEmpty(age)) {
+				sb.append("&age=").append(urlEncode(age));
+			}
+			if (!TextUtils.isEmpty(contTitle)) {
+				sb.append("&cont_title=").append(urlEncode(contTitle));
+			}
+			if (!TextUtils.isEmpty(contKeyword)) {
+				sb.append("&cont_kw=").append(urlEncode(contKeyword));
+			}
 			
 			// 添加指定的header
 			ArrayList<BaseHttpRequesterModel.Header> headers = new ArrayList<>();
-			headers.add(new BaseHttpRequesterModel.Header(
-					"Authorization",
+			headers.add(new BaseHttpRequesterModel.Header("Authorization",
 					"Bearer " + YoumiSpConfig.getAppId(applicationContext)
 			));
 			
@@ -485,18 +486,29 @@ public class YoumiNativeAdRequesterBuilder {
 	 *
 	 * @return 处理后参数
 	 */
-	private String base64Encode(String value) {
+	private String urlEncode(String value) {
 		if (TextUtils.isEmpty(value)) {
 			return "";
 		}
+		
 		try {
-			String result = Base64.encodeToString(value.getBytes("UTF-8"), Base64.NO_WRAP);
-			if (result != null) {
-				return result.replace("+", "-").replace("=", "_").replace("/", ".");
-			}
+			return URLEncoder.encode(value, "UTF-8");
 		} catch (Throwable e) {
 			DLog.e(e);
 		}
 		return "";
+	}
+	
+	private String getDefaultUsageAgent() {
+		return String.format(
+				Locale.getDefault(),
+				"Mozilla/5.0 (Linux; U; Android %s; %s-%s; %s Build/%s) AppleWebkit/533.1 (KHTML, like Gecko) " +
+				"Version/4.0 Mobile Safari/533.1",
+				DeviceInfoUtils.getAndroidVersionName(),
+				DeviceInfoUtils.getLanguage(),
+				DeviceInfoUtils.getCountry(),
+				DeviceInfoUtils.getModel(),
+				Build.ID
+		);
 	}
 }
