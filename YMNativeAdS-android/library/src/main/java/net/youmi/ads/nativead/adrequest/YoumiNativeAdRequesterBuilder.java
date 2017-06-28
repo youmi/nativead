@@ -12,6 +12,7 @@ import net.youmi.ads.base.pool.GlobalCacheExecutor;
 import net.youmi.ads.base.utils.JSONUtils;
 import net.youmi.ads.base.utils.NetworkUtils;
 import net.youmi.ads.base.utils.UIHandler;
+import net.youmi.ads.nativead.BuildConfig;
 import net.youmi.ads.nativead.adconfig.YoumiSpConfig;
 
 import org.json.JSONArray;
@@ -255,6 +256,7 @@ public class YoumiNativeAdRequesterBuilder {
 			if (!TextUtils.isEmpty(contKeyword)) {
 				sb.append("&cont_kw=").append(urlEncode(contKeyword));
 			}
+			sb.append("&libver=").append(BuildConfig.VERSION_NAME);
 			
 			// 添加指定的header
 			ArrayList<BaseHttpRequesterModel.Header> headers = new ArrayList<>();
