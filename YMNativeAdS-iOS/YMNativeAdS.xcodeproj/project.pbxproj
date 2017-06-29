@@ -44,8 +44,6 @@
 		6D9508AF1EC9865700006DAC /* UMOpenApiRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9508821EC9865700006DAC /* UMOpenApiRequest.m */; };
 		6D9508B01EC9865700006DAC /* UMRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9508831EC9865700006DAC /* UMRequest.h */; };
 		6D9508B11EC9865700006DAC /* UMRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9508841EC9865700006DAC /* UMRequest.m */; };
-		6D9508B21EC9865700006DAC /* UMSDKPhoneStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9508851EC9865700006DAC /* UMSDKPhoneStatus.h */; };
-		6D9508B31EC9865700006DAC /* UMSDKPhoneStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9508861EC9865700006DAC /* UMSDKPhoneStatus.m */; };
 		6D9508B41EC9865700006DAC /* UMStoreKitUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9508871EC9865700006DAC /* UMStoreKitUtil.h */; };
 		6D9508B51EC9865700006DAC /* UMStoreKitUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9508881EC9865700006DAC /* UMStoreKitUtil.m */; };
 		6D9508B61EC9865700006DAC /* UMSystemInfoUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9508891EC9865700006DAC /* UMSystemInfoUtil.h */; };
@@ -141,8 +139,6 @@
 		6D9508821EC9865700006DAC /* UMOpenApiRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMOpenApiRequest.m; sourceTree = "<group>"; };
 		6D9508831EC9865700006DAC /* UMRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMRequest.h; sourceTree = "<group>"; };
 		6D9508841EC9865700006DAC /* UMRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMRequest.m; sourceTree = "<group>"; };
-		6D9508851EC9865700006DAC /* UMSDKPhoneStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSDKPhoneStatus.h; sourceTree = "<group>"; };
-		6D9508861EC9865700006DAC /* UMSDKPhoneStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSDKPhoneStatus.m; sourceTree = "<group>"; };
 		6D9508871EC9865700006DAC /* UMStoreKitUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMStoreKitUtil.h; sourceTree = "<group>"; };
 		6D9508881EC9865700006DAC /* UMStoreKitUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMStoreKitUtil.m; sourceTree = "<group>"; };
 		6D9508891EC9865700006DAC /* UMSystemInfoUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSystemInfoUtil.h; sourceTree = "<group>"; };
@@ -251,8 +247,6 @@
 				6D9508761EC9865700006DAC /* UMNReachability.m */,
 				6D95087B1EC9865700006DAC /* UMNSDKKeyValue.h */,
 				6D95087C1EC9865700006DAC /* UMNSDKKeyValue.m */,
-				6D9508851EC9865700006DAC /* UMSDKPhoneStatus.h */,
-				6D9508861EC9865700006DAC /* UMSDKPhoneStatus.m */,
 				6D9508871EC9865700006DAC /* UMStoreKitUtil.h */,
 				6D9508881EC9865700006DAC /* UMStoreKitUtil.m */,
 				6D9508651EC9865700006DAC /* UMNBackgroundQueue.h */,
@@ -427,7 +421,6 @@
 				6D9508981EC9865700006DAC /* UMNDataModel.h in Headers */,
 				6D9508941EC9865700006DAC /* UMNCommonUseUtil.h in Headers */,
 				6D9508A81EC9865700006DAC /* UMNSDKKeyValue.h in Headers */,
-				6D9508B21EC9865700006DAC /* UMSDKPhoneStatus.h in Headers */,
 				6D9508A01EC9865700006DAC /* UMNNetworkUtil.h in Headers */,
 				6D95089C1EC9865700006DAC /* UMNFileUtil.h in Headers */,
 				6D9508AE1EC9865700006DAC /* UMOpenApiRequest.h in Headers */,
@@ -554,7 +547,6 @@
 				6D9508B91EC9865700006DAC /* UMURLPathUtil.m in Sources */,
 				6D9508BB1EC9865700006DAC /* YMNativeAd.m in Sources */,
 				6D9508AF1EC9865700006DAC /* UMOpenApiRequest.m in Sources */,
-				6D9508B31EC9865700006DAC /* UMSDKPhoneStatus.m in Sources */,
 				6D9508951EC9865700006DAC /* UMNCommonUseUtil.m in Sources */,
 				6D9508B11EC9865700006DAC /* UMRequest.m in Sources */,
 				6D9508911EC9865700006DAC /* UMAdManager.m in Sources */,

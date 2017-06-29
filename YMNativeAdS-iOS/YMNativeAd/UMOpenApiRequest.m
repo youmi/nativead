@@ -20,7 +20,6 @@
 #import "UMNBackgroundQueue.h"
 #import "UMNCommonUseUtil.h"
 #import "UMURLPathUtil.h"
-#import "UMSDKPhoneStatus.h"
 #import "UMNSPOpenIDFA.h"
 #import "UMNError.h"
 
