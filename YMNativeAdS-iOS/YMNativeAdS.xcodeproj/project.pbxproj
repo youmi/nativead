@@ -32,8 +32,6 @@
 		6D9508A31EC9865700006DAC /* UMNReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9508761EC9865700006DAC /* UMNReachability.m */; };
 		6D9508A41EC9865700006DAC /* UMNSDKConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9508771EC9865700006DAC /* UMNSDKConfig.h */; };
 		6D9508A51EC9865700006DAC /* UMNSDKConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9508781EC9865700006DAC /* UMNSDKConfig.m */; };
-		6D9508A61EC9865700006DAC /* UMNSDKConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9508791EC9865700006DAC /* UMNSDKConstants.h */; };
-		6D9508A71EC9865700006DAC /* UMNSDKConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D95087A1EC9865700006DAC /* UMNSDKConstants.m */; };
 		6D9508A81EC9865700006DAC /* UMNSDKKeyValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D95087B1EC9865700006DAC /* UMNSDKKeyValue.h */; };
 		6D9508A91EC9865700006DAC /* UMNSDKKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D95087C1EC9865700006DAC /* UMNSDKKeyValue.m */; };
 		6D9508AE1EC9865700006DAC /* UMOpenApiRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9508811EC9865700006DAC /* UMOpenApiRequest.h */; };
@@ -123,8 +121,6 @@
 		6D9508761EC9865700006DAC /* UMNReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMNReachability.m; sourceTree = "<group>"; };
 		6D9508771EC9865700006DAC /* UMNSDKConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMNSDKConfig.h; sourceTree = "<group>"; };
 		6D9508781EC9865700006DAC /* UMNSDKConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMNSDKConfig.m; sourceTree = "<group>"; };
-		6D9508791EC9865700006DAC /* UMNSDKConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMNSDKConstants.h; sourceTree = "<group>"; };
-		6D95087A1EC9865700006DAC /* UMNSDKConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMNSDKConstants.m; sourceTree = "<group>"; };
 		6D95087B1EC9865700006DAC /* UMNSDKKeyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMNSDKKeyValue.h; sourceTree = "<group>"; };
 		6D95087C1EC9865700006DAC /* UMNSDKKeyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMNSDKKeyValue.m; sourceTree = "<group>"; };
 		6D9508811EC9865700006DAC /* UMOpenApiRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMOpenApiRequest.h; sourceTree = "<group>"; };
@@ -256,8 +252,6 @@
 				6D95088C1EC9865700006DAC /* UMURLPathUtil.m */,
 				6D95086D1EC9865700006DAC /* UMNError.h */,
 				6D95086E1EC9865700006DAC /* UMNError.m */,
-				6D9508791EC9865700006DAC /* UMNSDKConstants.h */,
-				6D95087A1EC9865700006DAC /* UMNSDKConstants.m */,
 			);
 			name = adbase;
 			sourceTree = "<group>";
@@ -410,7 +404,6 @@
 				6D9508A01EC9865700006DAC /* UMNNetworkUtil.h in Headers */,
 				6D95089C1EC9865700006DAC /* UMNFileUtil.h in Headers */,
 				6D9508AE1EC9865700006DAC /* UMOpenApiRequest.h in Headers */,
-				6D9508A61EC9865700006DAC /* UMNSDKConstants.h in Headers */,
 				6D9508921EC9865700006DAC /* UMNBackgroundQueue.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -544,7 +537,6 @@
 				6D9508B51EC9865700006DAC /* UMStoreKitUtil.m in Sources */,
 				6D95089F1EC9865700006DAC /* UMNMachineUtil.m in Sources */,
 				6D95089B1EC9865700006DAC /* UMNError.m in Sources */,
-				6D9508A71EC9865700006DAC /* UMNSDKConstants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
