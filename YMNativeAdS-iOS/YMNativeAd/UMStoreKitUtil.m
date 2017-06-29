@@ -10,7 +10,6 @@
 #import <StoreKit/StoreKit.h>
 #import "UMNMachineUtil.h"
 #import "UMNCommonUseUtil.h"
-//#import "StoreViewController.h"
 #import "UMNSDKConfig.h"
 #import "Macro.h"
  
@@ -24,7 +23,7 @@
 #if __IPHONE_OS_VERSION_MAX_ALLOWED < 90000
 - (NSUInteger)supportedInterfaceOrientations{
 #else
-    - (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
 #endif
         //-(unsigned int)supportedInterfaceOrientations{
         return UIInterfaceOrientationMaskAll;
@@ -37,10 +36,9 @@
 
 //static NSString * const kSKStoreProductParameterITunesItemIdentifier = @"id";
 static NSString* ZYin_id(){
-//    unsigned char spotShareDirectory[] = {(XOR_KEY ^ 'i'),(XOR_KEY ^ 'd'),(XOR_KEY ^ '\0')};
-//    OPSmixString(spotShareDirectory, XOR_KEY);
-    return @"id";//[NSString stringWithFormat:@"%s", spotShareDirectory];
+    return @"id";
 }
+    
 @class SKStoreProductViewController;
 
 @interface UMStoreKitUtil()<SKStoreProductViewControllerDelegate>

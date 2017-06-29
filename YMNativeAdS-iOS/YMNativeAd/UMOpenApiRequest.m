@@ -16,7 +16,6 @@
 #import "UMRequest.h"
 #import "UMNDataModel.h"
 #import "UMNBackgroundQueue.h"
-#import "UMNSPOpenIDFA.h"
 #import "UMNError.h"
 
 extern NSString *const SDK_VERSION();

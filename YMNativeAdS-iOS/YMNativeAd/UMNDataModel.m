@@ -7,10 +7,6 @@
 //
 
 #import "UMNDataModel.h"
-#import "UMNDataHandlerUtil.h"
-#import "UMNSDKConstants.h"
-#import "UMNSDKConfig.h"
-#import "Macro.h"
 
 @implementation UMNDataModel
 
