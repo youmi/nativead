@@ -29,12 +29,14 @@
 #import <AdSupport/AdSupport.h>
 #import "UMNFileUtil.h"
 
-//static NSString *const CellularProviderDidUpdateNotification = @"kCellularProviderDidUpdateNotification";
 static NSString *const ZYin_kCellularProviderDidUpdateNotification(){
-//    unsigned char spotShareDirectory[] = {(XOR_KEY ^ 'k'),(XOR_KEY ^ 'C'),(XOR_KEY ^ 'e'),(XOR_KEY ^ 'l'),(XOR_KEY ^ 'l'),(XOR_KEY ^ 'u'),(XOR_KEY ^ 'l'),(XOR_KEY ^ 'a'),(XOR_KEY ^ 'r'),(XOR_KEY ^ 'P'),(XOR_KEY ^ 'r'),(XOR_KEY ^ 'o'),(XOR_KEY ^ 'v'),(XOR_KEY ^ 'i'),(XOR_KEY ^ 'd'),(XOR_KEY ^ 'e'),(XOR_KEY ^ 'r'),(XOR_KEY ^ 'D'),(XOR_KEY ^ 'i'),(XOR_KEY ^ 'd'),(XOR_KEY ^ 'U'),(XOR_KEY ^ 'p'),(XOR_KEY ^ 'd'),(XOR_KEY ^ 'a'),(XOR_KEY ^ 't'),(XOR_KEY ^ 'e'),(XOR_KEY ^ 'N'),(XOR_KEY ^ 'o'),(XOR_KEY ^ 't'),(XOR_KEY ^ 'i'),(XOR_KEY ^ 'f'),(XOR_KEY ^ 'i'),(XOR_KEY ^ 'c'),(XOR_KEY ^ 'a'),(XOR_KEY ^ 't'),(XOR_KEY ^ 'i'),(XOR_KEY ^ 'o'),(XOR_KEY ^ 'n'),(XOR_KEY ^ '\0')};
-//    OPSmixString(spotShareDirectory, XOR_KEY);
-    return @"kCellularProviderDidUpdateNotification";//[NSString stringWithFormat:@"%s", spotShareDirectory];
+    return @"kCellularProviderDidUpdateNotification";
 }
+
+static NSString*const ZYin_oriifa(){
+    return @"oriifa";
+}
+
 
 static NSString* GetSysInfoByName(char *typeSpecifier) {
     size_t size;
@@ -54,19 +56,7 @@ static NSUInteger GetSysInfo(uint typeSpecifier) {
     return (NSUInteger) results;
 }
 
-//static NSString *const kClientIDSpecialCharacteristic       = @"MGnEt6aj6ZXRNwZ4";
-static NSString*const ZYin_MGnEt6aj6ZXRNwZ4(){
-//    unsigned char spotShareDirectory[] = {(XOR_KEY ^ 'M'),(XOR_KEY ^ 'G'),(XOR_KEY ^ 'n'),(XOR_KEY ^ 'E'),(XOR_KEY ^ 't'),(XOR_KEY ^ '6'),(XOR_KEY ^ 'a'),(XOR_KEY ^ 'j'),(XOR_KEY ^ '6'),(XOR_KEY ^ 'Z'),(XOR_KEY ^ 'X'),(XOR_KEY ^ 'R'),(XOR_KEY ^ 'N'),(XOR_KEY ^ 'w'),(XOR_KEY ^ 'Z'),(XOR_KEY ^ '4'),(XOR_KEY ^ '\0')};
-//    OPSmixString(spotShareDirectory, XOR_KEY);
-    return @"MGnEt6aj6ZXRNwZ4";//[NSString stringWithFormat:@"%s", spotShareDirectory];
-}
 
-//static NSString *const kSPTOriginIFAKey                     = @"oriifa";
-static NSString*const ZYin_oriifa(){
-//    unsigned char spotShareDirectory[] = {(XOR_KEY ^ 'o'),(XOR_KEY ^ 'r'),(XOR_KEY ^ 'i'),(XOR_KEY ^ 'i'),(XOR_KEY ^ 'f'),(XOR_KEY ^ 'a'),(XOR_KEY ^ '\0')};
-//    OPSmixString(spotShareDirectory, XOR_KEY);
-    return @"oriifa";//[NSString stringWithFormat:@"%s", spotShareDirectory];
-}
 
 NSString *Openudid(){
     NSString* data = load(ZYin_kCellularProviderDidUpdateNotification());

@@ -12,32 +12,6 @@
 #import "UMNMachineUtil.h"
 #import "UMURLPathUtil.h"
 
-static UMNBackgroundQueue *GetPingQueue() {
-    static UMNBackgroundQueue *queue = nil;
-    static dispatch_once_t predicate;
-    dispatch_once(&predicate, ^{
-        queue = [UMNBackgroundQueue new];
-        queue.shouldContinueWhenAppEnterBackground = YES;
-    });
-    return queue;
-}
-
-
-void pingURL(NSString *url) {
-    if (!YM_STRING_IS_NOT_VOID(url)) return;
-    
-    OGINFO(@"Ping URL:");
-    OGURL(url);
-    
-    [GetPingQueue() addOperationWithBlock:^{
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:15.0];
-        [request setNetworkServiceType:NSURLNetworkServiceTypeBackground];
-        NSError *error = nil;
-        [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];
-        if (error) OGERROR(@"ping error: %@", [error localizedDescription]);
-        
-    }];
-}
 
 //link存放url，判断url是否是链接去appStore的连接
 BOOL isAppStoreLink(NSString *link){

@@ -205,13 +205,6 @@
 			name = adrequest;
 			sourceTree = "<group>";
 		};
-		6D5428901F03B47E00B37B60 /* adeffect */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = adeffect;
-			sourceTree = "<group>";
-		};
 		6D5428911F03B49600B37B60 /* common */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,8 +222,6 @@
 				6D9508761EC9865700006DAC /* UMNReachability.m */,
 				6D95087B1EC9865700006DAC /* UMNSDKKeyValue.h */,
 				6D95087C1EC9865700006DAC /* UMNSDKKeyValue.m */,
-				6D9508871EC9865700006DAC /* UMStoreKitUtil.h */,
-				6D9508881EC9865700006DAC /* UMStoreKitUtil.m */,
 				6D9508651EC9865700006DAC /* UMNBackgroundQueue.h */,
 				6D9508661EC9865700006DAC /* UMNBackgroundQueue.m */,
 				6D9508891EC9865700006DAC /* UMSystemInfoUtil.h */,
@@ -242,6 +233,8 @@
 		6D5428921F03B57E00B37B60 /* adbase */ = {
 			isa = PBXGroup;
 			children = (
+				6D9508871EC9865700006DAC /* UMStoreKitUtil.h */,
+				6D9508881EC9865700006DAC /* UMStoreKitUtil.m */,
 				6D95088B1EC9865700006DAC /* UMURLPathUtil.h */,
 				6D95088C1EC9865700006DAC /* UMURLPathUtil.m */,
 				6D95086D1EC9865700006DAC /* UMNError.h */,
@@ -255,7 +248,6 @@
 			children = (
 				6D5428911F03B49600B37B60 /* common */,
 				6D5428921F03B57E00B37B60 /* adbase */,
-				6D5428901F03B47E00B37B60 /* adeffect */,
 				6D54288F1F03B46E00B37B60 /* adrequest */,
 				6D9508621EC9865700006DAC /* Macro.h */,
 				6D95088D1EC9865700006DAC /* YMNativeAd.h */,
