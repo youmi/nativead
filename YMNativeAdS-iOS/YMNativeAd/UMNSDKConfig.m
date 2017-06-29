@@ -8,8 +8,6 @@
 
 #import "UMNSDKConfig.h"
 #import "Macro.h"
-#import "UMNMachineUtil.h"
-#import "UMNSDKConstants.h"
 
 @implementation UMNSDKConfig
 

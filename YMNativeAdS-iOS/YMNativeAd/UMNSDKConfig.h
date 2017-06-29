@@ -7,8 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UMNCommonUseUtil.h"
-#import "UMNSDKPicConstants.h"
 
 @interface UMNSDKConfig : NSObject
 
