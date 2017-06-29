@@ -9,7 +9,6 @@
 #import "UMStoreKitUtil.h"
 #import <StoreKit/StoreKit.h>
 #import "UMNMachineUtil.h"
-#import "UMNCommonUseUtil.h"
 #import "UMNSDKConfig.h"
 #import "Macro.h"
  
