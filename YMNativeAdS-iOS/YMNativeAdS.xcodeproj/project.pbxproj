@@ -210,52 +210,84 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6D9508561EC9862000006DAC /* YMNativeAd */ = {
+		6D54288F1F03B46E00B37B60 /* adrequest */ = {
 			isa = PBXGroup;
 			children = (
-				6D9508621EC9865700006DAC /* Macro.h */,
 				6D9508631EC9865700006DAC /* UMAdManager.h */,
 				6D9508641EC9865700006DAC /* UMAdManager.m */,
-				6D9508651EC9865700006DAC /* UMNBackgroundQueue.h */,
-				6D9508661EC9865700006DAC /* UMNBackgroundQueue.m */,
+				6D9508771EC9865700006DAC /* UMNSDKConfig.h */,
+				6D9508781EC9865700006DAC /* UMNSDKConfig.m */,
+				6D95086B1EC9865700006DAC /* UMNDataModel.h */,
+				6D95086C1EC9865700006DAC /* UMNDataModel.m */,
+				6D9508811EC9865700006DAC /* UMOpenApiRequest.h */,
+				6D9508821EC9865700006DAC /* UMOpenApiRequest.m */,
+			);
+			name = adrequest;
+			sourceTree = "<group>";
+		};
+		6D5428901F03B47E00B37B60 /* adeffect */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = adeffect;
+			sourceTree = "<group>";
+		};
+		6D5428911F03B49600B37B60 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				6D95086F1EC9865700006DAC /* UMNFileUtil.h */,
+				6D9508701EC9865700006DAC /* UMNFileUtil.m */,
 				6D9508671EC9865700006DAC /* UMNCommonUseUtil.h */,
 				6D9508681EC9865700006DAC /* UMNCommonUseUtil.m */,
 				6D9508691EC9865700006DAC /* UMNDataHandlerUtil.h */,
 				6D95086A1EC9865700006DAC /* UMNDataHandlerUtil.m */,
-				6D95086B1EC9865700006DAC /* UMNDataModel.h */,
-				6D95086C1EC9865700006DAC /* UMNDataModel.m */,
-				6D95086D1EC9865700006DAC /* UMNError.h */,
-				6D95086E1EC9865700006DAC /* UMNError.m */,
-				6D95086F1EC9865700006DAC /* UMNFileUtil.h */,
-				6D9508701EC9865700006DAC /* UMNFileUtil.m */,
 				6D9508711EC9865700006DAC /* UMNMachineUtil.h */,
 				6D9508721EC9865700006DAC /* UMNMachineUtil.m */,
 				6D9508731EC9865700006DAC /* UMNNetworkUtil.h */,
 				6D9508741EC9865700006DAC /* UMNNetworkUtil.m */,
-				6D9508751EC9865700006DAC /* UMNReachability.h */,
-				6D9508761EC9865700006DAC /* UMNReachability.m */,
-				6D9508771EC9865700006DAC /* UMNSDKConfig.h */,
-				6D9508781EC9865700006DAC /* UMNSDKConfig.m */,
-				6D9508791EC9865700006DAC /* UMNSDKConstants.h */,
-				6D95087A1EC9865700006DAC /* UMNSDKConstants.m */,
-				6D95087B1EC9865700006DAC /* UMNSDKKeyValue.h */,
-				6D95087C1EC9865700006DAC /* UMNSDKKeyValue.m */,
-				6D95087D1EC9865700006DAC /* UMNSDKPicConstants.h */,
-				6D95087E1EC9865700006DAC /* UMNSDKPicConstants.m */,
-				6D95087F1EC9865700006DAC /* UMNSPOpenIDFA.h */,
-				6D9508801EC9865700006DAC /* UMNSPOpenIDFA.m */,
-				6D9508811EC9865700006DAC /* UMOpenApiRequest.h */,
-				6D9508821EC9865700006DAC /* UMOpenApiRequest.m */,
 				6D9508831EC9865700006DAC /* UMRequest.h */,
 				6D9508841EC9865700006DAC /* UMRequest.m */,
+				6D9508751EC9865700006DAC /* UMNReachability.h */,
+				6D9508761EC9865700006DAC /* UMNReachability.m */,
+				6D95087B1EC9865700006DAC /* UMNSDKKeyValue.h */,
+				6D95087C1EC9865700006DAC /* UMNSDKKeyValue.m */,
 				6D9508851EC9865700006DAC /* UMSDKPhoneStatus.h */,
 				6D9508861EC9865700006DAC /* UMSDKPhoneStatus.m */,
 				6D9508871EC9865700006DAC /* UMStoreKitUtil.h */,
 				6D9508881EC9865700006DAC /* UMStoreKitUtil.m */,
+				6D9508651EC9865700006DAC /* UMNBackgroundQueue.h */,
+				6D9508661EC9865700006DAC /* UMNBackgroundQueue.m */,
 				6D9508891EC9865700006DAC /* UMSystemInfoUtil.h */,
 				6D95088A1EC9865700006DAC /* UMSystemInfoUtil.m */,
+			);
+			name = common;
+			sourceTree = "<group>";
+		};
+		6D5428921F03B57E00B37B60 /* adbase */ = {
+			isa = PBXGroup;
+			children = (
 				6D95088B1EC9865700006DAC /* UMURLPathUtil.h */,
 				6D95088C1EC9865700006DAC /* UMURLPathUtil.m */,
+				6D95087D1EC9865700006DAC /* UMNSDKPicConstants.h */,
+				6D95087E1EC9865700006DAC /* UMNSDKPicConstants.m */,
+				6D95086D1EC9865700006DAC /* UMNError.h */,
+				6D95086E1EC9865700006DAC /* UMNError.m */,
+				6D9508791EC9865700006DAC /* UMNSDKConstants.h */,
+				6D95087A1EC9865700006DAC /* UMNSDKConstants.m */,
+				6D95087F1EC9865700006DAC /* UMNSPOpenIDFA.h */,
+				6D9508801EC9865700006DAC /* UMNSPOpenIDFA.m */,
+			);
+			name = adbase;
+			sourceTree = "<group>";
+		};
+		6D9508561EC9862000006DAC /* YMNativeAd */ = {
+			isa = PBXGroup;
+			children = (
+				6D5428911F03B49600B37B60 /* common */,
+				6D5428921F03B57E00B37B60 /* adbase */,
+				6D5428901F03B47E00B37B60 /* adeffect */,
+				6D54288F1F03B46E00B37B60 /* adrequest */,
+				6D9508621EC9865700006DAC /* Macro.h */,
 				6D95088D1EC9865700006DAC /* YMNativeAd.h */,
 				6D95088E1EC9865700006DAC /* YMNativeAd.m */,
 				6D9508581EC9862000006DAC /* Info.plist */,

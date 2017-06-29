@@ -11,18 +11,19 @@
 #import "UMNDataModel.h"
 #import "UMNBackgroundQueue.h"
 
-typedef void(^CompletionBlock)(NSInteger code);
-typedef void(^FinishBlock)(NSError *error);
-typedef void(^ListBlock)(NSArray *sList,NSError *error);
+typedef void (^CompletionBlock)(NSInteger code);
+typedef void (^FinishBlock)(NSError *error);
+typedef void (^ListBlock)(NSArray *sList, NSError *error);
 
-@interface  UMOpenApiRequest: NSObject
-@property(nonatomic, retain) UMNBackgroundQueue *trackQueue;
-+(id)shareInstanceRef;
+@interface UMOpenApiRequest : NSObject
+
++ (id)shareInstanceRef;
+
+@property (nonatomic, retain) UMNBackgroundQueue *trackQueue;
+
 @end
-
-
 
 void sendSpotURLRequestWithBlock(ListBlock block);
 
 //发送显示成功效果链接
-void sendSpotEffURLRequestWithBlock(long effType,UMNDataModel *spotDataStructure ,FinishBlock block);
+void sendSpotEffURLRequestWithBlock(long effType, UMNDataModel *spotDataStructure, FinishBlock block);
