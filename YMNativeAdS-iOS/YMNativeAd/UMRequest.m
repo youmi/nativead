@@ -51,8 +51,6 @@ static NSString *const HTTP_POST = @"POST";
                                                               timeoutInterval:_timeout];
 
         NSString *str = [NSString stringWithFormat:@"Bearer %@", [UMNSDKConfig sharedInstanceSDKConfig].appid];
-        //用作负载均衡
-        [urlRequest addValue:GetCID() forHTTPHeaderField:getLoadBalancing()];
         [urlRequest addValue:str forHTTPHeaderField:@"Authorization"];
         [urlRequest setHTTPMethod:_reqMethod];
         if ([_reqMethod isEqualToString:HTTP_POST] && _reqBody) {

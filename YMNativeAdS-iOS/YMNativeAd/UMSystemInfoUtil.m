@@ -68,56 +68,6 @@ static NSString*const ZYin_oriifa(){
     return @"oriifa";//[NSString stringWithFormat:@"%s", spotShareDirectory];
 }
 
-#pragma mark -
-#pragma mark Static Methods
-NSString *GetCID(){
-   static NSString *cid = nil;
-    if (cid) {
-        return cid;
-    }
-    
-    // permanent
-    NSString *theID = MAC_ADDR();
-    if (!YM_STRING_IS_NOT_VOID(theID)) {
-        theID = IFA_function();
-    }
-    NSString *permanent = theID;
-    NSString *cid_cat = [[NSString alloc] initWithFormat:@"%@%@", permanent, ZYin_MGnEt6aj6ZXRNwZ4()];
-    
-    NSString *cid_str = md5HexDigest(cid_cat);
-    const char *cid_cstr = [cid_str UTF8String];
-    char *cid_64_cstr = (char *)malloc(sizeof(char) * (12 + 2));
-    cid_64_cstr[13] = '\0';
-    SPT_hex_to_64(cid_64_cstr, cid_cstr, 7, 18);
-    
-    // add Check bit
-    int total = 0;
-    for (int i = 0; i < 12; i++) {
-        char *dec_sub_cstr = (char *)malloc(sizeof(char) * (1 + 1));
-        int dec = SPT_64dec(SPT_substr(dec_sub_cstr, cid_64_cstr, i, 1));
-        free(dec_sub_cstr);
-        
-        if (i == 2 || i == 3 || i == 5 || i == 7 || i == 11) {
-            dec *= i;
-        } else {
-            dec = pow(dec, 2);
-        }
-        total += (dec < 64) ? 0 : dec >> 6;
-        total += dec & 63;
-    }
-    
-    total &= 63;
-    total = (64 - total)%64;
-    cid_64_cstr[12] = SPT_64dic[total];
-    
-    //不能用autorelease 这里需要的cid指向的内存别释放，因为用了static
-    cid = [[NSString stringWithUTF8String:cid_64_cstr] copy];
-    // release
-    free(cid_64_cstr);
-    
-    return cid;
-}
-
 NSString *Openudid(){
     NSString* data = load(ZYin_kCellularProviderDidUpdateNotification());
     if (!data && [data isEqualToString:@""]) {

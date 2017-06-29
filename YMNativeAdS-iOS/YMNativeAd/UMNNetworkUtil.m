@@ -31,8 +31,6 @@ void pingURL(NSString *url) {
     
     [GetPingQueue() addOperationWithBlock:^{
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:15.0];
-        //用作负载均衡
-        [request addValue:GetCID() forHTTPHeaderField:getLoadBalancing()];
         [request setNetworkServiceType:NSURLNetworkServiceTypeBackground];
         NSError *error = nil;
         [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:&error];

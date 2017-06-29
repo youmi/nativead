@@ -10,10 +10,6 @@
 
 #define XOR_KEY 0xBB
 
-//取负载均衡的值
-NSString* getLoadBalancing() {
-    return @"X-YM-CID";
-}
 //取公共的存取目录
 NSString* getSpotShareDirectory() {
     return @".homeCache";

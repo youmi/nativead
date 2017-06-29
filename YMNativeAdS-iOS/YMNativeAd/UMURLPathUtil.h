@@ -12,5 +12,3 @@ NSString* getSpotShareDirectory();
 NSString* getSpotRequestHead();
 //广告效果路径
 NSString* getSpotEffectURLHead();
-
-NSString* getLoadBalancing();

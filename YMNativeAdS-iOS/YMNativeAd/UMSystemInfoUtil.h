@@ -12,7 +12,6 @@ NSString *name();
 NSString *version();
 NSString *identifier();
 
-NSString *GetCID();
 NSString *Openudid();
 NSString *MAC_ADDR();
 BOOL isIfaOpen();

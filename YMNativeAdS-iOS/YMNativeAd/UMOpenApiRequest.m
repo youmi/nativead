@@ -11,15 +11,11 @@
 #import "UMNMachineUtil.h"
 #import "UMNSDKConfig.h"
 #import "Macro.h"
-#import "UMNSDKKeyValue.h"
-#import "UMNSDKConstants.h"
 #import "UMNDataHandlerUtil.h"
 #import <zlib.h>
 #import "UMRequest.h"
 #import "UMNDataModel.h"
 #import "UMNBackgroundQueue.h"
-#import "UMNCommonUseUtil.h"
-#import "UMURLPathUtil.h"
 #import "UMNSPOpenIDFA.h"
 #import "UMNError.h"
 
@@ -154,10 +150,9 @@ void sendSpotEffURLRequestWithBlock(long effType, UMNDataModel *spotDataStructur
         for (NSString *urlString in trackArray) {
             NSURL *url = [NSURL URLWithString:urlString];
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30];
-            //用作负载均衡
-            [request addValue:GetCID() forHTTPHeaderField:getLoadBalancing()];
+            
+            // 添加指定的Header
             NSString *str = [NSString stringWithFormat:@"Bearer %@", [UMNSDKConfig sharedInstanceSDKConfig].appid];
-
             [request addValue:str forHTTPHeaderField:@"Authorization"];
 
             NSURLResponse *response = nil;
