@@ -18,8 +18,6 @@
 #import "UMNBackgroundQueue.h"
 #import "UMNError.h"
 
-extern NSString *const SDK_VERSION();
-
 @interface UMOpenApiRequest ()
 @end
 
@@ -67,7 +65,7 @@ NSString *generageAdRequestURL() {
     NSString *cont_title = YM_ASSIGN_STRING_SAFELY([UMNSDKConfig sharedInstanceSDKConfig].cont_title);          // 内容的标题
     NSString *cont_kw = YM_ASSIGN_STRING_SAFELY([UMNSDKConfig sharedInstanceSDKConfig].cont_kw);                // 内容的关键词，逗号分隔
     
-    NSString *requestURL = [NSString stringWithFormat:@"https://native.umapi.cn/ios/v1/oreq?reqtime=%d&slotid=%@&adcount=%d&reqid=%@&idfa=%@&brand=%@&model=%@&mac=%@&imei=%@&ip=%@&ua=%@&os=%@&osv=%@&appversion=%@&conntype=%@&carrier=%@&pk=%@&countrycode=%@&language=%@&gender=%@&age=%@&cont_title=%@&cont_kw=%@", time, slotid, adCount, reqid, idfa, brand, model, mac, imei, ip, ua, os, osv, appversion, conntype, carrier, pk, countrycode, language, gender, age, cont_title, cont_kw];
+    NSString *requestURL = [NSString stringWithFormat:@"https://native.umapi.cn/ios/v1/oreq?reqtime=%d&slotid=%@&adcount=%d&reqid=%@&idfa=%@&brand=%@&model=%@&mac=%@&imei=%@&ip=%@&ua=%@&os=%@&osv=%@&appversion=%@&conntype=%@&carrier=%@&pk=%@&countrycode=%@&language=%@&gender=%@&age=%@&cont_title=%@&cont_kw=%@&libver=%@", time, slotid, adCount, reqid, idfa, brand, model, mac, imei, ip, ua, os, osv, appversion, conntype, carrier, pk, countrycode, language, gender, age, cont_title, cont_kw, SDK_VERSION];
     requestURL = [requestURL stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
     OGINFO(@"发起广告请求：%@", requestURL);
