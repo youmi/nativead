@@ -10,7 +10,6 @@
 #import <UIKit/UIKit.h>
 #import "Macro.h"
 #import "UMNMachineUtil.h"
-#import "UMURLPathUtil.h"
 #import "UMNSDKConfig.h"
 
 static NSString *const HTTP_GET = @"GET";

@@ -10,7 +10,6 @@
 #import "Macro.h"
 #import "UMNBackgroundQueue.h"
 #import "UMNMachineUtil.h"
-#import "UMURLPathUtil.h"
 
 
 //link存放url，判断url是否是链接去appStore的连接

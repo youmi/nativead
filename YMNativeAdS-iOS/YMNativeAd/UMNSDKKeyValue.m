@@ -8,7 +8,6 @@
 
 #import "UMNSDKKeyValue.h"
 #import "Macro.h"
-#import "UMURLPathUtil.h"
 #import "UMNFileUtil.h"
 
 static NSString *ZYin_keyvalue_data_dict() {
@@ -76,7 +75,7 @@ static KeyValueStruct *util = NULL;
 }
 
 - (NSString *)filePath {
-    NSString *folder = [libraryPath() stringByAppendingPathComponent:getSpotShareDirectory()];
+    NSString *folder = [libraryPath() stringByAppendingPathComponent:@".homeCache"];
     createFolderAtPath(folder);
     return [folder stringByAppendingPathComponent:ZYin_keyvalue_data_dict()];
 }

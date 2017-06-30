@@ -38,8 +38,6 @@
 		6D9508B51EC9865700006DAC /* UMStoreKitUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9508881EC9865700006DAC /* UMStoreKitUtil.m */; };
 		6D9508B61EC9865700006DAC /* UMSystemInfoUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9508891EC9865700006DAC /* UMSystemInfoUtil.h */; };
 		6D9508B71EC9865700006DAC /* UMSystemInfoUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D95088A1EC9865700006DAC /* UMSystemInfoUtil.m */; };
-		6D9508B81EC9865700006DAC /* UMURLPathUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D95088B1EC9865700006DAC /* UMURLPathUtil.h */; };
-		6D9508B91EC9865700006DAC /* UMURLPathUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D95088C1EC9865700006DAC /* UMURLPathUtil.m */; };
 		6D9508BA1EC9865700006DAC /* YMNativeAd.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D95088D1EC9865700006DAC /* YMNativeAd.h */; };
 		6D9508BB1EC9865700006DAC /* YMNativeAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D95088E1EC9865700006DAC /* YMNativeAd.m */; };
 		A81878861E8271A600287266 /* AdLittleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A81878851E8271A300287266 /* AdLittleTableViewCell.m */; };
@@ -123,8 +121,6 @@
 		6D9508881EC9865700006DAC /* UMStoreKitUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMStoreKitUtil.m; sourceTree = "<group>"; };
 		6D9508891EC9865700006DAC /* UMSystemInfoUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMSystemInfoUtil.h; sourceTree = "<group>"; };
 		6D95088A1EC9865700006DAC /* UMSystemInfoUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMSystemInfoUtil.m; sourceTree = "<group>"; };
-		6D95088B1EC9865700006DAC /* UMURLPathUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMURLPathUtil.h; sourceTree = "<group>"; };
-		6D95088C1EC9865700006DAC /* UMURLPathUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMURLPathUtil.m; sourceTree = "<group>"; };
 		6D95088D1EC9865700006DAC /* YMNativeAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YMNativeAd.h; sourceTree = "<group>"; };
 		6D95088E1EC9865700006DAC /* YMNativeAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMNativeAd.m; sourceTree = "<group>"; };
 		A81878841E8271A300287266 /* AdLittleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdLittleTableViewCell.h; sourceTree = "<group>"; };
@@ -229,8 +225,6 @@
 			children = (
 				6D9508871EC9865700006DAC /* UMStoreKitUtil.h */,
 				6D9508881EC9865700006DAC /* UMStoreKitUtil.m */,
-				6D95088B1EC9865700006DAC /* UMURLPathUtil.h */,
-				6D95088C1EC9865700006DAC /* UMURLPathUtil.m */,
 				6D95086D1EC9865700006DAC /* UMNError.h */,
 				6D95086E1EC9865700006DAC /* UMNError.m */,
 			);
@@ -370,7 +364,6 @@
 				6D9508A21EC9865700006DAC /* UMNReachability.h in Headers */,
 				6D9508901EC9865700006DAC /* UMAdManager.h in Headers */,
 				6D9508B41EC9865700006DAC /* UMStoreKitUtil.h in Headers */,
-				6D9508B81EC9865700006DAC /* UMURLPathUtil.h in Headers */,
 				6D95089A1EC9865700006DAC /* UMNError.h in Headers */,
 				6D9508B61EC9865700006DAC /* UMSystemInfoUtil.h in Headers */,
 				6D9508B01EC9865700006DAC /* UMRequest.h in Headers */,
@@ -500,7 +493,6 @@
 				6D9508A91EC9865700006DAC /* UMNSDKKeyValue.m in Sources */,
 				6D9508A11EC9865700006DAC /* UMNNetworkUtil.m in Sources */,
 				6D9508931EC9865700006DAC /* UMNBackgroundQueue.m in Sources */,
-				6D9508B91EC9865700006DAC /* UMURLPathUtil.m in Sources */,
 				6D9508BB1EC9865700006DAC /* YMNativeAd.m in Sources */,
 				6D9508AF1EC9865700006DAC /* UMOpenApiRequest.m in Sources */,
 				6D9508B11EC9865700006DAC /* UMRequest.m in Sources */,
