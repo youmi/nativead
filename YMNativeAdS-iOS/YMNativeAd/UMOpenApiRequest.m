@@ -38,7 +38,6 @@
  @return 广告请求链接
  */
 NSString *generageAdRequestURL() {
-    
     NSTimeInterval reqtime = [[NSDate date] timeIntervalSince1970] * 1000;
     NSString *str = [NSString stringWithFormat:@"%f", reqtime];
     int time = [str intValue];                                                                                  // 请求时间戳
@@ -64,12 +63,12 @@ NSString *generageAdRequestURL() {
     NSString *age = @"";                                                                                        // 年龄
     NSString *cont_title = YM_ASSIGN_STRING_SAFELY([UMNSDKConfig sharedInstanceSDKConfig].cont_title);          // 内容的标题
     NSString *cont_kw = YM_ASSIGN_STRING_SAFELY([UMNSDKConfig sharedInstanceSDKConfig].cont_kw);                // 内容的关键词，逗号分隔
-    
+
     NSString *requestURL = [NSString stringWithFormat:@"https://native.umapi.cn/ios/v1/oreq?reqtime=%d&slotid=%@&adcount=%d&reqid=%@&idfa=%@&brand=%@&model=%@&mac=%@&imei=%@&ip=%@&ua=%@&os=%@&osv=%@&appversion=%@&conntype=%@&carrier=%@&pk=%@&countrycode=%@&language=%@&gender=%@&age=%@&cont_title=%@&cont_kw=%@&libver=%@", time, slotid, adCount, reqid, idfa, brand, model, mac, imei, ip, ua, os, osv, appversion, conntype, carrier, pk, countrycode, language, gender, age, cont_title, cont_kw, SDK_VERSION];
     requestURL = [requestURL stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-    
+
     OGINFO(@"发起广告请求：%@", requestURL);
-    
+
     return requestURL;
 }
 
@@ -98,15 +97,11 @@ void sendSpotURLRequestWithBlock(ListBlock block) {
             } else {
                 int code = [[jsonDic objectForKey:@"c"] intValue];
                 if (code == 0) {
-                    NSMutableDictionary *preDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                                                           YM_ASSIGN_STRING_SAFELY([jsonDic objectForKey:@"rsd"]), @"rsd",
-                                                                           //                                                   [jsonDic objectForKey:@"jm"],@"jm",
-                                                                           //                                                   [jsonDic objectForKey:@"sal"],@"sal",
-                                                                           //                                                   [jsonDic objectForKey:@"pl"],@"pl",
-                                                                           nil];
-
+                    NSMutableDictionary *preDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:YM_ASSIGN_STRING_SAFELY([jsonDic objectForKey:@"rsd"]), @"rsd", nil];
+                    
                     NSArray *ad = [jsonDic objectForKey:@"ad"];
                     NSMutableArray *mutabArray = [[NSMutableArray alloc] initWithCapacity:ad.count];
+                    
                     for (NSDictionary *adDic in ad) {
                         UMNDataModel *spotDataStructure = [[UMNDataModel alloc] initWithDiction:preDic dic:adDic];
                         [mutabArray addObject:spotDataStructure];
@@ -147,7 +142,7 @@ void sendSpotEffURLRequestWithBlock(long effType, UMNDataModel *spotDataStructur
         for (NSString *urlString in trackArray) {
             NSURL *url = [NSURL URLWithString:urlString];
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30];
-            
+
             // 添加指定的Header
             NSString *str = [NSString stringWithFormat:@"Bearer %@", [UMNSDKConfig sharedInstanceSDKConfig].appid];
             [request addValue:str forHTTPHeaderField:@"Authorization"];
