@@ -11,7 +11,6 @@
 #import "UMNMachineUtil.h"
 #import "UMNSDKConfig.h"
 #import "Macro.h"
-#import "UMNDataHandlerUtil.h"
 #import <zlib.h>
 #import "UMRequest.h"
 #import "UMNDataModel.h"
