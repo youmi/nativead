@@ -57,7 +57,7 @@ if (!_nativeAd) {
     _nativeAd = [[YMNativeAd alloc]initWithAppId:@"320a6cd3b8d2c4e0" slotId:@"7746"];
 
     //（可选）设置广告请求时附带的可选参数，有利于提高广告填充
-    [_nativeAd setContTitle:@"广告位的标题" contKw:@"广告位的关键字"];//可选填写
+    [_nativeAd setContTitle:@"广告位的标题" contKw:@"广告位的关键字"];
 
     // (必须)设置广告请求代理block，需要在interface头部设定属性中添加代理 YMNativeAdDelegate
     _nativeAd.delegate = self; 
@@ -110,18 +110,18 @@ e.g.
         UMNDataModel *dataModel = [_adArray objectAtIndex:0];//获取model
         _currentAd = dataModel;
 		
-		// 开发者可以在这里自定义UI展示广告
+        // 开发者可以在这里自定义UI展示广告
         NSLog(@"adname:%@",_currentAd.name);//广告名
 
-		// 展示广告 调用展示效果记录发送接口
-		[_nativeAd showAd:_currentAd callBackBlock:^(NSError *error) {
-    		if (error) {
-        		NSLog(@"%@",error);
-   		 }else{
-        		NSLog(@"展示有效");
-    		}
-		}];
-	}
+        // 展示广告 调用展示效果记录发送接口
+        [_nativeAd showAd:_currentAd callBackBlock:^(NSError *error) {
+        if (error) {
+            NSLog(@"%@",error);
+   	}else{
+            NSLog(@"展示有效");
+    	}
+	}];
+    }
 }
 ```
 
