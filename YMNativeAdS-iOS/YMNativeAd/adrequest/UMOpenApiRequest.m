@@ -131,6 +131,8 @@ void sendSpotEffURLRequestWithBlock(long effType, UMNDataModel *spotDataStructur
     }
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-variable"
 //发送链接
 + (void)sendTrackURL:(NSArray *)trackArray {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
@@ -146,8 +148,6 @@ void sendSpotEffURLRequestWithBlock(long effType, UMNDataModel *spotDataStructur
             NSString *str = [NSString stringWithFormat:@"Bearer %@", [UMNSDKConfig sharedInstanceSDKConfig].appid];
             [request addValue:str forHTTPHeaderField:@"Authorization"];
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-variable"
 
             NSURLResponse *response = nil;
             NSError *error = nil;
