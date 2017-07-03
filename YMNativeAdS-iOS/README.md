@@ -42,68 +42,101 @@ pod install
 
 ### 2.2 代码使用
 
-#### 2.2.1 初始化
+### 2.2.1 初始化广告实例并发起广告请求
 
 ```
-//在interface头部设定属性并添加头部代理<YMNativeAdDelegate>
-YMNativeAd *_nativeAd;//广告实例 （YMNativeAd是libCode源码包的头文件，整个交互基本都是由本类来处理）
-NSArray *_adArray;//广告数组（UMNSataModel实例集合）
-UMNDataModel *_currentAd;//当前展示的ad（方便接口调用）
+// YMNativeAd是源码包的头文件，整个交互基本都是由本类来处理
 
-//在初始化函数中实例广告
+YMNativeAd   *_nativeAd;      // 广告实例 (YMNativeAd是libCode源码包的头文件，整个交互基本都是由本类来处理）
+NSArray      *_adArray;       // 广告数组（UMNDataModel实例集合）
+UMNDataModel *_currentAd;     // 当前展示的ad（方便接口调用）
+
 if (!_nativeAd) {
+
+    // 初始化广告实例，设置开发者应用APPID和广告位ID
     _nativeAd = [[YMNativeAd alloc]initWithAppId:@"320a6cd3b8d2c4e0" slotId:@"7746"];
-    [_nativeAd setContTitle:@"广告位的标题" contKw:@"广告位的关键字"];//可选填写
+
+    //（可选）设置广告请求时附带的可选参数，有利于提高广告填充
+    [_nativeAd setContTitle:@"广告位的标题" contKw:@"广告位的关键字"];
+
+    // (必须)设置广告请求代理block，需要在interface头部设定属性中添加代理 YMNativeAdDelegate
     _nativeAd.delegate = self; 
 }
-[_nativeAd loadAd];//拉取广告
+
+// 拉取广告
+[_nativeAd loadAd];
 ```
 
-#### 2.2.2 请求反馈
+#### 2.2.2 处理广告请求结果
 
 ```
 #pragma mark -YMNvativeDelegate
-//拉取成功
--(void)ymNativeAdSuccessToLoad:(NSArray *)nativeAdArray{
+
+/**
+ 获取广告成功后的回调
+
+ @param nativeAdArray 返回的广告数组UMNDataModel
+ */
+- (void)ymNativeAdSuccessToLoad:(NSArray *)nativeAdArray{
  
-    _adArray = nativeAdArray;//返回广告array,默认只返回一个
+    _adArray = nativeAdArray;   //返回广告array,默认只返回一个
     
     UMNDataModel *dataModel = [_adArray objectAtIndex:0]; //获取广告model，然后自定义view展示model属性
     [self showAdView];
 }
-//拉取失败
--(void)ymNativeAdFailedToLoad:(NSError *)error{
-NSLog(@"%@",error);
+
+/**
+ 获取广告失败后的回调
+
+ @param error 对应的错误代码
+ */
+- (void)ymNativeAdFailedToLoad:(NSError *)error{
+    NSLog(@"%@",error);
 } 
 ```
 
 #### 2.2.3 展示广告（展示广告时必须调用展示效果接口）
+
+在广告展示时，调用有米的展示广告接口以完成展示效果记录发送
+
+e.g.
+
 ```
-//展示原生广告，开发者获取广告model，自定义view样式并展示
--(void)showAdView{
+/*
+ 展示原生广告，开发者获取广告model，自定义view样式并展示
+ */
+- (void)showAdView{
     if (_adArray) {
         UMNDataModel *dataModel = [_adArray objectAtIndex:0];//获取model
         _currentAd = dataModel;
 		
-		//开发者可以在这里自定义UI展示广告
+        // 开发者可以在这里自定义UI展示广告
         NSLog(@"adname:%@",_currentAd.name);//广告名
 
-		/*展示广告 调用展示接口*/
-		[_nativeAd showAd:_currentAd callBackBlock:^(NSError *error) {
-    		if (error) {
-        		NSLog(@"%@",error);
-   		 }else{
-        		NSLog(@"展示有效");
-    		}
-		}];
-	}
+        // 展示广告 调用展示效果记录发送接口
+        [_nativeAd showAd:_currentAd callBackBlock:^(NSError *error) {
+        if (error) {
+            NSLog(@"%@",error);
+   	}else{
+            NSLog(@"展示有效");
+    	}
+	}];
+    }
 }
 ```
 
-#### 2.2.4 点击跳转和效果上报
+#### 2.2.4 点击广告
+
+在用户点击广告时，
+
+1. 先调用点击效果记录发送接口
+2. 再调用广告打开接口
+
+e.g.
+
 ```
 - (void)viewTapped:(UITapGestureRecognizer *)gr {
-    /*点击发生，调用点击接口*/
+    // 调用点击效果记录发送接口
     [_nativeAd clickAd:_currentAd callBackBlock:^(NSError *error) {
         if (error) {
             NSLog(@"%@",error);
@@ -112,7 +145,7 @@ NSLog(@"%@",error);
         }
     }];
 
-    /*跳转到广告对应的AppStore页面*/
+    // 跳转到广告落地页（AppStore页面或者指定的URIScheme，本接口已封装好实际跳转逻辑）
     [_nativeAd clickAdOpenAppStoreVC:_currentAd];
 }
 ```

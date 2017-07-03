@@ -8,20 +8,8 @@
 
 #import "UMNSDKConfig.h"
 #import "Macro.h"
-#import "UMNMachineUtil.h" 
-#import "UMNSDKConstants.h"
 
 @implementation UMNSDKConfig
-
-
-- (void)dealloc {
-    YM_RELEASE_SAFELY(_appid);
-    YM_RELEASE_SAFELY(_slotid);
-    YM_RELEASE_SAFELY(_cont_kw);
-//    YM_RELEASE_SAFELY(_cont_cat);
-//    YM_RELEASE_SAFELY(_cont_url);
-    YM_RELEASE_SAFELY(_cont_title); 
-}
 
 + (UMNSDKConfig *)sharedInstanceSDKConfig {
     static UMNSDKConfig *instance = nil;
@@ -32,5 +20,11 @@
     return instance;
 }
 
+- (void)dealloc {
+    YM_RELEASE_SAFELY(_appid);
+    YM_RELEASE_SAFELY(_slotid);
+    YM_RELEASE_SAFELY(_cont_kw);
+    YM_RELEASE_SAFELY(_cont_title);
+}
 
 @end
