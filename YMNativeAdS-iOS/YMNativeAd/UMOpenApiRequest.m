@@ -148,6 +148,10 @@ void sendSpotEffURLRequestWithBlock(long effType, UMNDataModel *spotDataStructur
 
             NSURLResponse *response = nil;
             NSError *error = nil;
+            
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-variable"
+            
             NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
 
             if (error || ![response isKindOfClass:[NSHTTPURLResponse class]]) {
@@ -155,6 +159,7 @@ void sendSpotEffURLRequestWithBlock(long effType, UMNDataModel *spotDataStructur
             } else {
                 OGINFO(@"发送成功,返回的数据%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
             }
+#pragma clang diagnostic pop
         }
     });
 }
