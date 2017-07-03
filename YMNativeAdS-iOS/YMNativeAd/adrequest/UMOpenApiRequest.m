@@ -97,10 +97,10 @@ void sendSpotURLRequestWithBlock(ListBlock block) {
                 int code = [[jsonDic objectForKey:@"c"] intValue];
                 if (code == 0) {
                     NSMutableDictionary *preDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:YM_ASSIGN_STRING_SAFELY([jsonDic objectForKey:@"rsd"]), @"rsd", nil];
-                    
+
                     NSArray *ad = [jsonDic objectForKey:@"ad"];
                     NSMutableArray *mutabArray = [[NSMutableArray alloc] initWithCapacity:ad.count];
-                    
+
                     for (NSDictionary *adDic in ad) {
                         UMNDataModel *spotDataStructure = [[UMNDataModel alloc] initWithDiction:preDic dic:adDic];
                         [mutabArray addObject:spotDataStructure];
@@ -146,6 +146,9 @@ void sendSpotEffURLRequestWithBlock(long effType, UMNDataModel *spotDataStructur
             NSString *str = [NSString stringWithFormat:@"Bearer %@", [UMNSDKConfig sharedInstanceSDKConfig].appid];
             [request addValue:str forHTTPHeaderField:@"Authorization"];
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-variable"
+
             NSURLResponse *response = nil;
             NSError *error = nil;
             NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
@@ -155,6 +158,7 @@ void sendSpotEffURLRequestWithBlock(long effType, UMNDataModel *spotDataStructur
             } else {
                 OGINFO(@"发送成功,返回的数据%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
             }
+#pragma clang diagnostic pop
         }
     });
 }
