@@ -70,6 +70,8 @@
 //判断是iphone5的长屏还是iphone4的短屏
 #define _IS_IPHONE5 (([[UIScreen mainScreen] bounds].size.height-568)?NO:YES)
 
+// 定义SDK版本名
+#define SDK_VERSION @"1.1.0"
 
 #endif
 

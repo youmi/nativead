@@ -10,8 +10,6 @@
 #import <Foundation/Foundation.h>
 
 
-void pingURL(NSString *url);
-
 BOOL isAppStoreLink(NSString *link);
 
 NSNumber *extractAppStoreID(NSString *link);
