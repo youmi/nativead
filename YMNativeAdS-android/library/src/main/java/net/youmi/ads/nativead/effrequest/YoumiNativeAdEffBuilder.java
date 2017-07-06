@@ -8,6 +8,7 @@ import net.youmi.ads.base.network.BaseHttpRequesterModel;
 import net.youmi.ads.base.network.BaseHttpResponseModel;
 import net.youmi.ads.base.network.YoumiHttpRequester;
 import net.youmi.ads.base.pool.GlobalCacheExecutor;
+import net.youmi.ads.base.utils.UIHandler;
 import net.youmi.ads.nativead.adconfig.YoumiSpConfig;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdModel;
 
@@ -74,88 +75,186 @@ public class YoumiNativeAdEffBuilder {
 	 * [异步]发送曝光效果记录
 	 */
 	public void asyncSendShowEff() {
+		asyncSendShowEff(null);
+	}
+	
+	/**
+	 * [异步]发送曝光效果记录
+	 *
+	 * @param youmiNativeAdEffRequestListener 效果记录发送结果回调监听接口
+	 *
+	 * @since 1.4.0
+	 */
+	public void asyncSendShowEff(final OnYoumiNativeAdEffRequestListener youmiNativeAdEffRequestListener) {
 		GlobalCacheExecutor.execute(new Runnable() {
 			@Override
 			public void run() {
-				syncSendShowEff();
+				final boolean isSuccess = syncSendShowEff();
+				if (youmiNativeAdEffRequestListener != null) {
+					UIHandler.runInUIThread(new Runnable() {
+						@Override
+						public void run() {
+							youmiNativeAdEffRequestListener.onEffRequestFinish(isSuccess, adModel);
+						}
+					});
+				}
 			}
 		});
 	}
 	
 	/**
 	 * [同步]发送曝光效果记录
+	 *
+	 * @return <ul>
+	 * <li>{@code true} : 发送成功</li>
+	 * <li>{@code false} : 发送失败</li>
+	 * </ul>
 	 */
-	public void syncSendShowEff() {
+	public boolean syncSendShowEff() {
 		if (applicationContext == null || adModel == null || adModel.getShowUrls() == null) {
-			return;
+			return false;
 		}
-		sendEff(applicationContext, adModel.getShowUrls());
+		return sendEff(applicationContext, adModel.getShowUrls());
 	}
 	
 	/**
 	 * [异步]发送点击记录效果
 	 */
 	public void asyncSendClickEff() {
+		asyncSendClickEff(null);
+	}
+	
+	/**
+	 * [异步]发送点击记录效果
+	 *
+	 * @param youmiNativeAdEffRequestListener 效果记录发送结果回调监听接口
+	 *
+	 * @since 1.4.0
+	 */
+	public void asyncSendClickEff(final OnYoumiNativeAdEffRequestListener youmiNativeAdEffRequestListener) {
 		GlobalCacheExecutor.execute(new Runnable() {
 			@Override
 			public void run() {
-				syncSendClickEff();
+				final boolean isSuccess = syncSendClickEff();
+				if (youmiNativeAdEffRequestListener != null) {
+					UIHandler.runInUIThread(new Runnable() {
+						@Override
+						public void run() {
+							youmiNativeAdEffRequestListener.onEffRequestFinish(isSuccess, adModel);
+						}
+					});
+				}
 			}
 		});
 	}
 	
 	/**
 	 * [同步]发送点击记录效果
+	 *
+	 * @return <ul>
+	 * <li>{@code true} : 发送成功</li>
+	 * <li>{@code false} : 发送失败</li>
+	 * </ul>
 	 */
-	public void syncSendClickEff() {
+	public boolean syncSendClickEff() {
 		if (applicationContext == null || adModel == null || adModel.getClickUrls() == null) {
-			return;
+			return false;
 		}
-		sendEff(applicationContext, adModel.getClickUrls());
+		return sendEff(applicationContext, adModel.getClickUrls());
 	}
 	
 	/**
 	 * [异步]发送下载完成记录效果
 	 */
 	public void asyncSendDownloadSuccessEff() {
+		asyncSendDownloadSuccessEff(null);
+	}
+	
+	/**
+	 * [异步]发送下载完成记录效果
+	 *
+	 * @param youmiNativeAdEffRequestListener 效果记录发送结果回调监听接口
+	 *
+	 * @since 1.4.0
+	 */
+	public void asyncSendDownloadSuccessEff(final OnYoumiNativeAdEffRequestListener youmiNativeAdEffRequestListener) {
 		GlobalCacheExecutor.execute(new Runnable() {
 			@Override
 			public void run() {
-				syncSendDownloadSuccessEff();
+				final boolean isSuccess = syncSendDownloadSuccessEff();
+				if (youmiNativeAdEffRequestListener != null) {
+					UIHandler.runInUIThread(new Runnable() {
+						@Override
+						public void run() {
+							youmiNativeAdEffRequestListener.onEffRequestFinish(isSuccess, adModel);
+						}
+					});
+				}
 			}
 		});
 	}
 	
 	/**
 	 * [同步]发送下载完成效果记录
+	 * <p>
+	 *
+	 * @return <ul>
+	 * <li>{@code true} : 发送成功</li>
+	 * <li>{@code false} : 发送失败</li>
+	 * </ul>
 	 */
-	public void syncSendDownloadSuccessEff() {
+	public boolean syncSendDownloadSuccessEff() {
 		if (applicationContext == null || adModel == null || adModel.getDownloadUrls() == null) {
-			return;
+			return false;
 		}
-		sendEff(applicationContext, adModel.getDownloadUrls());
+		return sendEff(applicationContext, adModel.getDownloadUrls());
 	}
 	
 	/**
 	 * [异步]发送安装完成记录效果
 	 */
 	public void asyncSendInstallSuccessEff() {
+		asyncSendInstallSuccessEff(null);
+	}
+	
+	/**
+	 * [异步]发送安装完成记录效果
+	 *
+	 * @param youmiNativeAdEffRequestListener 效果记录发送结果回调监听接口
+	 *
+	 * @since 1.4.0
+	 */
+	public void asyncSendInstallSuccessEff(final OnYoumiNativeAdEffRequestListener youmiNativeAdEffRequestListener) {
 		GlobalCacheExecutor.execute(new Runnable() {
 			@Override
 			public void run() {
-				syncSendInstallSuccessEff();
+				final boolean isSuccess = syncSendInstallSuccessEff();
+				if (youmiNativeAdEffRequestListener != null) {
+					UIHandler.runInUIThread(new Runnable() {
+						@Override
+						public void run() {
+							youmiNativeAdEffRequestListener.onEffRequestFinish(isSuccess, adModel);
+						}
+					});
+				}
 			}
 		});
 	}
 	
 	/**
 	 * [同步]发送安装完成效果记录
+	 * <p>
+	 *
+	 * @return <ul>
+	 * <li>{@code true} : 发送成功</li>
+	 * <li>{@code false} : 发送失败</li>
+	 * </ul>
 	 */
-	public void syncSendInstallSuccessEff() {
+	public boolean syncSendInstallSuccessEff() {
 		if (applicationContext == null || adModel == null || adModel.getInstallUrls() == null) {
-			return;
+			return false;
 		}
-		sendEff(applicationContext, adModel.getInstallUrls());
+		return sendEff(applicationContext, adModel.getInstallUrls());
 	}
 	
 	/**
@@ -171,33 +270,49 @@ public class YoumiNativeAdEffBuilder {
 	 * @param urls    效果记录
 	 */
 	@Deprecated
-	public void sendEff(Context context, final ArrayList<String> urls) {
+	public boolean sendEff(Context context, final ArrayList<String> urls) {
 		if (TextUtils.isEmpty(YoumiSpConfig.getAppId(context))) {
 			throw new IllegalArgumentException("can not request without appId");
 		}
 		
+		// 是否所有效果就都发送成功
+		boolean isAllEffSendSuccess = true;
+		
 		for (String url : urls) {
-			try {
-				int count = 0;
-				while (count < maxRetryTimes) {
-					
-					ArrayList<BaseHttpRequesterModel.Header> headers = new ArrayList<>();
-					headers.add(new BaseHttpRequesterModel.Header("Authorization", "Bearer " + YoumiSpConfig.getAppId(context)));
-					
-					BaseHttpResponseModel resp = YoumiHttpRequester.httpGet(context.getApplicationContext(), url, headers);
-					if (resp == null) {
-						break;
-					}
-					if (resp.getHttpCode() >= 200 && resp.getHttpCode() < 300) {
-						break;
-					}
-					count++;
-					// 如果发送失败，等候一段时间后重新发送
-					Thread.sleep(count * 2000);
+			
+			// 本条效果记录是否发送成功
+			boolean isThisEffSendSuccess = false;
+			
+			for (int count = 0; count < maxRetryTimes; count++) {
+				ArrayList<BaseHttpRequesterModel.Header> headers = new ArrayList<>();
+				headers.add(new BaseHttpRequesterModel.Header("Authorization", "Bearer " + YoumiSpConfig.getAppId(context)));
+				BaseHttpResponseModel resp = YoumiHttpRequester.httpGet(context.getApplicationContext(), url, headers);
+				
+				// 可能是网络导致的发送失败，跳过
+				if (resp == null) {
+					continue;
 				}
-			} catch (InterruptedException e) {
-				DLog.e(e);
+				
+				// 发送成功，跳出
+				if (resp.getHttpCode() >= 200 && resp.getHttpCode() < 300) {
+					isThisEffSendSuccess = true;
+					break;
+				}
+				
+				// 到这里就为发送失败，遇到错误Http Code，静候一段时间后进行下一次重发
+				try {
+					Thread.sleep(count * 2000);
+				} catch (InterruptedException e) {
+					DLog.e(e);
+				}
+			}
+			
+			// 如果存在一条效果记录发送失败，那么就标识整个效果记录数组发送失败，但是还是会继续发送剩下的记录
+			if (!isThisEffSendSuccess) {
+				isAllEffSendSuccess = false;
 			}
 		}
+		
+		return isAllEffSendSuccess;
 	}
 }

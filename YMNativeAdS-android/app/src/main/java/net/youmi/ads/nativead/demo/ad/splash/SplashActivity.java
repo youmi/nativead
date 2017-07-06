@@ -14,7 +14,6 @@ import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
@@ -28,6 +27,7 @@ import net.youmi.ads.nativead.adrequest.YoumiNativeAdModel;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdResposeModel;
 import net.youmi.ads.nativead.demo.MainActivity;
 import net.youmi.ads.nativead.demo.R;
+import net.youmi.ads.nativead.demo.ad.callback.MyOnYoumiNativeAdEffRequestListener;
 import net.youmi.ads.nativead.demo.ad.SlotIdConfig;
 import net.youmi.ads.nativead.demo.utils.Utils;
 
@@ -172,14 +172,11 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 			if (mYoumiNativeAdModel == null) {
 				break;
 			}
-			// 点击了图片之后需要发送点击记录
-			YoumiNativeAdHelper.newAdEffRequest(this).withYoumiNativeAdModel(mYoumiNativeAdModel).asyncSendClickEff();
 			
-			Toast.makeText(
-					this,
-					String.format(Locale.getDefault(), "发送广告位 %s 的点击记录", mYoumiNativeAdModel.getSlotId()),
-					Toast.LENGTH_SHORT
-			).show();
+			// 点击了图片之后需要发送点击记录
+			YoumiNativeAdHelper.newAdEffRequest(SplashActivity.this)
+			                   .withYoumiNativeAdModel(mYoumiNativeAdModel)
+			                   .asyncSendShowEff(new MyOnYoumiNativeAdEffRequestListener(this, "点击效果记录"));
 			
 			// 如果为app广告类型
 			// 可以进入自定义的详情页，也可以直接下载
@@ -301,13 +298,12 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 					public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target,
 							boolean isFromMemoryCache, boolean isFirstResource) {
 						activity.mYoumiNativeAdModel = adModel;
-						// 发送曝光记录
-						YoumiNativeAdHelper.newAdEffRequest(activity).withYoumiNativeAdModel(adModel).asyncSendShowEff();
-						Toast.makeText(
-								activity,
-								String.format(Locale.getDefault(), "发送广告位 %s 的曝光记录", adModel.getSlotId()),
-								Toast.LENGTH_SHORT
-						).show();
+						
+						// 发送曝光效果记录
+						YoumiNativeAdHelper.newAdEffRequest(activity)
+						                   .withYoumiNativeAdModel(adModel)
+						                   .asyncSendShowEff(new MyOnYoumiNativeAdEffRequestListener(activity, "曝光效果记录"));
+						
 						return false;
 						
 					}
