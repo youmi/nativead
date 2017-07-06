@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import net.youmi.ads.base.log.DLog;
 import net.youmi.ads.base.utils.PackageUtils;
@@ -19,10 +18,10 @@ import net.youmi.ads.nativead.adrequest.YoumiNativeAdResposeModel;
 import net.youmi.ads.nativead.demo.R;
 import net.youmi.ads.nativead.demo.ad.BaseFragment;
 import net.youmi.ads.nativead.demo.ad.SlotIdConfig;
+import net.youmi.ads.nativead.demo.ad.callback.MyOnYoumiNativeAdEffRequestListener;
 import net.youmi.ads.nativead.demo.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 /**
  * @author zhitao
@@ -70,13 +69,12 @@ public class AdInfoFlowFragment extends BaseFragment
 		    model.getType() == AdInfoFlowModel.TYPE_AD_RECTANGLE) {
 			
 			// 点击了图片之后需要发送点击记录
-			YoumiNativeAdHelper.newAdEffRequest(getActivity()).withYoumiNativeAdModel(model.getAdModel()).asyncSendClickEff();
-			
-			Toast.makeText(
-					getActivity(),
-					String.format(Locale.getDefault(), "发送广告位 %s 的点击记录", model.getAdModel().getSlotId()),
-					Toast.LENGTH_SHORT
-			).show();
+			YoumiNativeAdHelper.newAdEffRequest(getActivity())
+			                   .withYoumiNativeAdModel(model.getAdModel())
+			                   .asyncSendClickEff(new MyOnYoumiNativeAdEffRequestListener(
+					                   getActivity(),
+					                   "点击效果记录"
+			                   ));
 			
 			// 如果为app广告类型
 			// 可以进入自定义的详情页，也可以直接下载

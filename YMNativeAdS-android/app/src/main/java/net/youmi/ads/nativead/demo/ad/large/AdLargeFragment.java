@@ -23,6 +23,7 @@ import net.youmi.ads.nativead.adrequest.YoumiNativeAdModel;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdResposeModel;
 import net.youmi.ads.nativead.demo.R;
 import net.youmi.ads.nativead.demo.ad.BaseFragment;
+import net.youmi.ads.nativead.demo.ad.callback.MyOnYoumiNativeAdEffRequestListener;
 import net.youmi.ads.nativead.demo.ad.SlotIdConfig;
 import net.youmi.ads.nativead.demo.utils.Utils;
 
@@ -88,13 +89,9 @@ public class AdLargeFragment extends BaseFragment implements View.OnClickListene
 		}
 		
 		// 点击了图片之后需要发送点击记录
-		YoumiNativeAdHelper.newAdEffRequest(getActivity()).withYoumiNativeAdModel(mYoumiNativeAdModel).asyncSendClickEff();
-		
-		Toast.makeText(
-				getActivity(),
-				String.format(Locale.getDefault(), "发送广告位 %s 的点击记录", mYoumiNativeAdModel.getSlotId()),
-				Toast.LENGTH_SHORT
-		).show();
+		YoumiNativeAdHelper.newAdEffRequest(getActivity())
+		                   .withYoumiNativeAdModel(mYoumiNativeAdModel)
+		                   .asyncSendClickEff(new MyOnYoumiNativeAdEffRequestListener(getActivity(), "点击效果记录"));
 		
 		// 如果为app广告类型
 		// 可以进入自定义的详情页，也可以直接下载
@@ -178,8 +175,7 @@ public class AdLargeFragment extends BaseFragment implements View.OnClickListene
 				return;
 			}
 			if (respModel.getCode() != 0) {
-				Toast.makeText(
-						adLargeFragment.getActivity(),
+				Toast.makeText(adLargeFragment.getActivity(),
 						String.format(Locale.getDefault(), "请求失败，错误代码：%d", respModel.getCode()),
 						Toast.LENGTH_SHORT
 				).show();
@@ -231,12 +227,10 @@ public class AdLargeFragment extends BaseFragment implements View.OnClickListene
 						// 发送曝光记录
 						YoumiNativeAdHelper.newAdEffRequest(adLargeFragment.getActivity())
 						                   .withYoumiNativeAdModel(adModel)
-						                   .asyncSendShowEff();
-						Toast.makeText(
-								adLargeFragment.getActivity(),
-								String.format(Locale.getDefault(), "发送广告位 %s 的曝光记录", adModel.getSlotId()),
-								Toast.LENGTH_SHORT
-						).show();
+						                   .asyncSendShowEff(new MyOnYoumiNativeAdEffRequestListener(adLargeFragment
+								                   .getActivity(),
+								                   "曝光效果记录"
+						                   ));
 						return false;
 						
 					}

@@ -22,7 +22,7 @@
 
 ``` gradle
 // 依赖release版本的aar [开发者正式版本的apk引用]
-compile 'net.youmi.ads:nativead:1.3.1:release@aar'
+compile 'net.youmi.ads:nativead:1.4.0:release@aar'
 
 // 依赖debug版本的aar [开发者需要调试时可以引用]
 //
@@ -34,7 +34,7 @@ compile 'net.youmi.ads:nativead:1.3.1:release@aar'
 // 4. Logcat中过滤Tag为 Sdk ，即为本Sdk输出的Log
 //
 // 基于上面两点，建议开发者在发现疑点时才使用这个版本的aar进行更多的log输出，正式发布时强烈建议使用release版本
-// compile 'net.youmi.ads:nativead:1.3.1:debug@aar'
+// compile 'net.youmi.ads:nativead:1.4.0:debug@aar'
 ```
 
 ### 2.2 初始化SDK
@@ -145,11 +145,11 @@ YoumiNativeAdHelper
 	// （可选）设置效果记录发送失败时的重试次数，默认为5次
 	.withMaxRetryCount(5)
 	
-	// 同步发送曝光记录记录
+	// 同步发送曝光记录记录，boolean返回，true：发送成功； false：发送失败
 	//.syncSendShowEff();
 	
-	// 异步发送曝光效果记录
-	.asyncSendShowEff();
+	// 异步发送曝光效果记录，需要传入 OnYoumiNativeAdEffRequestListener 回调接口，用于接收效果记录请求结果
+	.asyncSendShowEff(OnYoumiNativeAdEffRequestListener listener);
 ```
 
 #### 2.4.2 发送广告点击效果记录
@@ -166,11 +166,11 @@ YoumiNativeAdHelper
 	// （可选）设置效果记录发送失败时的重试次数，默认为5次
 	.withMaxRetryCount(5)
 	
-	// 同步发送曝光记录记录
+	// 同步发送曝光记录记录，boolean返回，true：发送成功； false：发送失败
 	//.syncSendClickEff();
 	
-	// 异步发送曝光效果记录
-	.asyncSendClickEff();
+	// 异步发送曝光效果记录，需要传入 OnYoumiNativeAdEffRequestListener 回调接口，用于接收效果记录请求结果
+	.asyncSendClickEff(OnYoumiNativeAdEffRequestListener listener);
 ```
 
 #### 2.4.3 发送下载完成效果记录
@@ -189,11 +189,11 @@ YoumiNativeAdHelper
 	// （可选）设置效果记录发送失败时的重试次数，默认为5次
 	.withMaxRetryCount(5)
 	
-	// 同步发送下载完成效果记录
+	// 同步发送下载完成效果记录，boolean返回，true：发送成功； false：发送失败
 	//.syncSendDownloadSuccessEff();
 	
-	// 异步发送下载完成效果记录
-	.asyncSendDownloadSuccessEff();
+	// 异步发送下载完成效果记录，需要传入 OnYoumiNativeAdEffRequestListener 回调接口，用于接收效果记录请求结果
+	.asyncSendDownloadSuccessEff(OnYoumiNativeAdEffRequestListener listener);
 ```
 
 #### 2.4.4 发送安装完成效果记录
@@ -212,11 +212,11 @@ YoumiNativeAdHelper
 	// （可选）设置效果记录发送失败时的重试次数，默认为5次
 	.withMaxRetryCount(5)
 	
-	// 同步发送安装完成效果记录
+	// 同步发送安装完成效果记录，boolean返回，true：发送成功； false：发送失败
 	//.syncSendInstallSuccessEff();
 	
-	// 异步发送安装完成效果记录
-	.asyncSendInstallSuccessEff();
+	// 异步发送安装完成效果记录，需要传入 OnYoumiNativeAdEffRequestListener 回调接口，用于接收效果记录请求结果
+	.asyncSendInstallSuccessEff(OnYoumiNativeAdEffRequestListener listener);
 ```
 
 ### 2.5 下载或打开广告 
