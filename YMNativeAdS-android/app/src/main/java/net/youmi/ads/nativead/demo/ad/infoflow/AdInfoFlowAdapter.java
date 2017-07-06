@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
@@ -18,6 +17,7 @@ import com.bumptech.glide.request.target.Target;
 import net.youmi.ads.nativead.YoumiNativeAdHelper;
 import net.youmi.ads.nativead.adrequest.YoumiNativeAdModel;
 import net.youmi.ads.nativead.demo.R;
+import net.youmi.ads.nativead.demo.ad.callback.MyOnYoumiNativeAdEffRequestListener;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -217,13 +217,9 @@ class AdInfoFlowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> im
 		public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target,
 				boolean isFromMemoryCache, boolean isFirstResource) {
 			// 发送曝光记录
-			YoumiNativeAdHelper.newAdEffRequest(mContext).withYoumiNativeAdModel(mAdModel).asyncSendShowEff();
-			Toast.makeText(mContext,
-					String.format(Locale.getDefault(), "发送广告位 %s 的曝光记录", mAdModel.getSlotId()),
-					Toast.LENGTH_SHORT
-			)
-			     .show();
-			
+			YoumiNativeAdHelper.newAdEffRequest(mContext)
+			                   .withYoumiNativeAdModel(mAdModel)
+			                   .asyncSendShowEff(new MyOnYoumiNativeAdEffRequestListener(mContext, "曝光效果记录"));
 			return false;
 		}
 	}
