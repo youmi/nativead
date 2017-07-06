@@ -4,7 +4,6 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import net.youmi.ads.base.log.DLog;
-import net.youmi.ads.base.network.BaseHttpRequesterModel;
 import net.youmi.ads.base.network.BaseHttpResponseModel;
 import net.youmi.ads.base.network.YoumiHttpRequester;
 import net.youmi.ads.base.pool.GlobalCacheExecutor;
@@ -288,9 +287,7 @@ public class YoumiNativeAdEffBuilder {
 			boolean isThisEffSendSuccess = false;
 			
 			for (int count = 0; count < maxRetryTimes; count++) {
-				ArrayList<BaseHttpRequesterModel.Header> headers = new ArrayList<>();
-				headers.add(new BaseHttpRequesterModel.Header("Authorization", "Bearer " + YoumiSpConfig.getAppId(context)));
-				BaseHttpResponseModel resp = YoumiHttpRequester.httpGet(context.getApplicationContext(), url, headers);
+				BaseHttpResponseModel resp = YoumiHttpRequester.httpGet(context.getApplicationContext(), url);
 				
 				// 可能是网络导致的发送失败，跳过
 				if (resp == null) {
