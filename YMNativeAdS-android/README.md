@@ -145,11 +145,11 @@ YoumiNativeAdHelper
 	// （可选）设置效果记录发送失败时的重试次数，默认为5次
 	.withMaxRetryCount(5)
 	
-	// 同步发送曝光记录记录
+	// 同步发送曝光记录记录，boolean返回，true：发送成功； false：发送失败
 	//.syncSendShowEff();
 	
-	// 异步发送曝光效果记录
-	.asyncSendShowEff();
+	// 异步发送曝光效果记录，需要传入 OnYoumiNativeAdEffRequestListener 回调接口，用于接收效果记录请求结果
+	.asyncSendShowEff(OnYoumiNativeAdEffRequestListener listener);
 ```
 
 #### 2.4.2 发送广告点击效果记录
@@ -166,11 +166,11 @@ YoumiNativeAdHelper
 	// （可选）设置效果记录发送失败时的重试次数，默认为5次
 	.withMaxRetryCount(5)
 	
-	// 同步发送曝光记录记录
+	// 同步发送曝光记录记录，boolean返回，true：发送成功； false：发送失败
 	//.syncSendClickEff();
 	
-	// 异步发送曝光效果记录
-	.asyncSendClickEff();
+	// 异步发送曝光效果记录，需要传入 OnYoumiNativeAdEffRequestListener 回调接口，用于接收效果记录请求结果
+	.asyncSendClickEff(OnYoumiNativeAdEffRequestListener listener);
 ```
 
 #### 2.4.3 发送下载完成效果记录
@@ -189,11 +189,11 @@ YoumiNativeAdHelper
 	// （可选）设置效果记录发送失败时的重试次数，默认为5次
 	.withMaxRetryCount(5)
 	
-	// 同步发送下载完成效果记录
+	// 同步发送下载完成效果记录，boolean返回，true：发送成功； false：发送失败
 	//.syncSendDownloadSuccessEff();
 	
-	// 异步发送下载完成效果记录
-	.asyncSendDownloadSuccessEff();
+	// 异步发送下载完成效果记录，需要传入 OnYoumiNativeAdEffRequestListener 回调接口，用于接收效果记录请求结果
+	.asyncSendDownloadSuccessEff(OnYoumiNativeAdEffRequestListener listener);
 ```
 
 #### 2.4.4 发送安装完成效果记录
@@ -212,11 +212,11 @@ YoumiNativeAdHelper
 	// （可选）设置效果记录发送失败时的重试次数，默认为5次
 	.withMaxRetryCount(5)
 	
-	// 同步发送安装完成效果记录
+	// 同步发送安装完成效果记录，boolean返回，true：发送成功； false：发送失败
 	//.syncSendInstallSuccessEff();
 	
-	// 异步发送安装完成效果记录
-	.asyncSendInstallSuccessEff();
+	// 异步发送安装完成效果记录，需要传入 OnYoumiNativeAdEffRequestListener 回调接口，用于接收效果记录请求结果
+	.asyncSendInstallSuccessEff(OnYoumiNativeAdEffRequestListener listener);
 ```
 
 ### 2.5 下载或打开广告 
