@@ -198,7 +198,6 @@ public class YoumiNativeAdEffBuilder {
 	
 	/**
 	 * [同步]发送下载完成效果记录
-	 * <p>
 	 *
 	 * @return <ul>
 	 * <li>{@code true} : 发送成功</li>
@@ -246,7 +245,6 @@ public class YoumiNativeAdEffBuilder {
 	
 	/**
 	 * [同步]发送安装完成效果记录
-	 * <p>
 	 *
 	 * @return <ul>
 	 * <li>{@code true} : 发送成功</li>
@@ -271,6 +269,11 @@ public class YoumiNativeAdEffBuilder {
 	 *
 	 * @param context 上下文
 	 * @param urls    效果记录
+	 *
+	 * @return <ul>
+	 * <li>{@code true} : 发送成功</li>
+	 * <li>{@code false} : 发送失败</li>
+	 * </ul>
 	 */
 	@Deprecated
 	public boolean sendEff(Context context, final ArrayList<String> urls) {
