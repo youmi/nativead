@@ -74,6 +74,7 @@ public class YoumiNativeAdEffBuilder {
 	/**
 	 * [异步]发送曝光效果记录
 	 */
+	@Deprecated
 	public void asyncSendShowEff() {
 		asyncSendShowEff(null);
 	}
@@ -120,6 +121,7 @@ public class YoumiNativeAdEffBuilder {
 	/**
 	 * [异步]发送点击记录效果
 	 */
+	@Deprecated
 	public void asyncSendClickEff() {
 		asyncSendClickEff(null);
 	}
@@ -166,6 +168,7 @@ public class YoumiNativeAdEffBuilder {
 	/**
 	 * [异步]发送下载完成记录效果
 	 */
+	@Deprecated
 	public void asyncSendDownloadSuccessEff() {
 		asyncSendDownloadSuccessEff(null);
 	}
@@ -213,6 +216,7 @@ public class YoumiNativeAdEffBuilder {
 	/**
 	 * [异步]发送安装完成记录效果
 	 */
+	@Deprecated
 	public void asyncSendInstallSuccessEff() {
 		asyncSendInstallSuccessEff(null);
 	}
