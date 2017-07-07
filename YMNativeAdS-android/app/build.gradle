@@ -77,7 +77,7 @@ dependencies {
 	// compile(name: 'nativead-1.4.1-release', ext: 'aar')
 
 	// 依赖线上release版本的aar [开发者正式版本的apk引用]
-	 compile 'net.youmi.ads:nativead:1.4.1@aar'
+	// compile 'net.youmi.ads:nativead:1.4.1@aar'
 
 	// 依赖线上debug版本的aar [开发者需要调试时可以引用]
 	//
