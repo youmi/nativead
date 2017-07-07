@@ -28,14 +28,14 @@ install {
 		pom {
 			project {
 
-				packaging 'aar'                             // 打包aar
+				packaging 'aar' // 打包aar
 				groupId = project.ext.publishedGroupId
 				artifactId = project.ext.artifact
 				version = project.ext.libraryVersionName
 
-				name project.ext.libraryName                // 项目名称
-				description project.ext.libDesc             // 项目描述
-				url project.ext.siteUrl                     // 项目主页
+				name project.ext.libraryName // 项目名称
+				description project.ext.libDesc // 项目描述
+				url project.ext.siteUrl // 项目主页
 				inceptionYear '2017'
 
 				// 开源协议
@@ -167,23 +167,25 @@ bintray {
 
 afterEvaluate { project ->
 
-	def isAndroidProject = project.plugins.hasPlugin('com.android.application') ||
-			project.plugins.hasPlugin('com.android.library')
+	def isAndroidLibrary = project.plugins.hasPlugin('com.android.library')
 
-	if (isAndroidProject) {
-		def releaseVariants = project.android.libraryVariants.findAll {
-			it.buildType.name.equalsIgnoreCase('release')
+	if (isAndroidLibrary) {
+
+		def variant = project.android.libraryVariants.find {
+			it.buildType.name.equalsIgnoreCase(project.ext.publishBuildType)
 		}
 
 		// 生成 html 的java文档
 		// https://docs.gradle.org/current/dsl/org.gradle.api.tasks.javadoc.Javadoc.html
-		task androidJavadocs(type: Javadoc, dependsOn: compileReleaseJavaWithJavac) {
-			// The source for this task, after the include and exclude patterns have been applied. Ignores source files which do
+		def generateAndroidJavadoc = task("generate${variant.name.capitalize()}AndroidJavadoc", type: Javadoc,
+			dependsOn: "assemble${variant.name.capitalize()}") {
+			// The source for this task, after the include and exclude patterns have been applied. Ignores source files
+			// which do
 			// not exist.
-			source = releaseVariants.collect { it.javaCompile.source }
+			source = variant.collect { it.javaCompile.source }
 
 			// The classpath to use to resolve type references in the source code.
-			classpath = files(releaseVariants.collect {
+			classpath = files(variant.collect {
 				files(it.javaCompile.classpath.files, project.android.bootClasspath)
 			})
 
@@ -197,49 +199,40 @@ afterEvaluate { project ->
 				title project.ext.artifact
 				// author true
 			}
-
-			//	// 跳过出错时的报错 java8编译 文档要求比较高，错了跳不过
-			//	failOnError false
+			failOnError true
 
 			//exclude '**/BuildConfig.java'
-			if (!project.ext.isPackageResources) {
-				exclude '**/R.java'
-			}
+			exclude '**/R.java'
 		}
 
-		task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
-			classifier = 'javadoc'
-			from androidJavadocs.destinationDir
+		// 将文档打包为Jar
+		// https://docs.gradle.org/current/dsl/org.gradle.api.tasks.bundling.Jar.html
+		def generateAndroidJavadocJar = task("generate${variant.name.capitalize()}AndroidJavadocJar", type: Jar,
+			dependsOn: "generate${variant.name.capitalize()}AndroidJavadoc") {
 			baseName project.ext.artifact
+			classifier = "javadoc"
+			from project.tasks.getByName("generate${variant.name.capitalize()}AndroidJavadoc").destinationDir
 		}
 
 		// 将所有源码java文件打包为Jar
 		// https://docs.gradle.org/current/dsl/org.gradle.api.tasks.bundling.Jar.html
-		task androidSourcesJar(type: Jar) {
-			classifier = 'sources'
+		def generateAndroidSourcesJar = task("generate${variant.name.capitalize()}AndroidSourcesJar", type: Jar) {
+			baseName project.ext.artifact
+			classifier = "sources"
 			from project.android.sourceSets.main.java.source
-			baseName project.ext.artifact
-			//baseName "${JAR_PREFIX}${project.name}${JAR_POSTFIX}"
 		}
 
-		task androidLibraryJar(type: Jar, dependsOn: compileReleaseJavaWithJavac /* == variant.javaCompile */) {
-			from compileReleaseJavaWithJavac.destinationDir
-
-			exclude '**/BuildConfig.class'
-			if (!project.ext.isPackageResources) {
-				exclude '**/R.class'
-			}
-
-			baseName project.ext.artifact
+		// 清理Javadoc文档缓存
+		def cleanAndroidJavadoc = task("clean${variant.name.capitalize()}AndroidJavadoc", type: Delete) {
+			delete generateAndroidJavadoc.destinationDir
 		}
+		project.clean.dependsOn(cleanAndroidJavadoc)
 
 		artifacts {
-			archives androidLibraryJar
-			archives androidSourcesJar
-			archives androidJavadocsJar
+			archives generateAndroidJavadocJar
+			archives generateAndroidSourcesJar
 		}
-	}
-	else {
+	} else {
 		if (project.plugins.hasPlugin('java')) {
 			task sourcesJar(type: Jar, dependsOn: classes) {
 				classifier = 'sources'

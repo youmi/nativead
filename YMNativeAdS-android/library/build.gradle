@@ -2,31 +2,38 @@ apply plugin: 'com.android.library'
 
 ext {
 	releaseNoteFile = 'YMNativeAdS-android/ChangeLog.md'            // 相对路径，填仓库下该文件地址即可
-	libraryName = 'YoumiNativeAdS'               // bintray项目名字以及aar的名字，确定好了就不要在修改了
-	libLabels = ['android', 'youmi', 'ad']      // bintray项目的标签
+	libraryName = 'YoumiNativeAdS'                                  // bintray项目名字以及aar的名字，确定好了就不要在修改了
+	libLabels = ['android', 'youmi', 'ad']                          // bintray项目的标签
 
 	//compile 'publishedGroupId:artifact:libraryVersionName'
 
 	publishedGroupId = 'net.youmi.ads'          // 项目组ID(e.g 包名为io.github.zhitaocai.toastcompat, 那么这里就是io.github.zhitaocai)
 	artifact = 'nativead'                       // 项目ID  (e.g 包名为io.github.zhitaocai.toastcompat, 那么这里就是toastcompat)
-	libraryVersionName = '1.4.0'                // 对应的versionname
-	libraryVersionCode = 9                      // 对饮的versioncode
+	libraryVersionName = '1.4.5'                // 对应的versionname
+	libraryVersionCode = 14                     // 对应的versioncode
 
 	libDesc = 'an library for Youmi Native ADS\' API'
 	libraryVersionDesc = libDesc
-	repoTag = libraryVersionName
+	repoTag = 'android-' + libraryVersionName
 	gitRepo = 'youmi/nativead'
 	siteUrl = 'https://github.com/youmi/nativead'
 	gitUrl = 'https://github.com/youmi/nativead.git'
 	issueUrl = 'https://github.com/youmi/nativead/issues'
 
-	isPackageResources = false                  // 是否打包资源文件进去，是的话，就需要打包R.class
+	if (project.hasProperty('publishBuildType')) {
+		publishBuildType =  project.property('publishBuildType')
+	} else {
+		publishBuildType = 'debug'
+	}
+	if (!publishBuildType.equalsIgnoreCase('release')) {
+		libraryVersionName += '-' + publishBuildType
+	}
 }
 
 android {
 	compileSdkVersion 25
 	buildToolsVersion "25.0.2"
-	publishNonDefault true
+	defaultPublishConfig project.ext.publishBuildType
 
 	defaultConfig {
 		minSdkVersion 14
@@ -57,7 +64,7 @@ android {
 		variant.outputs.each { output ->
 			def outputFile = output.outputFile
 			if (outputFile != null && outputFile.name.endsWith('.aar')) {
-				def fileName = "${artifact}-${variant.buildType.name}-${libraryVersionName}.aar"
+				def fileName = "${artifact}-${libraryVersionName}-${variant.buildType.name}.aar"
 				// output.outputFile = new File(outputFile.parent, fileName)
 				output.outputFile = new File(project.rootProject.getProjectDir().getAbsolutePath() + "/static/aar/" + fileName)
 			}

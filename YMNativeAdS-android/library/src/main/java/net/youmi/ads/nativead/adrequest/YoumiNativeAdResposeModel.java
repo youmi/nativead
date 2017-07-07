@@ -18,7 +18,9 @@ public class YoumiNativeAdResposeModel implements Serializable {
 	private ArrayList<YoumiNativeAdModel> adModels;
 	
 	/**
-	 * @return 返回结果状态码
+	 * 返回结果状态码
+	 *
+	 * @return 0为成功，负数错误代码则存在问题
 	 */
 	public int getCode() {
 		return code;
