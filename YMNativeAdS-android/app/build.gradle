@@ -71,7 +71,7 @@ dependencies {
 	annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.3.2'
 
 	// 依赖本地project
-	// compile project(':library')
+	compile project(':library')
 
 	// 依赖本地aar
 	// compile(name: 'nativead-1.4.5-release', ext: 'aar')
