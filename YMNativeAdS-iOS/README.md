@@ -14,31 +14,27 @@
 
 ## 2. 使用说明
 
-### 2.1 导入项目
-
-支持下面两种项目导入方式，建议使用CocoaPods导入项目
-
-#### 2.1.1 拷贝源码
-
-本目录下 **YMNativeAd** 为需要使用的源码，开发者将 YMNativeAd 目录拷贝到自己的项目中即可使用。
-
-#### 2.1.2 在CocoaPods中安装有米原生广告
-
-项目中的代码已经上传到CocoaPods，你可以直接直接在CocoaPods中安装使用
+### 2.1 使用CocoaPods导入项目
 
 1. 在你的项目的根目录中新建一个 `Podfile` 文件，添加内容如下：
 
 ```
-pod 'nativead'
+pod 'nativead', '~>1.1.0'
 ```
 
-2. 终端命令行（使用 `cd` 命令）进入到您的iOS项目的根目录中，执行如下命令安装：
+2. 终端命令行（使用 `cd` 命令）进入到您的iOS项目的根目录中，执行如下命令安装或更新：
 
 ```
+// 还没有安装过有米原生广告时，使用安装命令
 pod install
+
+// 从旧版本有米原生广告升级到新版本有米原生广告时，使用更新命令
+pod update nativead
 ```
 
-3. 安装完成之后，点击目录中的.xcworkplace文件来打开项目，接下来你就可以在项目中使用有米原生广告了。
+3. 安装/更新完成之后，点击目录中的 **.xcworkplace**文件来打开项目，接下来你就可以在项目中使用有米原生广告了。
+
+*ps:除了使用CocoaPods导入项目，你也可以下载本目录下 **YMNativeAd** 目录（均为源码），将 YMNativeAd 目录拷贝到自己的项目中即可使用。*
 
 ### 2.2 代码使用
 
@@ -78,9 +74,7 @@ if (!_nativeAd) {
  @param nativeAdArray 返回的广告数组UMNDataModel
  */
 - (void)ymNativeAdSuccessToLoad:(NSArray *)nativeAdArray{
- 
-    _adArray = nativeAdArray;   //返回广告array,默认只返回一个
-    
+    _adArray = nativeAdArray;                             //返回广告array，默认只返回一个
     UMNDataModel *dataModel = [_adArray objectAtIndex:0]; //获取广告model，然后自定义view展示model属性
     [self showAdView];
 }
