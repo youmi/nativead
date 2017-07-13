@@ -20,7 +20,15 @@ public class YoumiNativeAdResposeModel implements Serializable {
 	/**
 	 * 返回结果状态码
 	 *
-	 * @return 0为成功，负数错误代码则存在问题
+	 * @return 0为成功，负数错误代码则存在问题，常见错误代码列表：
+	 * <ul>
+	 * <li> {@code -1012}: Header 错误 </li>
+	 * <li> {@code -2007}: 当前没有广告 </li>
+	 * <li> {@code -2222}: 请求广告超时 </li>
+	 * <li> {@code -3003}: 缺少请求参数 </li>
+	 * <li> {@code -3208}: 设备参数非法或者缺失，如必须要有IMEI参数，也就是说不支持大部分没有电话功能的平板 </li>
+	 * <li> {@code -3312}: 用户今天的广告展示已经达到上限 </li>
+	 * </ul>
 	 */
 	public int getCode() {
 		return code;
