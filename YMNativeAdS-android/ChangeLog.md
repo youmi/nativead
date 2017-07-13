@@ -1,5 +1,11 @@
 # ChangeLog
 
+## 1.4.6
+
+* 修复广告请求协议中 ``carrier`` 参数获取值问题
+* 广告请求协议中，ua参数优先采用系统自带，获取失败时在自行构建
+* 完善广告请求返回状态码( ``YoumiNativeAdResposeModel#getCode()`` )Javadoc描述
+
 ## 1.4.5
 
 * 修复上传脚本，解决开发者引入aar时没有文档注释的问题

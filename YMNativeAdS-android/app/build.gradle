@@ -7,8 +7,8 @@ android {
 		applicationId "net.youmi.ads.nativead.demo"
 		minSdkVersion 14
 		targetSdkVersion 25
-		versionCode 14
-		versionName "1.4.5"
+		versionCode 15
+		versionName "1.4.6"
 		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 		manifestPlaceholders = [APPLICATION_ID: applicationId]
 		buildConfigField "String", "APPID", '\"000233cb7a375e27\"'
@@ -74,10 +74,10 @@ dependencies {
 	compile project(':library')
 
 	// 依赖本地aar
-	// compile(name: 'nativead-1.4.5-release', ext: 'aar')
+	// compile(name: 'nativead-1.4.6-release', ext: 'aar')
 
 	// 依赖线上release版本的aar [开发者正式版本的apk引用]
-	// compile 'net.youmi.ads:nativead:1.4.5@aar'
+	// compile 'net.youmi.ads:nativead:1.4.6@aar'
 
 	// 依赖线上debug版本的aar [开发者需要调试时可以引用]
 	//
@@ -89,7 +89,7 @@ dependencies {
 	// 4. Logcat中过滤Tag为 Sdk ，即为本Sdk输出的Log
 	//
 	// 基于上面两点，建议开发者在发现疑点时才使用这个版本的aar进行更多的log输出，正式发布时强烈建议使用release版本
-	// compile 'net.youmi.ads:nativead:1.4.5-debug@aar'
+	// compile 'net.youmi.ads:nativead:1.4.6-debug@aar'
 
 }
 

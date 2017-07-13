@@ -9,8 +9,8 @@ ext {
 
 	publishedGroupId = 'net.youmi.ads'          // 项目组ID(e.g 包名为io.github.zhitaocai.toastcompat, 那么这里就是io.github.zhitaocai)
 	artifact = 'nativead'                       // 项目ID  (e.g 包名为io.github.zhitaocai.toastcompat, 那么这里就是toastcompat)
-	libraryVersionName = '1.4.5'                // 对应的versionname
-	libraryVersionCode = 14                     // 对应的versioncode
+	libraryVersionName = '1.4.6'                // 对应的versionname
+	libraryVersionCode = 15                     // 对应的versioncode
 
 	libDesc = 'an library for Youmi Native ADS\' API'
 	libraryVersionDesc = libDesc
