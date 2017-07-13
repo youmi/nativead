@@ -59,26 +59,63 @@ extern NSString *const ReachabilityChangedNotification;
 
 @property (nonatomic, readonly) NSUInteger attribute;
 
-@property (nonatomic, copy, readonly) NSString *device;       // ex. iPod 2,1
-@property (nonatomic, copy, readonly) NSString *deviceDetail; //
-@property (nonatomic, copy, readonly) NSString *phoneOS;      // ex. iOS 6.1.2
-@property (nonatomic, copy, readonly) NSString *countryCode;  // ex. CN
-@property (nonatomic, copy, readonly) NSString *language;     // ex. zh
+/**
+ 设备型号 e.g. iPod 2,1
+ */
+@property (nonatomic, copy, readonly) NSString *device;
+/**
+ 设备详细描述
+ */
+@property (nonatomic, copy, readonly) NSString *deviceDetail;
+/**
+ 系统版本 e.g. iOS 6.1.2
+ */
+@property (nonatomic, copy, readonly) NSString *phoneOS;
+/**
+ 国家编码 e.g. CN
+ */
+@property (nonatomic, copy, readonly) NSString *countryCode;
+/**
+ 语言编码 e.g. zh
+ */
+@property (nonatomic, copy, readonly) NSString *language;
 
+/**
+ 接入点名称
+ */
 @property (nonatomic, copy, readonly) NSString *accessPointName; // ex. wifi, GPRS|3G
 
+/**
+ 屏幕宽度
+ */
 @property (nonatomic, assign, readonly) CGFloat screenWidth;
+/**
+ 屏幕高度
+ */
 @property (nonatomic, assign, readonly) CGFloat screenHeight;
 
+/**
+ 运营商名字
+ */
 @property (nonatomic, copy, readonly) NSString *carrierName;
-@property (nonatomic, copy, readonly) NSString *carrierNameNew; // 1：移动，中国移动，CHINA MOBILE 2：联通，中国联通，China Unicom 3：电信，中国电信，China Telecom
+/**
+ 运营商名字（处理后）
+ 1. 移动，中国移动，CHINA MOBILE
+ 2. 联通，中国联通，China Unicom
+ 3. 电信，中国电信，China Telecom
+ */
+@property (nonatomic, copy, readonly) NSString *carrierNameNew;
+/**
+ 手机国家编码
+ */
 @property (nonatomic, copy, readonly) NSString *mobileCountryCode;
+/**
+ 手机网络类型
+ */
 @property(nonatomic, copy, readonly) NSString *mobileNetworkCode;
 
 @property(nonatomic, assign, readonly)  NetworkSpotStatus reachabilityStatus;
 
-
-// Single instance
 + (UMNMachineUtil *)sharedInstance;
 
 - (NSString*)systemOpeningTime;

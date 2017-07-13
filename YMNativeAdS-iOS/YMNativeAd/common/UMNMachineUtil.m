@@ -159,8 +159,7 @@ NSString *identifier() {
     return shareDeviceInfo;
 }
 
-#pragma mark -
-#pragma mark 初始化
+#pragma mark - 初始化
 // 为了防止别处手滑init了DeviceInfoUtil，所以不在init里初始化
 - (void)_fillInfos {
     _device = [joyplatform() copy];
@@ -267,8 +266,7 @@ int wwanNetwork() {
      */
 }
 
-#pragma mark -
-#pragma mark Generated Infomations
+#pragma mark - Generated Infomations
 - (NSString *)generateDevDetail {
     NSMutableString *detail = [NSMutableString string];
     [detail appendFormat:@"%@:%@", Device(), joyplatform()];
@@ -280,8 +278,7 @@ int wwanNetwork() {
     return detail;
 }
 
-#pragma mark -
-#pragma mark Reachability Relate
+#pragma mark - Reachability Relate
 - (NSString *)accessPointNameForStatus:(NetworkSpotStatus)status {
     NSString *name = nil;
     switch (status) {
@@ -323,8 +320,7 @@ int wwanNetwork() {
     //[[NSNotificationCenter defaultCenter] postNotificationName:ReachabilityChangedNotification object:self];
 }
 
-#pragma mark -
-#pragma mark Telephony Relate
+#pragma mark - Telephony Relate
 - (void)getTTInfo {
     if (!_networkInfo)
         return;

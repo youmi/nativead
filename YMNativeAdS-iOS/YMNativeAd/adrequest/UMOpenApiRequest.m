@@ -118,7 +118,13 @@ void sendSpotURLRequestWithBlock(ListBlock block) {
     }];
 }
 
-//效果链接
+/**
+ 发送效果记录
+
+ @param effType 0：发送曝光效果记录 1：发送点击效果记录
+ @param spotDataStructure 对应的广告
+ @param block 回调
+ */
 void sendSpotEffURLRequestWithBlock(long effType, UMNDataModel *spotDataStructure, FinishBlock block) {
     if (effType == 0) {
         [[[UMOpenApiRequest shareInstanceRef] trackQueue] addOperationWithBlock:^{
@@ -133,7 +139,9 @@ void sendSpotEffURLRequestWithBlock(long effType, UMNDataModel *spotDataStructur
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-variable"
-//发送链接
+/**
+ 发送效果记录
+ */
 + (void)sendTrackURL:(NSArray *)trackArray {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         if (!trackArray) {
@@ -147,7 +155,6 @@ void sendSpotEffURLRequestWithBlock(long effType, UMNDataModel *spotDataStructur
             // 添加指定的Header
             NSString *str = [NSString stringWithFormat:@"Bearer %@", [UMNSDKConfig sharedInstanceSDKConfig].appid];
             [request addValue:str forHTTPHeaderField:@"Authorization"];
-
 
             NSURLResponse *response = nil;
             NSError *error = nil;
