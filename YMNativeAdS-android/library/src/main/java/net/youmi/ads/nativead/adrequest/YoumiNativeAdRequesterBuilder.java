@@ -240,7 +240,7 @@ public class YoumiNativeAdRequesterBuilder {
 				DLog.w(e);
 			}
 			sb.append("&conntype=").append(NetworkUtils.getNetworkType(applicationContext));
-			sb.append("&carrier=").append(urlEncode(DeviceInfoUtils.getOperatorName(applicationContext)));
+			sb.append("&carrier=").append(urlEncode(DeviceInfoUtils.getOperatorNameCode(applicationContext)));
 			sb.append("&pk=").append(urlEncode(applicationContext.getPackageName()));
 			sb.append("&countrycode=").append(urlEncode(DeviceInfoUtils.getCountry()));
 			sb.append("&language=").append(urlEncode(DeviceInfoUtils.getLanguage()));
@@ -502,15 +502,19 @@ public class YoumiNativeAdRequesterBuilder {
 	}
 	
 	private String getDefaultUsageAgent() {
-		return String.format(
-				Locale.getDefault(),
-				"Mozilla/5.0 (Linux; U; Android %s; %s-%s; %s Build/%s) AppleWebkit/533.1 (KHTML, like Gecko) " +
-				"Version/4.0 Mobile Safari/533.1",
-				DeviceInfoUtils.getAndroidVersionName(),
-				DeviceInfoUtils.getLanguage(),
-				DeviceInfoUtils.getCountry(),
-				DeviceInfoUtils.getModel(),
-				Build.ID
-		);
+		String ua = System.getProperty("http.agent", "");
+		if (TextUtils.isEmpty(ua)) {
+			ua = String.format(
+					Locale.getDefault(),
+					"Mozilla/5.0 (Linux; U; Android %s; %s-%s; %s Build/%s) AppleWebkit/533.1 (KHTML, like Gecko) " +
+					"Version/4.0 Mobile Safari/533.1",
+					DeviceInfoUtils.getAndroidVersionName(),
+					DeviceInfoUtils.getLanguage(),
+					DeviceInfoUtils.getCountry(),
+					DeviceInfoUtils.getModel(),
+					Build.ID
+			);
+		}
+		return ua;
 	}
 }

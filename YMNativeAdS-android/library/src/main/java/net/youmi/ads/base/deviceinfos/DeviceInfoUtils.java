@@ -58,14 +58,36 @@ public class DeviceInfoUtils {
 		return "";
 	}
 	
-	public static String getOperatorName(Context context) {
+	/**
+	 * 获取网络运营商并且转换为有米原生广告请求协议中的网络运营商标识号
+	 *
+	 * @param context
+	 *
+	 * @return <ul>
+	 * <li>空：无</li>
+	 * <li>0: 未知/其他</li>
+	 * <li>2: 中国移动</li>
+	 * <li>3: 中国联通</li>
+	 * <li>4: 中国电信</li>
+	 * </ul>
+	 */
+	public static String getOperatorNameCode(Context context) {
 		try {
 			TelephonyManager telephonyManager =
 					(TelephonyManager) context.getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
 			if (telephonyManager != null) {
-				String operatorName = telephonyManager.getNetworkOperatorName();
+				String operatorName = telephonyManager.getNetworkOperator();
 				if (!TextUtils.isEmpty(operatorName)) {
-					return operatorName;
+					if (operatorName.equals("46000") || operatorName.equals("46002") || operatorName.equals("46007")) {
+						return "2";
+					}
+					if (operatorName.equals("46001") || operatorName.equals("46006")) {
+						return "3";
+					}
+					if (operatorName.equals("46003") || operatorName.equals("46005")) {
+						return "4";
+					}
+					return "0";
 				}
 			}
 		} catch (Throwable e) {
