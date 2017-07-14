@@ -53,8 +53,8 @@ NSString *generageAdRequestURL() {
     NSString *os = @"iOS";                                                                                      // 操作系统
     NSString *osv = [NSString stringWithFormat:@"%@", systemMainVersion()];                                     // 操作系统描述的系统版本号
     NSString *appversion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]; // 应用版本号信息
-    NSString *conntype = YM_ASSIGN_STRING_SAFELY([UMNMachineUtil sharedInstance].accessPointName);              // 网络类型，空=无，0=未知/其他，1=wifi，2=2g，3=3g，4=4g，5=5g
-    NSString *carrier = YM_ASSIGN_STRING_SAFELY([UMNMachineUtil sharedInstance].mobileNetworkCode);             // 网络运营商，空=无，0=未知/其他，1=wifi，2=移动，3=联通，4=电信
+    NSString *conntype = [NSString stringWithFormat:@"%d", [UMNMachineUtil sharedInstance].connTypeCode];       // 网络类型，空=无，0=未知/其他，1=wifi，2=2g，3=3g，4=4g，5=5g
+    NSString *carrier = [NSString stringWithFormat:@"%d", [UMNMachineUtil sharedInstance].carrierCode];         // 网络运营商，空=无，0=未知/其他，1=wifi，2=移动，3=联通，4=电信
     NSString *pk = [[NSBundle mainBundle] bundleIdentifier];                                                    // iOS为App的BundleIdentifier
     NSString *countrycode = YM_ASSIGN_STRING_SAFELY([UMNMachineUtil sharedInstance].countryCode);               // 用户设置的国家编码，如CN
     NSString *language = YM_ASSIGN_STRING_SAFELY([UMNMachineUtil sharedInstance].language);                     // 用户设置的语言，如zh

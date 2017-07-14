@@ -81,11 +81,6 @@ extern NSString *const ReachabilityChangedNotification;
 @property (nonatomic, copy, readonly) NSString *language;
 
 /**
- 接入点名称
- */
-@property (nonatomic, copy, readonly) NSString *accessPointName; // ex. wifi, GPRS|3G
-
-/**
  屏幕宽度
  */
 @property (nonatomic, assign, readonly) CGFloat screenWidth;
@@ -95,24 +90,35 @@ extern NSString *const ReachabilityChangedNotification;
 @property (nonatomic, assign, readonly) CGFloat screenHeight;
 
 /**
+ 接入点名称 e.g. wifi, GPRS|3G
+ */
+@property (nonatomic, copy, readonly) NSString *accessPointName;
+
+/**
  运营商名字
- */
+*/
 @property (nonatomic, copy, readonly) NSString *carrierName;
+
 /**
- 运营商名字（处理后）
- 1. 移动，中国移动，CHINA MOBILE
- 2. 联通，中国联通，China Unicom
- 3. 电信，中国电信，China Telecom
- */
-@property (nonatomic, copy, readonly) NSString *carrierNameNew;
-/**
- 手机国家编码
+ 手机国家编码，MCC
  */
 @property (nonatomic, copy, readonly) NSString *mobileCountryCode;
+
 /**
- 手机网络类型
+ 手机网络类型，MNC
  */
 @property(nonatomic, copy, readonly) NSString *mobileNetworkCode;
+
+
+/**
+ 协议中的运营商类型，0=未知/其他，1=wifi，2=移动，3=联通，4=电信。
+ */
+@property(nonatomic, assign, readonly) int carrierCode;
+
+/**
+ 协议中网络类型，0=未知/其他，1=wifi，2=2g，3=3g，4=4g，5=5g。
+ */
+@property(nonatomic, assign, readonly) int connTypeCode;
 
 @property(nonatomic, assign, readonly)  NetworkSpotStatus reachabilityStatus;
 
