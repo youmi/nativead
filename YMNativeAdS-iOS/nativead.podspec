@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
  
 s.name              = "nativead"
-s.version           = "1.1.1"
+s.version           = "1.1.2"
 s.summary           = "有米原生广告开源代码"
 
 s.homepage          = "https://github.com/youmi/nativead"

@@ -53,8 +53,8 @@ NSString *generageAdRequestURL() {
     NSString *os = @"iOS";                                                                                      // 操作系统
     NSString *osv = [NSString stringWithFormat:@"%@", systemMainVersion()];                                     // 操作系统描述的系统版本号
     NSString *appversion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]; // 应用版本号信息
-    NSString *conntype = YM_ASSIGN_STRING_SAFELY([UMNMachineUtil sharedInstance].accessPointName);              // 网络类型，空=无，0=未知/其他，1=wifi，2=2g，3=3g，4=4g，5=5g
-    NSString *carrier = YM_ASSIGN_STRING_SAFELY([UMNMachineUtil sharedInstance].mobileNetworkCode);             // 网络运营商，空=无，0=未知/其他，1=wifi，2=移动，3=联通，4=电信
+    NSString *conntype = [NSString stringWithFormat:@"%d", [UMNMachineUtil sharedInstance].connTypeCode];       // 网络类型，空=无，0=未知/其他，1=wifi，2=2g，3=3g，4=4g，5=5g
+    NSString *carrier = [NSString stringWithFormat:@"%d", [UMNMachineUtil sharedInstance].carrierCode];         // 网络运营商，空=无，0=未知/其他，1=wifi，2=移动，3=联通，4=电信
     NSString *pk = [[NSBundle mainBundle] bundleIdentifier];                                                    // iOS为App的BundleIdentifier
     NSString *countrycode = YM_ASSIGN_STRING_SAFELY([UMNMachineUtil sharedInstance].countryCode);               // 用户设置的国家编码，如CN
     NSString *language = YM_ASSIGN_STRING_SAFELY([UMNMachineUtil sharedInstance].language);                     // 用户设置的语言，如zh
@@ -118,7 +118,13 @@ void sendSpotURLRequestWithBlock(ListBlock block) {
     }];
 }
 
-//效果链接
+/**
+ 发送效果记录
+
+ @param effType 0：发送曝光效果记录 1：发送点击效果记录
+ @param spotDataStructure 对应的广告
+ @param block 回调
+ */
 void sendSpotEffURLRequestWithBlock(long effType, UMNDataModel *spotDataStructure, FinishBlock block) {
     if (effType == 0) {
         [[[UMOpenApiRequest shareInstanceRef] trackQueue] addOperationWithBlock:^{
@@ -133,7 +139,9 @@ void sendSpotEffURLRequestWithBlock(long effType, UMNDataModel *spotDataStructur
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-variable"
-//发送链接
+/**
+ 发送效果记录
+ */
 + (void)sendTrackURL:(NSArray *)trackArray {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         if (!trackArray) {
@@ -147,7 +155,6 @@ void sendSpotEffURLRequestWithBlock(long effType, UMNDataModel *spotDataStructur
             // 添加指定的Header
             NSString *str = [NSString stringWithFormat:@"Bearer %@", [UMNSDKConfig sharedInstanceSDKConfig].appid];
             [request addValue:str forHTTPHeaderField:@"Authorization"];
-
 
             NSURLResponse *response = nil;
             NSError *error = nil;
