@@ -59,26 +59,69 @@ extern NSString *const ReachabilityChangedNotification;
 
 @property (nonatomic, readonly) NSUInteger attribute;
 
-@property (nonatomic, copy, readonly) NSString *device;       // ex. iPod 2,1
-@property (nonatomic, copy, readonly) NSString *deviceDetail; //
-@property (nonatomic, copy, readonly) NSString *phoneOS;      // ex. iOS 6.1.2
-@property (nonatomic, copy, readonly) NSString *countryCode;  // ex. CN
-@property (nonatomic, copy, readonly) NSString *language;     // ex. zh
+/**
+ 设备型号 e.g. iPod 2,1
+ */
+@property (nonatomic, copy, readonly) NSString *device;
+/**
+ 设备详细描述
+ */
+@property (nonatomic, copy, readonly) NSString *deviceDetail;
+/**
+ 系统版本 e.g. iOS 6.1.2
+ */
+@property (nonatomic, copy, readonly) NSString *phoneOS;
+/**
+ 国家编码 e.g. CN
+ */
+@property (nonatomic, copy, readonly) NSString *countryCode;
+/**
+ 语言编码 e.g. zh
+ */
+@property (nonatomic, copy, readonly) NSString *language;
 
-@property (nonatomic, copy, readonly) NSString *accessPointName; // ex. wifi, GPRS|3G
-
+/**
+ 屏幕宽度
+ */
 @property (nonatomic, assign, readonly) CGFloat screenWidth;
+/**
+ 屏幕高度
+ */
 @property (nonatomic, assign, readonly) CGFloat screenHeight;
 
+/**
+ 接入点名称 e.g. wifi, GPRS|3G
+ */
+@property (nonatomic, copy, readonly) NSString *accessPointName;
+
+/**
+ 运营商名字
+*/
 @property (nonatomic, copy, readonly) NSString *carrierName;
-@property (nonatomic, copy, readonly) NSString *carrierNameNew; // 1：移动，中国移动，CHINA MOBILE 2：联通，中国联通，China Unicom 3：电信，中国电信，China Telecom
+
+/**
+ 手机国家编码，MCC
+ */
 @property (nonatomic, copy, readonly) NSString *mobileCountryCode;
+
+/**
+ 手机网络类型，MNC
+ */
 @property(nonatomic, copy, readonly) NSString *mobileNetworkCode;
+
+
+/**
+ 协议中的运营商类型，0=未知/其他，1=wifi，2=移动，3=联通，4=电信。
+ */
+@property(nonatomic, assign, readonly) int carrierCode;
+
+/**
+ 协议中网络类型，0=未知/其他，1=wifi，2=2g，3=3g，4=4g，5=5g。
+ */
+@property(nonatomic, assign, readonly) int connTypeCode;
 
 @property(nonatomic, assign, readonly)  NetworkSpotStatus reachabilityStatus;
 
-
-// Single instance
 + (UMNMachineUtil *)sharedInstance;
 
 - (NSString*)systemOpeningTime;

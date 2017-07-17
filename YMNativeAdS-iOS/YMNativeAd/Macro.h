@@ -71,7 +71,7 @@
 #define _IS_IPHONE5 (([[UIScreen mainScreen] bounds].size.height-568)?NO:YES)
 
 // 定义SDK版本名
-#define SDK_VERSION @"1.1.0"
+#define SDK_VERSION @"1.1.2"
 
 #endif
 

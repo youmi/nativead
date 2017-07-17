@@ -159,8 +159,7 @@ NSString *identifier() {
     return shareDeviceInfo;
 }
 
-#pragma mark -
-#pragma mark 初始化
+#pragma mark - 初始化
 // 为了防止别处手滑init了DeviceInfoUtil，所以不在init里初始化
 - (void)_fillInfos {
     _device = [joyplatform() copy];
@@ -189,86 +188,97 @@ NSString *identifier() {
     // 运营商信息
     _networkInfo = [[CTTelephonyNetworkInfo alloc] init];
     _carrierName = [@"" copy];
-    _carrierNameNew = [@"" copy];
     _mobileCountryCode = [@"" copy];
     _mobileNetworkCode = [@"" copy];
+
     [self getTTInfo];
     [self subscribeCellularProviderUpdateMessage];
+    [self convertCarrierCode];
+    [self convertConnTypeCode:[_reachability currentReachabilityStatus]];
 }
 
-int wwanNetwork() {
-    //    NSLog(@"%@",[DeviceInfoUtil sharedInstance].accessPointName);
-    if ([[UMNMachineUtil sharedInstance].accessPointName isEqualToString:wifi()]) {
-        return 4;
-    } else if ([[UMNMachineUtil sharedInstance].accessPointName isEqualToString:None()]) {
-        return 0;
-    }
+- (void)convertCarrierCode {
+    _carrierCode = 0;
+    if ([_mobileCountryCode isEqualToString:@"460"]) {
+        
+        // 移动 China Mobile
+        if ([_mobileNetworkCode isEqualToString:@"00"] ||
+            [_mobileNetworkCode isEqualToString:@"02"] ||
+            [_mobileNetworkCode isEqualToString:@"07"] ||
+            [_mobileNetworkCode isEqualToString:@"08"]) {
+            _carrierCode = 2;
+            return;
+        }
 
-    CTTelephonyNetworkInfo *networkStatus = [[CTTelephonyNetworkInfo alloc] init];
-    NSString *currentStatus = networkStatus.currentRadioAccessTechnology;
-    if ([currentStatus isEqualToString:@"CTRadioAccessTechnologyGPRS"]) {
-        //        self.callBackBlock(GPRS);
-        //GPRS网络
-        return 1;
+        // 联通 China Unicom
+        if ([_mobileNetworkCode isEqualToString:@"01"] ||
+            [_mobileNetworkCode isEqualToString:@"06"] ||
+            [_mobileNetworkCode isEqualToString:@"09"]) {
+            _carrierCode = 3;
+            return;
+        }
+
+        // 电信 China Telecom
+        if ([_mobileNetworkCode isEqualToString:@"03"] ||
+            [_mobileNetworkCode isEqualToString:@"05"] ||
+            [_mobileNetworkCode isEqualToString:@"11"]) {
+            _carrierCode = 4;
+            return;
+        }
     }
-    if ([currentStatus isEqualToString:@"CTRadioAccessTechnologyEdge"]) {
-        //    self.callBackBlock(Edge);
-        //2.75G的EDGE网络
-        return 1;
-    }
-    if ([currentStatus isEqualToString:@"CTRadioAccessTechnologyWCDMA"]) {
-        //  self.callBackBlock(WCDMA);
-        //3G WCDMA网络
-        return 2;
-    }
-    if ([currentStatus isEqualToString:@"CTRadioAccessTechnologyHSDPA"]) {
-        // self.callBackBlock(HSDPA);
-        //3.5G网络
-        return 2;
-    }
-    if ([currentStatus isEqualToString:@"CTRadioAccessTechnologyHSUPA"]) {
-        // self.callBackBlock(HSUPA);
-        //3.5G网络
-        return 2;
-    }
-    if ([currentStatus isEqualToString:@"CTRadioAccessTechnologyCDMA1x"]) {
-        // self.callBackBlock(CDMA1xNetwork);
-        //CDMA2G网络
-        return 1;
-    }
-    if ([currentStatus isEqualToString:@"CTRadioAccessTechnologyCDMAEVDORev0"]) {
-        // self.callBackBlock(CDMAEVDORev0);
-        //CDMA的EVDORev0(应该算3G吧?)
-        return 2;
-    }
-    if ([currentStatus isEqualToString:@"CTRadioAccessTechnologyCDMAEVDORevA"]) {
-        // self.callBackBlock(CDMAEVDORevA);
-        //CDMA的EVDORevA(应该也算3G吧?)
-        return 2;
-    }
-    if ([currentStatus isEqualToString:@"CTRadioAccessTechnologyCDMAEVDORevB"]) {
-        // self.callBackBlock(CDMAEVDORevB);
-        //CDMA的EVDORev0(应该还是算3G吧?)
-        return 2;
-    }
-    if ([currentStatus isEqualToString:@"CTRadioAccessTechnologyeHRPD"]) {
-        // self.callBackBlock(HRPD);
-        //HRPD网络
-        return 3;
-    }
-    if ([currentStatus isEqualToString:@"CTRadioAccessTechnologyLTE"]) {
-        // self.callBackBlock(LTE);
-        //LTE4G网络
-        return 3;
-    }
-    return 0;
-    /*==
-     取运营商名字  Objective.subscriberCellularProvider.carrierName
-     */
 }
 
-#pragma mark -
-#pragma mark Generated Infomations
+- (void)convertConnTypeCode:(NetworkSpotStatus)status {
+    _connTypeCode = 0;
+    switch (status) {
+        case NotReachable:      // 网络
+            _connTypeCode = 0;
+            break;
+        case ReachableViaWiFi:  // wifi
+            _connTypeCode = 1;
+            break;
+        case ReachableViaWWAN:  // 移动网络
+        {
+            if (_networkInfo) {
+                NSArray *typeStrings2G = @[ CTRadioAccessTechnologyEdge,
+                                            CTRadioAccessTechnologyGPRS,
+                                            CTRadioAccessTechnologyCDMA1x ];
+
+                NSArray *typeStrings3G = @[ CTRadioAccessTechnologyHSDPA,
+                                            CTRadioAccessTechnologyWCDMA,
+                                            CTRadioAccessTechnologyHSUPA,
+                                            CTRadioAccessTechnologyCDMAEVDORev0,
+                                            CTRadioAccessTechnologyCDMAEVDORevA,
+                                            CTRadioAccessTechnologyCDMAEVDORevB,
+                                            CTRadioAccessTechnologyeHRPD ];
+
+                NSArray *typeStrings4G = @[ CTRadioAccessTechnologyLTE ];
+
+                if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+                    NSString *currentStatus = _networkInfo.currentRadioAccessTechnology;
+                    if ([typeStrings2G containsObject:currentStatus]) {
+                        _connTypeCode = 2;
+                        break;
+                    }
+                    if ([typeStrings3G containsObject:currentStatus]) {
+                        _connTypeCode = 3;
+                        break;
+                    }
+                    if ([typeStrings4G containsObject:currentStatus]) {
+                        _connTypeCode = 4;
+                        break;
+                    }
+                }
+            }
+            break;
+        }
+        default:
+            _connTypeCode = 0;
+            break;
+    }
+}
+
+#pragma mark - Generated Infomations
 - (NSString *)generateDevDetail {
     NSMutableString *detail = [NSMutableString string];
     [detail appendFormat:@"%@:%@", Device(), joyplatform()];
@@ -280,8 +290,7 @@ int wwanNetwork() {
     return detail;
 }
 
-#pragma mark -
-#pragma mark Reachability Relate
+#pragma mark - Reachability Relate
 - (NSString *)accessPointNameForStatus:(NetworkSpotStatus)status {
     NSString *name = nil;
     switch (status) {
@@ -315,6 +324,8 @@ int wwanNetwork() {
 
     YM_RELEASE_SAFELY(_accessPointName);
     _accessPointName = [[self accessPointNameForStatus:[curReach currentReachabilityStatus]] copy];
+    [self convertConnTypeCode:[curReach currentReachabilityStatus]];
+    [self convertCarrierCode];
 
     _reachabilityStatus = [curReach currentReachabilityStatus];
 
@@ -323,47 +334,25 @@ int wwanNetwork() {
     //[[NSNotificationCenter defaultCenter] postNotificationName:ReachabilityChangedNotification object:self];
 }
 
-#pragma mark -
-#pragma mark Telephony Relate
+#pragma mark - Telephony Relate
 - (void)getTTInfo {
     if (!_networkInfo)
         return;
 
     YM_RELEASE_SAFELY(_carrierName);
-    YM_RELEASE_SAFELY(_carrierNameNew);
     YM_RELEASE_SAFELY(_mobileCountryCode);
     YM_RELEASE_SAFELY(_mobileNetworkCode)
 
     CTCarrier *carrier = [_networkInfo subscriberCellularProvider];
     if (!carrier) {
         _carrierName = [@"" copy];
-        _carrierNameNew = [@"" copy];
         _mobileCountryCode = [@"" copy];
         _mobileNetworkCode = [@"" copy];
     } else {
         _carrierName = [[carrier carrierName] copy];
-        _carrierNameNew = [[self convertCarrierName:_carrierName] copy];
         _mobileCountryCode = [[carrier mobileCountryCode] copy];
         _mobileNetworkCode = [[carrier mobileNetworkCode] copy];
     }
-}
-
-- (NSString *)convertCarrierName:(NSString *)carrierName {
-    NSString *result = carrierName;
-    if ([carrierName isEqualToString:@"移动"] ||
-        [carrierName isEqualToString:@"中国移动"] ||
-        [carrierName isEqualToString:@"CHINA MOBILE"]) {
-        result = @"1";
-    } else if ([carrierName isEqualToString:@"联通"] ||
-               [carrierName isEqualToString:@"中国联通"] ||
-               [carrierName isEqualToString:@"China Unicom"]) {
-        result = @"2";
-    } else if ([carrierName isEqualToString:@"电信"] ||
-               [carrierName isEqualToString:@"中国电信"] ||
-               [carrierName isEqualToString:@"China Telecom"]) {
-        result = @"3";
-    }
-    return result;
 }
 
 - (void)subscribeCellularProviderUpdateMessage {
@@ -411,6 +400,7 @@ int wwanNetwork() {
 
     return flags_process & P_TRACED; // value of the debug flag
 }
+
 - (NSString *)CL_dynamicFrames {
     //检查动态库
     uint32_t count = _dyld_image_count();
