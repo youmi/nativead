@@ -40,6 +40,9 @@
 		6D6E47861F0A0255008FF22E /* YMNativeAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D6E47671F0A0255008FF22E /* YMNativeAd.m */; };
 		6D95085C1EC9862000006DAC /* YMNativeAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D9508551EC9862000006DAC /* YMNativeAd.framework */; };
 		6D95085D1EC9862000006DAC /* YMNativeAd.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D9508551EC9862000006DAC /* YMNativeAd.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		90137D7B1F3A9EF200117EA9 /* UMRedirectRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 90137D791F3A9EF200117EA9 /* UMRedirectRequest.h */; };
+		90137D7C1F3A9EF200117EA9 /* UMRedirectRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90137D7A1F3A9EF200117EA9 /* UMRedirectRequest.m */; };
+		90137D7D1F3A9EF200117EA9 /* UMRedirectRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90137D7A1F3A9EF200117EA9 /* UMRedirectRequest.m */; };
 		A81878861E8271A600287266 /* AdLittleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A81878851E8271A300287266 /* AdLittleTableViewCell.m */; };
 		A81878891E82754900287266 /* AdBannerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A81878881E82754900287266 /* AdBannerTableViewCell.m */; };
 		A82384901E70FBEF00B58CF3 /* AdTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A823848F1E70FBEF00B58CF3 /* AdTableViewCell.m */; };
@@ -123,6 +126,8 @@
 		6D6E47671F0A0255008FF22E /* YMNativeAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YMNativeAd.m; sourceTree = "<group>"; };
 		6D9508551EC9862000006DAC /* YMNativeAd.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = YMNativeAd.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D9508581EC9862000006DAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		90137D791F3A9EF200117EA9 /* UMRedirectRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMRedirectRequest.h; sourceTree = "<group>"; };
+		90137D7A1F3A9EF200117EA9 /* UMRedirectRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMRedirectRequest.m; sourceTree = "<group>"; };
 		A81878841E8271A300287266 /* AdLittleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdLittleTableViewCell.h; sourceTree = "<group>"; };
 		A81878851E8271A300287266 /* AdLittleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdLittleTableViewCell.m; sourceTree = "<group>"; };
 		A81878871E82754900287266 /* AdBannerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdBannerTableViewCell.h; sourceTree = "<group>"; };
@@ -204,6 +209,8 @@
 				6D6E47511F0A0255008FF22E /* UMNSDKConfig.m */,
 				6D6E47521F0A0255008FF22E /* UMOpenApiRequest.h */,
 				6D6E47531F0A0255008FF22E /* UMOpenApiRequest.m */,
+				90137D791F3A9EF200117EA9 /* UMRedirectRequest.h */,
+				90137D7A1F3A9EF200117EA9 /* UMRedirectRequest.m */,
 			);
 			path = adrequest;
 			sourceTree = "<group>";
@@ -366,6 +373,7 @@
 				6D6E47761F0A0255008FF22E /* UMNFileUtil.h in Headers */,
 				6D6E47851F0A0255008FF22E /* YMNativeAd.h in Headers */,
 				6D6E476C1F0A0255008FF22E /* UMAdManager.h in Headers */,
+				90137D7B1F3A9EF200117EA9 /* UMRedirectRequest.h in Headers */,
 				6D6E47821F0A0255008FF22E /* UMSystemInfoUtil.h in Headers */,
 				6D6E476A1F0A0255008FF22E /* UMStoreKitUtil.h in Headers */,
 				6D6E47721F0A0255008FF22E /* UMOpenApiRequest.h in Headers */,
@@ -435,7 +443,7 @@
 					};
 					A84CEF721E6D4B7E001C8CCA = {
 						CreatedOnToolsVersion = 8.2;
-						DevelopmentTeam = RUDNP34A78;
+						DevelopmentTeam = 4J463NHQ74;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -501,6 +509,7 @@
 				6D6E47691F0A0255008FF22E /* UMNError.m in Sources */,
 				6D6E47831F0A0255008FF22E /* UMSystemInfoUtil.m in Sources */,
 				6D6E47791F0A0255008FF22E /* UMNMachineUtil.m in Sources */,
+				90137D7D1F3A9EF200117EA9 /* UMRedirectRequest.m in Sources */,
 				6D6E47731F0A0255008FF22E /* UMOpenApiRequest.m in Sources */,
 				6D6E47771F0A0255008FF22E /* UMNFileUtil.m in Sources */,
 				6D6E47711F0A0255008FF22E /* UMNSDKConfig.m in Sources */,
@@ -523,6 +532,7 @@
 				A8C86E5B1E6FB42800A3677B /* AdTableViewController.m in Sources */,
 				A84CEF781E6D4B7E001C8CCA /* main.m in Sources */,
 				A81878861E8271A600287266 /* AdLittleTableViewCell.m in Sources */,
+				90137D7C1F3A9EF200117EA9 /* UMRedirectRequest.m in Sources */,
 				A81878891E82754900287266 /* AdBannerTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -698,7 +708,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = RUDNP34A78;
+				DEVELOPMENT_TEAM = 4J463NHQ74;
 				INFOPLIST_FILE = demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -714,7 +724,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = RUDNP34A78;
+				DEVELOPMENT_TEAM = 4J463NHQ74;
 				INFOPLIST_FILE = demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
