@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "NativeViewController.h"
 #import "AdTableViewController.h"
+#import "UMRedirectRequest.h"
 @interface ViewController ()
 
 @end
@@ -52,6 +53,7 @@
     [self.view addSubview:feedVC3];
     
     [feedVC3 addTarget:self action:@selector(showFeedVC3) forControlEvents:UIControlEventTouchUpInside];
+     
 }
 
 -(void)showFeedVC{
