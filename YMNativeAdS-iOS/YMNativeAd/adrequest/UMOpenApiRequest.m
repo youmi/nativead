@@ -156,30 +156,6 @@ void sendSpotEffURLRequestWithBlock(long effType, UMNDataModel *spotDataStructur
         [[NSRunLoop currentRunLoop] run];
     });
     
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-//        if (!trackArray) {
-//            return;
-//        }
-//
-//        for (NSString *urlString in trackArray) {
-//            NSURL *url = [NSURL URLWithString:urlString];
-//            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30];
-//
-//            // 添加指定的Header
-//            NSString *str = [NSString stringWithFormat:@"Bearer %@", [UMNSDKConfig sharedInstanceSDKConfig].appid];
-//            [request addValue:str forHTTPHeaderField:@"Authorization"];
-//
-//            NSURLResponse *response = nil;
-//            NSError *error = nil;
-//            NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-//
-//            if (error || ![response isKindOfClass:[NSHTTPURLResponse class]]) {
-//                OGINFO(@"发送http：url %@", url);
-//            } else {
-//                OGINFO(@"发送成功,返回的数据%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-//            }
-//        }
-//    });
 }
 
 #pragma clang diagnostic pop
