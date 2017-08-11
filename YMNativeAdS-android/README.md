@@ -1,5 +1,7 @@
 # 有米Android原生广告开源SDK使用说明
 
+[![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)<a href="http://www.methodscount.com/?lib=net.youmi.ads%3Anativead%3A1.4.6"><img src="https://img.shields.io/badge/Methods and size-876 | 107 KB-e91e63.svg"/></a>
+
 ## 1. 前言
 
 欢迎您使用有米Android原生广告开源SDK接口，请您参照此文档步骤来使用开源SDK，或可以参考我们的Demo程序源码来使用开源SDK。
